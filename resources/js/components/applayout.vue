@@ -234,7 +234,9 @@
                             <v-list-item-title>
                                 <router-link
                                     :to="
-                                        '/professor/lab/' + course_id + '/announcement'
+                                        '/professor/lab/' +
+                                            course_id +
+                                            '/announcement'
                                     "
                                     >ประกาศ</router-link
                                 ></v-list-item-title
@@ -249,7 +251,11 @@
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
-                                    :to="'/professor/lab/' + course_id + '/equipment'"
+                                    :to="
+                                        '/professor/lab/' +
+                                            course_id +
+                                            '/equipment'
+                                    "
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
                             >
@@ -263,7 +269,11 @@
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
-                                    :to="'/professor/lab/' + course_id + '/request'"
+                                    :to="
+                                        '/professor/lab/' +
+                                            course_id +
+                                            '/request'
+                                    "
                                     >คำขอยืม</router-link
                                 >
                             </v-list-item-title>
@@ -277,7 +287,11 @@
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
-                                    :to="'/professor/lab/' + course_id + '/history'"
+                                    :to="
+                                        '/professor/lab/' +
+                                            course_id +
+                                            '/history'
+                                    "
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >

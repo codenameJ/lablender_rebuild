@@ -21,9 +21,8 @@
                 >
                     Lab List
                 </v-list-title> -->
-                
             </v-toolbar-title>
-            
+
             <v-spacer></v-spacer>
             <v-toolbar-title>
                 <v-menu bottom left>
@@ -89,7 +88,7 @@
                         >About</v-tab
                     >
                     <v-tabs-slider color="white"></v-tabs-slider>
-                </template>
+                </v-tabs>
 
                 <v-tabs
                     background-color="transparent"

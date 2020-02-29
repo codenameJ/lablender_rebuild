@@ -7,6 +7,7 @@ import Vue from 'vue';
 import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import router from './router';
+import StoreData from './store';
 
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
@@ -23,20 +24,12 @@ const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
     router,
+    store,
 });
 
 Vue.use(Vuetify, {
     iconfont: 'mdi',
 });
 
-const store = new Vuex.Store({
-    state: {
-      count: 0
-    },
-    mutations: {
-      increment (state) {
-        state.count++
-      }
-    }
-  });
+const store = new Vuex.Store(StoreData);
 
