@@ -31,8 +31,19 @@ export default new VueRouter({
             path: '/about',
             component: About,
         },
+        //student
         {
             path: '/labs',
+            component: Studentlabs,
+        },
+        //ta
+        {
+            path: '/ta/labs',
+            component: Studentlabs,
+        },
+        //professor
+        {
+            path: 'professor/labs',
             component: Studentlabs,
         },
         //admin
@@ -48,13 +59,6 @@ export default new VueRouter({
             path: '/admin/lab/:course_id',
             props: true,
             component: Homecard,
-            // children: [
-            //     {
-            //         path: 'equipment',
-            //         name: 'equipment',
-            //         component: Equipment,
-            //     },
-            // ]'
         },
         {
             path: '/admin/lab/:course_id/equipment',

@@ -10,10 +10,31 @@
                         >
                     </v-row>
                 </v-col>
-
                 <v-row dense>
+                    <v-toolbar
+                            ><v-tabs
+                                background-color="transparent"
+                                v-model="tabs"
+                            >
+                                <v-tab style="text-decoration : none;" to=""
+                                    >All</v-tab
+                                >
+                                <v-tabs-slider
+                                    color="white"
+                                ></v-tabs-slider> </v-tabs
+                        >
+                        <v-text-field
+                                v-model="search"
+                                append-icon="search"
+                                label="Search"
+                                single-line
+                                hide-details
+                            ></v-text-field>
+                        </v-toolbar>
+
                     <v-col v-for="(item, i) in labs" :key="i" cols="12">
-                        <v-card class="my-2">
+                        <v-card class="my-2"
+                        >
                             <div
                                 class="d-flex flex-no-wrap justify-space-between"
                             >
@@ -72,6 +93,7 @@ export default {
         this.getLabData();
     },
     data: () => ({
+        search: '',
         labs: [],
         tabs: null
     }),
@@ -92,6 +114,11 @@ export default {
                 default:
                     return {};
             }
+        },
+        filterLab: function() {
+            return this.Labs.filter(lab => {
+                return lab.course_name.match(this.search);
+            });
         }
     }
 };

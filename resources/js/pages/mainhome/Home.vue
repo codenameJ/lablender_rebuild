@@ -22,7 +22,7 @@
 
                         <v-card-actions class="justify-center">
                             <v-btn
-                                href="/equipment"
+                                href="/labs"
                                 color="#f7797d"
                                 style="text-decoration : none;"
                                 text
@@ -63,7 +63,7 @@
 
                         <v-card-actions class="justify-center">
                             <v-btn
-                                href="/request"
+                                href=""
                                 color="#11998e"
                                 style="text-decoration : none;"
                                 text
