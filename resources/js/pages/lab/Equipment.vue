@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" v-if="curlab">
         <v-content>
             <v-data-table
                 :headers="headers"
@@ -8,7 +8,7 @@
             >
                 <template v-slot:top>
                     <v-toolbar flat color="white">
-                        <v-toolbar-title>Equipments</v-toolbar-title>
+                        <v-toolbar-title>Equipments {{curlab.course_id}} </v-toolbar-title>
                         <v-divider class="mx-4" inset vertical></v-divider>
                         <v-spacer></v-spacer>
                         <v-dialog v-model="dialog" max-width="500px">
@@ -23,9 +23,9 @@
                             </template>
                             <v-card>
                                 <v-card-title>
-                                    <span class="headline">{{
+                                    <!-- <span class="headline">{{
                                         formTitle
-                                    }}</span>
+                                    }}</span> -->
                                 </v-card-title>
 
                                 <v-card-text>
@@ -70,8 +70,6 @@
                                                     item-text="Lab_id"
                                                 ></v-select>
                                             </v-col>
-
-
                                         </v-row>
                                     </v-container>
                                 </v-card-text>
@@ -96,22 +94,15 @@
                     </v-toolbar>
                 </template>
                 <template v-slot:item.action="{ item }">
-                    <v-icon
-                        small
-                        class="mr-2"
-                        @click="editItem(item)"
-                    >
+                    <v-icon small class="mr-2" @click="editItem(item)">
                         edit
                     </v-icon>
-                    <v-icon
-                        small
-                        @click="deleteItem(item.id, item)"
-                    >
+                    <v-icon small @click="deleteItem(item.id, item)">
                         delete
                     </v-icon>
                 </template>
                 <template v-slot:no-data>
-                    <v-btn color="primary" @click="getEquipData">Reset</v-btn>
+                    <!-- <v-btn color="primary" @click="getEquipData">Reset</v-btn> -->
                 </template>
             </v-data-table>
         </v-content>
@@ -121,8 +112,8 @@
 <script>
 export default {
     mounted() {
-        this.getEquipData();
-        this.getLabData();
+        // this.getEquipData();
+        // this.getLabData();
     },
     data: () => ({
         // return {
@@ -149,27 +140,22 @@ export default {
             Equip_id: 0,
             Equip_Name: "",
             Equip_Num: 0,
-            Lab_id: 0,
+            Lab_id: 0
         },
         defaultItem: {
             Equip_id: 0,
             Equip_Name: "",
             Equip_Num: 0,
-            Lab_id: 0,
+            Lab_id: 0
         },
-        labs: [],
+        labs: []
         // },
     }),
 
     computed: {
-        formTitle() {
-            return this.editedIndex === -1 ? "New Equipment" : "Edit Equipment";
+        curlab() {
+            return this.$store.state.selectedLab;
         },
-        filterEquip: function() {
-            return this.equips.filter(eq => {
-                return eq.Equip_Name.match(this.search);
-            });
-        }
     },
 
     watch: {
@@ -179,23 +165,23 @@ export default {
     },
 
     created() {
-        this.getEquipData();
+        // this.getEquipData();
     },
 
     methods: {
-        getEquipData() {
-            axios.get("api/equipment").then(Response => {
-                this.equips = Response.data;
-                console.log(this.equips);
-            });
-        },
+        // getEquipData() {
+        //     axios.get("api/equipment").then(Response => {
+        //         this.equips = Response.data;
+        //         console.log(this.equips);
+        //     });
+        // },
 
-        getLabData() {
-            axios.get("api/lab").then(Response => {
-                this.labs = Response.data;
-                console.log(this.labs);
-            });
-        },
+        // getLabData() {
+        //     axios.get("api/lab").then(Response => {
+        //         this.labs = Response.data;
+        //         console.log(this.labs);
+        //     });
+        // },
 
         editItem(item) {
             this.editedIndex = this.equips.indexOf(item);
@@ -231,7 +217,7 @@ export default {
                 this.equips.push(this.editedItem);
                 axios
                     .post("api/equipment", this.editedItem)
-                    .then(response => console.log(response.data));   
+                    .then(response => console.log(response.data));
             }
             this.close();
             location.reload();
