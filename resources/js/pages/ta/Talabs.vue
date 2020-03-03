@@ -43,7 +43,7 @@
                         </v-col>
                     </v-row>
                 </div>
-            </div>
+            </template>
         </v-card>
     </v-container>
 </template>
