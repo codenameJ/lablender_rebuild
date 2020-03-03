@@ -5,9 +5,72 @@
                 <v-col cols="12">
                     <v-row justify="end">
                         <v-spacer></v-spacer>
-                        <v-btn color="primary" class="white--text" outlined
-                            ><v-icon class="mr-2">add</v-icon>Add New Lab</v-btn
-                        >
+                        <v-dialog v-model="dialog" max-width="500px">
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                    color="primary"
+                                    class="white--text"
+                                    outlined
+                                    v-on="on"
+                                    ><v-icon class="mr-2">add</v-icon>Add New
+                                    Lab</v-btn
+                                >
+                            </template>
+                            <v-card>
+                                <v-card-title>
+                                    <span class="headline">{{
+                                        formTitle
+                                    }}</span>
+                                </v-card-title>
+
+                                <v-card-text>
+                                    <v-container>
+                                        <v-row>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field
+                                                    v-model="
+                                                        editedItem.course_id
+                                                    "
+                                                    label="Course ID"
+                                                ></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field
+                                                    v-model="
+                                                        editedItem.course_name
+                                                    "
+                                                    label="Course Name"
+                                                ></v-text-field>
+                                            </v-col>
+                                            <v-col cols="12" sm="6" md="4">
+                                                <v-text-field
+                                                    v-model="
+                                                        editedItem.professor_name
+                                                    "
+                                                    label="Professor"
+                                                ></v-text-field>
+                                            </v-col>
+                                        </v-row>
+                                    </v-container>
+                                </v-card-text>
+
+                                <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="blue darken-1"
+                                        text
+                                        @click="close"
+                                        >Cancel</v-btn
+                                    >
+                                    <v-btn
+                                        color="blue darken-1"
+                                        text
+                                        @click="save"
+                                        >Save</v-btn
+                                    >
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
                     </v-row>
                 </v-col>
                 <v-row dense>
@@ -44,6 +107,7 @@
                                     </div>
                                 </div>
 
+                                
                                 <v-card-actions>
                                     <v-btn
                                         color="primary"
@@ -52,7 +116,7 @@
                                         dark
                                         outlined
                                         class="ma-2 no-underline"
-                                        :href="'/admin/lab/' + item.course_id"
+                                        @click="editItem(item)"
                                         ><v-icon>mdi-pencil</v-icon></v-btn
                                     >
                                     <v-btn
@@ -62,9 +126,10 @@
                                         dark
                                         outlined
                                         class="ma-2 elevation-4 no-underline"
-                                        :href="'/admin/lab/' + item.course_id"
+                                        @click="deleteItem(item)"
                                         ><v-icon>delete_outline</v-icon></v-btn
                                     >
+
                                     <v-spacer></v-spacer>
                                     <v-btn
                                         dark
@@ -86,12 +151,24 @@
 export default {
     mounted() {
         // this.getLabData();
-        this.$store.dispatch('loadLabs');
+        this.$store.dispatch("loadLabs");
     },
     data: () => ({
+        dialog: false,
         search: "",
         // labs: [],
-        tabs: null
+        tabs: null,
+        editedIndex: -1,
+        editedItem: {
+            course_id: 0,
+            course_name: "",
+            professor_name: "",
+        },
+        defaultItem: {
+            course_id: 0,
+            course_name: "",
+            professor_name: "",
+        }
     }),
     created() {
         // this.getLabData();
@@ -103,12 +180,50 @@ export default {
         //         console.log(this.labs);
         //     });
         // },
+        editItem(item) {
+            this.editedIndex = this.labs.indexOf(item);
+            this.editedItem = Object.assign({}, item);
+            this.dialog = true;
+        },
+        deleteItem(item) {
+            const index = this.labs.indexOf(item);
+            confirm("Are you sure you want to delete this item?") &&
+                this.labs.splice(index, 1);
+
+            axios
+                .delete("/api/lab/" + item.id)
+                .then(response => console.log(response.data));
+        },
+
+        close() {
+            this.dialog = false;
+            setTimeout(() => {
+                this.editedItem = Object.assign({}, this.defaultItem);
+                this.editedIndex = -1;
+            }, 300);
+        },
+
+        save() {
+            if (this.editedIndex > -1) {
+                Object.assign(this.labs[this.editedIndex], this.editedItem);
+                axios
+                    .put("/api/lab/" + this.editedItem.id, this.editedItem)
+                    .then(response => console.log(response.data));
+            } else {
+                this.labs.push(this.editedItem);
+                axios
+                    .post("/api/lab/", this.editedItem)
+                    .then(response => console.log(response.data));
+            }
+            this.close();
+            // location.reload();
+        }
     },
     computed: {
         // ...mapState([
         //     'labs'
         // ]),
-        labs(){
+        labs() {
             return this.$store.state.labs;
         },
         activeFab() {
@@ -122,6 +237,14 @@ export default {
                 return lab.course_name.match(this.search);
             });
         },
+        formTitle() {
+            return this.editedIndex === -1 ? "New Equipment" : "Edit Equipment";
+        }
+    },
+    watch: {
+        dialog(val) {
+            val || this.close();
+        }
     }
 };
 </script>
