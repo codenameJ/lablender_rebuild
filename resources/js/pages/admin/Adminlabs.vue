@@ -83,7 +83,6 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
 export default {
     mounted() {
         // this.getLabData();
@@ -91,7 +90,7 @@ export default {
     },
     data: () => ({
         search: "",
-        lab: [],
+        // labs: [],
         tabs: null
     }),
     created() {
@@ -106,9 +105,12 @@ export default {
         // },
     },
     computed: {
-        ...mapState([
-            'labs'
-        ]),
+        // ...mapState([
+        //     'labs'
+        // ]),
+        labs(){
+            return this.$store.state.labs;
+        },
         activeFab() {
             switch (this.tabs) {
                 default:

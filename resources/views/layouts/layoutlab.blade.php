@@ -38,7 +38,7 @@
 
     <div id="app">
         <v-app>
-            <applayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}" course_id="{!!$course_id!!}"></applayout>
+            <applayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}"></applayout>
             <v-col class="md-9">
                 @yield('content')
             </v-col>
