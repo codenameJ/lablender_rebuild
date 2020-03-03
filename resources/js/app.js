@@ -20,6 +20,8 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('homelayout', require('./components/homelayout.vue').default);
 Vue.component('applayout', require('./components/applayout.vue').default);
 
+const store = new Vuex.Store(StoreData);
+
 const app = new Vue({
     el: '#app',
     vuetify: new Vuetify(),
@@ -31,5 +33,4 @@ Vue.use(Vuetify, {
     iconfont: 'mdi',
 });
 
-const store = new Vuex.Store(StoreData);
 

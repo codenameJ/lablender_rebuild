@@ -2,7 +2,7 @@
     <div id="app">
         <v-content>
         <div class="mx-auto mt-1 mb-2" max-width="1500">
-            <h1 align="center">{{ course_id }}</h1>
+            <h1 align="center">{{ $store.getters.currentlab(course_id) }}</h1>
             <h1 align="center">{{ $route.params.course_id }}</h1>
             <h1 align="center">LAB LENDER</h1>
             <h5 align="center">
@@ -99,11 +99,15 @@
 </template>
 
 <script>
+
 export default {
     props:['course_id'],
     data: () => ({
 
     }),
+    
+    computed: {
+    }
 }
 </script>
 

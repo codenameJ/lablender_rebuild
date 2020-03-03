@@ -6,6 +6,8 @@
                 <h5 align="center">
                     Let's get started by joining labs.
                 </h5>
+                <h5 align="center">
+                </h5>
                 <v-divider></v-divider>
                 <br />
                 <div style="display: flex">
@@ -84,6 +86,6 @@ export default {
     name: "Home",
     mounted() {
         console.log("home show");
-    }
+    },
 };
 </script>

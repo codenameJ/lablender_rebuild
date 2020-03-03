@@ -12,74 +12,69 @@
                 </v-col>
                 <v-row dense>
                     <v-toolbar
-                            ><v-tabs
-                                background-color="transparent"
-                                v-model="tabs"
+                        ><v-tabs background-color="transparent" v-model="tabs">
+                            <v-tab style="text-decoration : none;" to=""
+                                >All</v-tab
                             >
-                                <v-tab style="text-decoration : none;" to=""
-                                    >All</v-tab
-                                >
-                                <v-tabs-slider
-                                    color="white"
-                                ></v-tabs-slider> </v-tabs
-                        >
+                            <v-tabs-slider color="white"></v-tabs-slider>
+                        </v-tabs>
                         <v-text-field
-                                v-model="search"
-                                append-icon="search"
-                                label="Search"
-                                single-line
-                                hide-details
-                            ></v-text-field>
-                        </v-toolbar>
+                            v-model="search"
+                            append-icon="search"
+                            label="Search"
+                            single-line
+                            hide-details
+                        ></v-text-field>
+                    </v-toolbar>
+                    <v-col cols="12">
+                        <div v-for="(item, i) in filterLab" :key="i">
+                            <v-card class="my-2">
+                                <div
+                                    class="d-flex flex-no-wrap justify-space-between"
+                                >
+                                    <div>
+                                        <v-card-title
+                                            class="headline"
+                                            v-text="item.course_name"
+                                        ></v-card-title>
 
-                    <v-col v-for="(item, i) in labs" :key="i" cols="12">
-                        <v-card class="my-2"
-                        >
-                            <div
-                                class="d-flex flex-no-wrap justify-space-between"
-                            >
-                                <div>
-                                    <v-card-title
-                                        class="headline"
-                                        v-text="item.course_name"
-                                    ></v-card-title>
-
-                                    <v-card-subtitle
-                                        v-text="item.professor_name"
-                                    ></v-card-subtitle>
+                                        <v-card-subtitle
+                                            v-text="item.professor_name"
+                                        ></v-card-subtitle>
+                                    </div>
                                 </div>
-                            </div>
 
-                            <v-card-actions>
-                                <v-btn
-                                    color="primary"
-                                    fab
-                                    x-small
-                                    dark
-                                    outlined
-                                    class="ma-2 no-underline"
-                                    :href="'/admin/lab/' + item.course_id"
-                                    ><v-icon>mdi-pencil</v-icon></v-btn
-                                >
-                                <v-btn
-                                    color="error"
-                                    fab
-                                    x-small
-                                    dark
-                                    outlined
-                                    class="ma-2 elevation-4 no-underline"
-                                    :href="'/admin/lab/' + item.course_id"
-                                    ><v-icon>delete_outline</v-icon></v-btn
-                                >
-                                <v-spacer></v-spacer>
-                                <v-btn
-                                    dark
-                                    class="ma-2 btn-gradient no-underline white--text"
-                                    :href="'/admin/lab/' + item.course_id"
-                                    >Enter This Lab</v-btn
-                                >
-                            </v-card-actions>
-                        </v-card>
+                                <v-card-actions>
+                                    <v-btn
+                                        color="primary"
+                                        fab
+                                        x-small
+                                        dark
+                                        outlined
+                                        class="ma-2 no-underline"
+                                        :href="'/admin/lab/' + item.course_id"
+                                        ><v-icon>mdi-pencil</v-icon></v-btn
+                                    >
+                                    <v-btn
+                                        color="error"
+                                        fab
+                                        x-small
+                                        dark
+                                        outlined
+                                        class="ma-2 elevation-4 no-underline"
+                                        :href="'/admin/lab/' + item.course_id"
+                                        ><v-icon>delete_outline</v-icon></v-btn
+                                    >
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        dark
+                                        class="ma-2 btn-gradient no-underline white--text"
+                                        :href="'/admin/lab/' + item.course_id"
+                                        >Enter This Lab</v-btn
+                                    >
+                                </v-card-actions>
+                            </v-card>
+                        </div>
                     </v-col>
                 </v-row>
             </div>
@@ -88,27 +83,32 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
 export default {
     mounted() {
-        this.getLabData();
+        // this.getLabData();
+        this.$store.dispatch('loadLabs');
     },
     data: () => ({
-        search: '',
-        labs: [],
+        search: "",
+        lab: [],
         tabs: null
     }),
     created() {
-        this.getLabData();
+        // this.getLabData();
     },
     methods: {
-        getLabData() {
-            axios.get("/api/lab").then(Response => {
-                this.labs = Response.data;
-                console.log(this.labs);
-            });
-        }
+        // getLabData() {
+        //     axios.get("/api/lab").then(Response => {
+        //         this.labs = Response.data;
+        //         console.log(this.labs);
+        //     });
+        // },
     },
     computed: {
+        ...mapState([
+            'labs'
+        ]),
         activeFab() {
             switch (this.tabs) {
                 default:
@@ -116,10 +116,10 @@ export default {
             }
         },
         filterLab: function() {
-            return this.Labs.filter(lab => {
+            return this.labs.filter(lab => {
                 return lab.course_name.match(this.search);
             });
-        }
+        },
     }
 };
 </script>
