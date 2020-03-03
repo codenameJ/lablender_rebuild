@@ -148,13 +148,7 @@
                 </v-tabs>
 
                 <v-spacer></v-spacer>
-                <v-text-field
-                    class="mx-4"
-                    flat
-                    hide-details
-                    label="Search for lab..."
-                    prepend-inner-icon="search"
-                ></v-text-field>
+                
             </template>
         </v-toolbar>
     </v-card>

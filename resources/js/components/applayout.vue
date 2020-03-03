@@ -84,26 +84,32 @@
                 <v-divider></v-divider>
 
                 <v-list nav dense v-if="type == 'admin'">
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/admin/lab/' + course_id)">
                         <v-list-item-action>
-                            <v-icon>mdi-home</v-icon>
+                            <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
+                        
                         <v-list-item-content>
                             <v-list-item-title>
-                                <router-link :to="'/admin/lab/' + course_id"
+                                <router-link
+                                    class="menuhref"
+                                    :to="'/admin/lab/' + course_id"
                                     >หน้าหลัก</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push( '/admin/lab/' +
+                                            course_id +
+                                            '/announcement')">
                         <v-list-item-action>
-                            <v-icon>announcement</v-icon>
+                            <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="
                                         '/admin/lab/' +
                                             course_id +
@@ -115,13 +121,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/equipment')">
                         <v-list-item-action>
-                            <v-icon>build</v-icon>
+                            <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="
                                         '/admin/lab/' + course_id + '/equipment'
                                     "
@@ -131,13 +138,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/request')">
                         <v-list-item-action>
-                            <v-icon>assignment</v-icon>
+                            <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/admin/lab/' + course_id + '/request'"
                                     >คำขอยืม</router-link
                                 >
@@ -145,13 +153,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/history')">
                         <v-list-item-action>
-                            <v-icon>history</v-icon>
+                            <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/admin/lab/' + course_id + '/history'"
                                     >ประวัติ</router-link
                                 ></v-list-item-title
@@ -171,10 +180,11 @@
                             </v-list-item-content>
                         </v-list-item>
 
-                        <v-list-item link>
+                        <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/user')">
                             <v-list-item-content>
                                 <v-list-item-title>
                                     <router-link
+                                        class="menuhref ml-2"
                                         :to="
                                             '/admin/lab/' + course_id + '/user'
                                         "
@@ -184,10 +194,11 @@
                             </v-list-item-content>
                         </v-list-item>
 
-                        <v-list-item link>
+                        <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/ta')">
                             <v-list-item-content>
                                 <v-list-item-title>
                                     <router-link
+                                        class="menuhref ml-2"
                                         :to="'/admin/lab/' + course_id + '/ta'"
                                         >ผู้ช่วยสอน</router-link
                                     ></v-list-item-title
@@ -195,10 +206,11 @@
                             </v-list-item-content>
                         </v-list-item>
 
-                        <v-list-item link>
+                        <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/student')">
                             <v-list-item-content>
                                 <v-list-item-title>
                                     <router-link
+                                        class="menuhref ml-2"
                                         :to="
                                             '/admin/lab/' +
                                                 course_id +
@@ -213,26 +225,29 @@
                 </v-list>
 
                 <v-list nav dense v-if="type == 'professor'">
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/professor/lab/' + course_id)">
                         <v-list-item-action>
-                            <v-icon>mdi-home</v-icon>
+                            <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
-                                <router-link :to="'/professor/lab/' + course_id"
+                                <router-link
+                                    class="menuhref"
+                                    :to="'/professor/lab/' + course_id"
                                     >หน้าหลัก</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/professor/lab/' + course_id + '/announcement')">
                         <v-list-item-action>
-                            <v-icon>announcement</v-icon>
+                            <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="
                                         '/professor/lab/' +
                                             course_id +
@@ -244,13 +259,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/professor/lab/' + course_id + '/equipment')">
                         <v-list-item-action>
-                            <v-icon>build</v-icon>
+                            <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="
                                         '/professor/lab/' +
                                             course_id +
@@ -262,13 +278,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/professor/lab/' + course_id + '/request')">
                         <v-list-item-action>
-                            <v-icon>assignment</v-icon>
+                            <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="
                                         '/professor/lab/' +
                                             course_id +
@@ -280,13 +297,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/professor/lab/' + course_id + '/history')">
                         <v-list-item-action>
-                            <v-icon>history</v-icon>
+                            <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="
                                         '/professor/lab/' +
                                             course_id +
@@ -300,26 +318,29 @@
                 </v-list>
 
                 <v-list nav dense v-if="type == 'ta'">
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/ta/lab/' + course_id)">
                         <v-list-item-action>
-                            <v-icon>mdi-home</v-icon>
+                            <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
-                                <router-link :to="'/ta/lab/' + course_id"
+                                <router-link
+                                    class="menuhref"
+                                    :to="'/ta/lab/' + course_id"
                                     >หน้าหลัก</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/ta/lab/' + course_id + '/announcement')">
                         <v-list-item-action>
-                            <v-icon>announcement</v-icon>
+                            <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="
                                         '/ta/lab/' + course_id + '/announcement'
                                     "
@@ -329,13 +350,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/ta/lab/' + course_id + '/equipment')">
                         <v-list-item-action>
-                            <v-icon>build</v-icon>
+                            <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/ta/lab/' + course_id + '/equipment'"
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
@@ -343,13 +365,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/ta/lab/' + course_id + '/request')">
                         <v-list-item-action>
-                            <v-icon>assignment</v-icon>
+                            <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/ta/lab/' + course_id + '/request'"
                                     >คำขอยืม</router-link
                                 >
@@ -357,13 +380,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/ta/lab/' + course_id + '/history')">
                         <v-list-item-action>
-                            <v-icon>history</v-icon>
+                            <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/ta/lab/' + course_id + '/history'"
                                     >ประวัติ</router-link
                                 ></v-list-item-title
@@ -373,26 +397,29 @@
                 </v-list>
 
                 <v-list nav dense v-if="type == 'student'">
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/lab/' + course_id)">
                         <v-list-item-action>
-                            <v-icon>mdi-home</v-icon>
+                            <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
-                                <router-link :to="'/lab/' + course_id"
+                                <router-link
+                                    class="menuhref"
+                                    :to="'/lab/' + course_id"
                                     >หน้าหลัก</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/lab/' + course_id + '/announcement')">
                         <v-list-item-action>
-                            <v-icon>announcement</v-icon>
+                            <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/lab/' + course_id + '/announcement'"
                                     >ประกาศ</router-link
                                 ></v-list-item-title
@@ -400,13 +427,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/lab/' + course_id + '/equipment')">
                         <v-list-item-action>
-                            <v-icon>build</v-icon>
+                            <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/lab/' + course_id + '/equipment'"
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
@@ -414,13 +442,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/lab/' + course_id + '/request')">
                         <v-list-item-action>
-                            <v-icon>assignment</v-icon>
+                            <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/lab/' + course_id + '/request'"
                                     >คำขอยืม</router-link
                                 >
@@ -428,13 +457,14 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item link @click="$router.push('/lab/' + course_id + '/history')">
                         <v-list-item-action>
-                            <v-icon>history</v-icon>
+                            <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
+                                    class="menuhref"
                                     :to="'/lab/' + course_id + '/history'"
                                     >ประวัติ</router-link
                                 ></v-list-item-title

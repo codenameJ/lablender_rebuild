@@ -8,6 +8,8 @@ import User from './pages/admin/User';
 import Studentlabs from './pages/student/Studentlabs';
 import About from './pages/mainhome/About';
 import Homecard from './pages/lab/Homecard';
+import Talabs from './pages/ta/Talabs';
+import Professorlabs from './pages/professor/Professorlabs';
 
 
 Vue.component('Home', Home);
@@ -17,6 +19,8 @@ Vue.component('About', About);
 Vue.component('User', User);
 Vue.component('Equipment', Equipment);
 Vue.component('Homecard', Homecard);
+Vue.component('Talabs', Talabs);
+Vue.component('Professorlabs', Professorlabs);
 
 Vue.use(VueRouter);
 
@@ -39,12 +43,12 @@ export default new VueRouter({
         //ta
         {
             path: '/ta/labs',
-            component: Studentlabs,
+            component: Talabs,
         },
         //professor
         {
             path: 'professor/labs',
-            component: Studentlabs,
+            component: Professorlabs,
         },
         //admin
         {
@@ -66,7 +70,7 @@ export default new VueRouter({
             name: 'equipment',
             component: Equipment,
         },
-        
+
     ],
     mode: 'history',
     base: process.env.BASE_URL,
