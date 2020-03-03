@@ -107,7 +107,6 @@
                                     </div>
                                 </div>
 
-                                
                                 <v-card-actions>
                                     <v-btn
                                         color="primary"
@@ -162,12 +161,12 @@ export default {
         editedItem: {
             course_id: 0,
             course_name: "",
-            professor_name: "",
+            professor_name: ""
         },
         defaultItem: {
             course_id: 0,
             course_name: "",
-            professor_name: "",
+            professor_name: ""
         }
     }),
     created() {

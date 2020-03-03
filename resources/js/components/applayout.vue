@@ -88,7 +88,7 @@
                         <v-list-item-action>
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
-                        
+
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
@@ -128,7 +128,9 @@
                                 <router-link
                                     class="menuhref"
                                     :to="
-                                        '/admin/lab/' + curlab.course_id + '/equipment'
+                                        '/admin/lab/' +
+                                            curlab.course_id +
+                                            '/equipment'
                                     "
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
@@ -144,7 +146,11 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/admin/lab/' + curlab.course_id + '/request'"
+                                    :to="
+                                        '/admin/lab/' +
+                                            curlab.course_id +
+                                            '/request'
+                                    "
                                     >คำขอยืม</router-link
                                 >
                             </v-list-item-title>
@@ -159,7 +165,11 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/admin/lab/' + curlab.course_id + '/history'"
+                                    :to="
+                                        '/admin/lab/' +
+                                            curlab.course_id +
+                                            '/history'
+                                    "
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >
@@ -184,7 +194,9 @@
                                     <router-link
                                         class="menuhref ml-2"
                                         :to="
-                                            '/admin/lab/' + curlab.course_id + '/user'
+                                            '/admin/lab/' +
+                                                curlab.course_id +
+                                                '/user'
                                         "
                                         >ผู้ใช้งานทั้งหมด</router-link
                                     ></v-list-item-title
@@ -197,7 +209,11 @@
                                 <v-list-item-title>
                                     <router-link
                                         class="menuhref ml-2"
-                                        :to="'/admin/lab/' + curlab.course_id + '/ta'"
+                                        :to="
+                                            '/admin/lab/' +
+                                                curlab.course_id +
+                                                '/ta'
+                                        "
                                         >ผู้ช่วยสอน</router-link
                                     ></v-list-item-title
                                 >
@@ -340,7 +356,9 @@
                                 <router-link
                                     class="menuhref"
                                     :to="
-                                        '/ta/lab/' + curlab.course_id + '/announcement'
+                                        '/ta/lab/' +
+                                            curlab.course_id +
+                                            '/announcement'
                                     "
                                     >ประกาศ</router-link
                                 ></v-list-item-title
@@ -356,7 +374,11 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/ta/lab/' + curlab.course_id + '/equipment'"
+                                    :to="
+                                        '/ta/lab/' +
+                                            curlab.course_id +
+                                            '/equipment'
+                                    "
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
                             >
@@ -371,14 +393,18 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/ta/lab/' + curlab.course_id + '/request'"
+                                    :to="
+                                        '/ta/lab/' +
+                                            curlab.course_id +
+                                            '/request'
+                                    "
                                     >คำขอยืม</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link >
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
@@ -386,7 +412,11 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/ta/lab/' + curlab.course_id + '/history'"
+                                    :to="
+                                        '/ta/lab/' +
+                                            curlab.course_id +
+                                            '/history'
+                                    "
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >
@@ -418,7 +448,11 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + curlab.course_id + '/announcement'"
+                                    :to="
+                                        '/lab/' +
+                                            curlab.course_id +
+                                            '/announcement'
+                                    "
                                     >ประกาศ</router-link
                                 ></v-list-item-title
                             >
@@ -433,14 +467,18 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + curlab.course_id + '/equipment'"
+                                    :to="
+                                        '/lab/' +
+                                            curlab.course_id +
+                                            '/equipment'
+                                    "
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
                             >
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link >
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
@@ -448,7 +486,9 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + curlab.course_id + '/request'"
+                                    :to="
+                                        '/lab/' + curlab.course_id + '/request'
+                                    "
                                     >คำขอยืม</router-link
                                 >
                             </v-list-item-title>
@@ -463,7 +503,9 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + curlab.course_id + '/history'"
+                                    :to="
+                                        '/lab/' + curlab.course_id + '/history'
+                                    "
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >
@@ -514,13 +556,14 @@ export default {
         isMobile() {
             return window.innerWidth < 600;
         },
-                labs() {
+        labs() {
             return this.$store.state.labs;
         },
         curlab() {
-            let sellab = this.labs.find(
+            let sellab =
+                this.labs.find(
                     lab => lab.course_id == this.$route.params.course_id
-                ) || {}
+                ) || {};
             this.$store.dispatch("currentLab", sellab);
             return sellab;
             // return (
