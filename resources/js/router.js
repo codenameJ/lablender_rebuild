@@ -47,8 +47,12 @@ export default new VueRouter({
         },
         //professor
         {
-            path: 'professor/labs',
+            path: '/professor/labs',
             component: Professorlabs,
+        },
+        {
+            path: '/professor/users',
+            component: User,
         },
         //admin
         {

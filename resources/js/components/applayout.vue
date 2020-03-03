@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" v-if="curlab">
         <nav>
             <v-toolbar flat>
                 <v-app-bar-nav-icon
@@ -78,31 +78,29 @@
                         style="font-size:1.5em"
                     >
                         LAB LENDER
-                        {{ course_id }}
+                        {{ curlab.course_id }}
                     </div>
                 </v-list-item>
                 <v-divider></v-divider>
 
                 <v-list nav dense v-if="type == 'admin'">
-                    <v-list-item link @click="$router.push('/admin/lab/' + course_id)">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
-                        
+
                         <v-list-item-content>
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/admin/lab/' + course_id"
+                                    :to="'/admin/lab/' + curlab.course_id"
                                     >หน้าหลัก</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push( '/admin/lab/' +
-                                            course_id +
-                                            '/announcement')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
@@ -112,7 +110,7 @@
                                     class="menuhref"
                                     :to="
                                         '/admin/lab/' +
-                                            course_id +
+                                            curlab.course_id +
                                             '/announcement'
                                     "
                                     >ประกาศ</router-link
@@ -121,7 +119,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/equipment')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
@@ -130,7 +128,9 @@
                                 <router-link
                                     class="menuhref"
                                     :to="
-                                        '/admin/lab/' + course_id + '/equipment'
+                                        '/admin/lab/' +
+                                            curlab.course_id +
+                                            '/equipment'
                                     "
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
@@ -138,7 +138,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/request')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
@@ -146,14 +146,18 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/admin/lab/' + course_id + '/request'"
+                                    :to="
+                                        '/admin/lab/' +
+                                            curlab.course_id +
+                                            '/request'
+                                    "
                                     >คำขอยืม</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/history')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
@@ -161,7 +165,11 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/admin/lab/' + course_id + '/history'"
+                                    :to="
+                                        '/admin/lab/' +
+                                            curlab.course_id +
+                                            '/history'
+                                    "
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >
@@ -180,13 +188,15 @@
                             </v-list-item-content>
                         </v-list-item>
 
-                        <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/user')">
+                        <v-list-item link>
                             <v-list-item-content>
                                 <v-list-item-title>
                                     <router-link
                                         class="menuhref ml-2"
                                         :to="
-                                            '/admin/lab/' + course_id + '/user'
+                                            '/admin/lab/' +
+                                                curlab.course_id +
+                                                '/user'
                                         "
                                         >ผู้ใช้งานทั้งหมด</router-link
                                     ></v-list-item-title
@@ -194,26 +204,30 @@
                             </v-list-item-content>
                         </v-list-item>
 
-                        <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/ta')">
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    <router-link
-                                        class="menuhref ml-2"
-                                        :to="'/admin/lab/' + course_id + '/ta'"
-                                        >ผู้ช่วยสอน</router-link
-                                    ></v-list-item-title
-                                >
-                            </v-list-item-content>
-                        </v-list-item>
-
-                        <v-list-item link @click="$router.push('/admin/lab/' + course_id + '/student')">
+                        <v-list-item link>
                             <v-list-item-content>
                                 <v-list-item-title>
                                     <router-link
                                         class="menuhref ml-2"
                                         :to="
                                             '/admin/lab/' +
-                                                course_id +
+                                                curlab.course_id +
+                                                '/ta'
+                                        "
+                                        >ผู้ช่วยสอน</router-link
+                                    ></v-list-item-title
+                                >
+                            </v-list-item-content>
+                        </v-list-item>
+
+                        <v-list-item link>
+                            <v-list-item-content>
+                                <v-list-item-title>
+                                    <router-link
+                                        class="menuhref ml-2"
+                                        :to="
+                                            '/admin/lab/' +
+                                                curlab.course_id +
                                                 '/student'
                                         "
                                         >นักศึกษา</router-link
@@ -225,7 +239,7 @@
                 </v-list>
 
                 <v-list nav dense v-if="type == 'professor'">
-                    <v-list-item link @click="$router.push('/professor/lab/' + course_id)">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
@@ -233,14 +247,14 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/professor/lab/' + course_id"
+                                    :to="'/professor/lab/' + curlab.course_id"
                                     >หน้าหลัก</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/professor/lab/' + course_id + '/announcement')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
@@ -250,7 +264,7 @@
                                     class="menuhref"
                                     :to="
                                         '/professor/lab/' +
-                                            course_id +
+                                            curlab.course_id +
                                             '/announcement'
                                     "
                                     >ประกาศ</router-link
@@ -259,7 +273,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/professor/lab/' + course_id + '/equipment')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
@@ -269,7 +283,7 @@
                                     class="menuhref"
                                     :to="
                                         '/professor/lab/' +
-                                            course_id +
+                                            curlab.course_id +
                                             '/equipment'
                                     "
                                     >อุปกรณ์</router-link
@@ -278,7 +292,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/professor/lab/' + course_id + '/request')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
@@ -288,7 +302,7 @@
                                     class="menuhref"
                                     :to="
                                         '/professor/lab/' +
-                                            course_id +
+                                            curlab.course_id +
                                             '/request'
                                     "
                                     >คำขอยืม</router-link
@@ -297,7 +311,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/professor/lab/' + course_id + '/history')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
@@ -307,7 +321,7 @@
                                     class="menuhref"
                                     :to="
                                         '/professor/lab/' +
-                                            course_id +
+                                            curlab.course_id +
                                             '/history'
                                     "
                                     >ประวัติ</router-link
@@ -318,7 +332,7 @@
                 </v-list>
 
                 <v-list nav dense v-if="type == 'ta'">
-                    <v-list-item link @click="$router.push('/ta/lab/' + course_id)">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
@@ -326,14 +340,14 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/ta/lab/' + course_id"
+                                    :to="'/ta/lab/' + curlab.course_id"
                                     >หน้าหลัก</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/ta/lab/' + course_id + '/announcement')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
@@ -342,7 +356,9 @@
                                 <router-link
                                     class="menuhref"
                                     :to="
-                                        '/ta/lab/' + course_id + '/announcement'
+                                        '/ta/lab/' +
+                                            curlab.course_id +
+                                            '/announcement'
                                     "
                                     >ประกาศ</router-link
                                 ></v-list-item-title
@@ -350,7 +366,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/ta/lab/' + course_id + '/equipment')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
@@ -358,14 +374,18 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/ta/lab/' + course_id + '/equipment'"
+                                    :to="
+                                        '/ta/lab/' +
+                                            curlab.course_id +
+                                            '/equipment'
+                                    "
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
                             >
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/ta/lab/' + course_id + '/request')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
@@ -373,14 +393,18 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/ta/lab/' + course_id + '/request'"
+                                    :to="
+                                        '/ta/lab/' +
+                                            curlab.course_id +
+                                            '/request'
+                                    "
                                     >คำขอยืม</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/ta/lab/' + course_id + '/history')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
@@ -388,7 +412,11 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/ta/lab/' + course_id + '/history'"
+                                    :to="
+                                        '/ta/lab/' +
+                                            curlab.course_id +
+                                            '/history'
+                                    "
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >
@@ -397,7 +425,7 @@
                 </v-list>
 
                 <v-list nav dense v-if="type == 'student'">
-                    <v-list-item link @click="$router.push('/lab/' + course_id)">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
@@ -405,14 +433,14 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + course_id"
+                                    :to="'/lab/' + curlab.course_id"
                                     >หน้าหลัก</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/lab/' + course_id + '/announcement')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
@@ -420,14 +448,18 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + course_id + '/announcement'"
+                                    :to="
+                                        '/lab/' +
+                                            curlab.course_id +
+                                            '/announcement'
+                                    "
                                     >ประกาศ</router-link
                                 ></v-list-item-title
                             >
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/lab/' + course_id + '/equipment')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
@@ -435,14 +467,18 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + course_id + '/equipment'"
+                                    :to="
+                                        '/lab/' +
+                                            curlab.course_id +
+                                            '/equipment'
+                                    "
                                     >อุปกรณ์</router-link
                                 ></v-list-item-title
                             >
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/lab/' + course_id + '/request')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
@@ -450,14 +486,16 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + course_id + '/request'"
+                                    :to="
+                                        '/lab/' + curlab.course_id + '/request'
+                                    "
                                     >คำขอยืม</router-link
                                 >
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link @click="$router.push('/lab/' + course_id + '/history')">
+                    <v-list-item link>
                         <v-list-item-action>
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
@@ -465,7 +503,9 @@
                             <v-list-item-title>
                                 <router-link
                                     class="menuhref"
-                                    :to="'/lab/' + course_id + '/history'"
+                                    :to="
+                                        '/lab/' + curlab.course_id + '/history'
+                                    "
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >
@@ -479,12 +519,13 @@
 
 <script>
 export default {
-    props: ["username", "type", "course_id"],
+    props: ["username", "type"],
 
     created() {},
     mounted() {
+        this.$store.dispatch("loadLabs");
+        this.$store.dispatch("currentLab");
         console.log(this.username);
-        console.log(this.course_id);
     },
     name: "Header",
     components: {},
@@ -514,6 +555,22 @@ export default {
     computed: {
         isMobile() {
             return window.innerWidth < 600;
+        },
+        labs() {
+            return this.$store.state.labs;
+        },
+        curlab() {
+            let sellab =
+                this.labs.find(
+                    lab => lab.course_id == this.$route.params.course_id
+                ) || {};
+            this.$store.dispatch("currentLab", sellab);
+            return sellab;
+            // return (
+            //     this.labs.find(
+            //         lab => lab.course_id == this.$route.params.course_id
+            //     ) || {}
+            // );
         }
     },
 

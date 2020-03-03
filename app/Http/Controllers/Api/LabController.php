@@ -37,7 +37,17 @@ class LabController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'course_id' => 'required',
+            'course_name' => 'required',
+            'professor_name' => 'required',
+        ]);
+        $user = Lab::create([
+            'course_id' => $request->course_id,
+            'course_name' => $request->course_name,
+            'professor_name' => $request->professor_name,
+        ]);
+        return response(['message'=>'lab Added', 'lab'=>$user]);
     }
 
     /**
@@ -69,9 +79,21 @@ class LabController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Lab $lab)
     {
-        //
+        $request->validate([
+            'course_id' => 'required',
+            'course_name' => 'required',
+            'professor_name' => 'required',
+        ]);
+
+        $lab->update([
+            'course_id' => $request->course_id,
+            'course_name' => $request->course_name,
+            'professor_name' => $request->professor_name,
+        ]);
+
+        return response(['message' => 'lab Update', 'lab' => $lab]);
     }
 
     /**
@@ -82,6 +104,6 @@ class LabController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return Lab::destroy($id);
     }
 }
