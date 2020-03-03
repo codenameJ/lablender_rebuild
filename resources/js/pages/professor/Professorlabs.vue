@@ -160,8 +160,8 @@ export default {
     mounted() {
         // this.getLabData();
         this.$store.dispatch("loadLabs");
+        this.$store.dispatch("loadUsers");
         this.$store.dispatch("currentUser");
-        // console.log(professorlab);
     },
     data: () => ({
         proflab: {},
@@ -244,8 +244,6 @@ export default {
             let sellab =
                 this.labs.filter(lab => lab.professor_name == this.proflab.name) ||
                 {};
-            // this.proflab = sellab;
-            // console.log(proflab);
             return sellab;
             // return (
             //     this.labs.find(

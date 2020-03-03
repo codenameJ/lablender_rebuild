@@ -107,7 +107,7 @@
                         >
                         <v-tab
                             style="text-decoration : none;"
-                            to="/professor/user"
+                            to="/professor/users"
                             >Manage User</v-tab
                         >
                         <v-tab style="text-decoration : none;" to="/about"

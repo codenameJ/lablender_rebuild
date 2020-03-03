@@ -50,6 +50,10 @@ export default new VueRouter({
             path: '/professor/labs',
             component: Professorlabs,
         },
+        {
+            path: '/professor/users',
+            component: User,
+        },
         //admin
         {
             path: '/admin/labs',
