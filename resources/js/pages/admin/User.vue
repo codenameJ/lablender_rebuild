@@ -3,8 +3,16 @@
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <v-toolbar
-                    ><v-tabs background-color="transparent" v-model="tabs">
+                    ><v-tabs
+                        background-color="transparent"
+                        v-model="tabs"
+                        @click="filterbytab"
+                    >
                         <v-tab style="text-decoration : none;" to="">All</v-tab>
+                        <v-tab style="text-decoration : none;">Students</v-tab>
+                        <v-tab style="text-decoration : none;" to=""
+                            >Professor</v-tab
+                        >
                         <v-tabs-slider color="white"></v-tabs-slider>
                     </v-tabs>
                     <v-text-field
@@ -112,6 +120,27 @@
                                                         chips
                                                     ></v-select>
                                                 </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field
+                                                        v-if="
+                                                            editedItem.type ==
+                                                                'ta'
+                                                        "
+                                                        v-model="editedItem.Lab"
+                                                        label="Lab ID"
+                                                    ></v-text-field>
+
+                                                    <v-text-field
+                                                        v-if="
+                                                            editedItem.type ==
+                                                                'student'
+                                                        "
+                                                        v-model="
+                                                            editedItem.student_id
+                                                        "
+                                                        label="Student ID"
+                                                    ></v-text-field>
+                                                </v-col>
                                             </v-row>
                                         </v-container>
                                     </v-card-text>
@@ -156,6 +185,7 @@ export default {
         // this.$store.dispatch("loadLabs");
     },
     data: () => ({
+        filtertab: null,
         dialog: false,
         search: "",
         tabs: null,
@@ -189,14 +219,16 @@ export default {
             email: "",
             password: "",
             phone: "",
-            type: ""
+            type: "",
+            student_id: ""
         },
         defaultItem: {
             name: "",
             email: "",
             password: "",
             phone: "",
-            type: ""
+            type: "",
+            student_id: ""
         }
     }),
     created() {},
@@ -247,6 +279,9 @@ export default {
         users() {
             return this.$store.state.users;
         },
+        students() {
+            return this.$store.state.users.student;
+        },
         activeFab() {
             switch (this.tabs) {
                 default:
@@ -255,7 +290,9 @@ export default {
         },
         filterUser: function() {
             return this.users.filter(user => {
-                return user.name.toLowerCase().includes(this.search.toLowerCase())
+                return user.name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
             });
         },
         formTitle() {

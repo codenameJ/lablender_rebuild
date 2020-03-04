@@ -19,8 +19,8 @@ class UserController extends Controller
     public function index()
     {
 
-        // $users = User::with('Ta')->with('Student')->get();
-        $users = User::all();
+        $users = User::with('Ta')->with('Student')->get();
+        // $users = User::all();
         return response()->json($users);
 
         // $users = User::all();
@@ -29,7 +29,7 @@ class UserController extends Controller
         // $tas = Ta::all();
         // return response()->json($tas);
 
-        // $students = Ta::all();
+        // $students = Student::all();
         // return response()->json($students);
     }
 
@@ -58,7 +58,7 @@ class UserController extends Controller
             'password' => 'required',
             'type' => '',
             'Lab' => '',
-            'Stdid' => '',
+            'student_id' => '',
         ]);
         $user = User::create([
             'name' => $request->name,
@@ -68,27 +68,24 @@ class UserController extends Controller
             'type' => $request->type,
         ]);
 
-         return response(['message'=>'User Added', 'user'=>$user]);
+        //  return response(['message'=>'User Added', 'user'=>$user]);
 
-        // if ($request->Type === 'ta') {
-        //     $ta = Ta::create([
-        //         'TA_Name' => $user->Name,
-        //         'client_id' => $user->User_id,
-        //         'Lab_id' => $request->Lab,
-        //     ]);
+        if ($request->type === 'ta') {
+            $ta = Ta::create([
+                'user_id' => $user->id,
+            ]);
 
-        //     return response(['message' => 'ta Added', 'ta' => $ta]);
-        // }
+            return response(['message' => 'ta Added', 'ta' => $ta]);
+        }
 
-        // if ($request->Type === 'student') {
-        //     $student = Student::create([
-        //         'Student_id' => $request->Stdid,
-        //         'Student_Name' => $user->Name,
-        //         'client_id' => $user->User_id,
-        //     ]);
+        if ($request->type === 'student') {
+            $student = Student::create([
+                'student_id' => $request->student_id,
+                'user_id' => $user->id,
+            ]);
 
-        //     return response(['message' => 'student Added', 'student' => $student]);
-        // }
+            return response(['message' => 'student Added', 'student' => $student]);
+        }
     }
 
     /**
@@ -128,7 +125,7 @@ class UserController extends Controller
             'phone' => 'required',
             'type' => 'required',
             'Lab' => '',
-            'Stdid' => '',
+            'student_id' => '',
         ]);
 
         $user->update([
@@ -142,7 +139,7 @@ class UserController extends Controller
 
 
         // if ($request->Type === 'ta') {
-        //     $editta = Ta::where('client_id', '=', $user->User_id);
+        //     $editta = Ta::where('user_id', '=', $user->id);
         //     $editta->update([
         //         'TA_Name' => $request->Name,
         //         'Lab_id' => $request->Lab,
@@ -151,16 +148,14 @@ class UserController extends Controller
         //     return response(['message' => 'ta Update', 'ta' => $editta]);
         // }
 
-        // if ($request->Type === 'student') {
-        //     $editstd = Student::where('client_id', '=', $user->User_id);
-        //     $editstd->update([
-        //         'Student_id' => $request->Stdid,
-        //         'Student_Name' => $request->Name,
-        //         'client_id' => $user->User_id,
-        //     ]);
+        if ($request->type === 'student') {
+            $editstd = Student::where('user_id', '=', $user->id);
+            $editstd->update([
+                'Student_id' => $request->student_id,
+            ]);
 
-        //     return response(['message' => 'student Update', 'student' => $editstd]);
-        // }
+            return response(['message' => 'student Update', 'student' => $editstd]);
+        }
     }
 
     /**

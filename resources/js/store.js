@@ -41,7 +41,7 @@ export default{
         },
         loadUsers({commit}){
             axios.get("/api/user").then(data => {
-                // console.log(data.data)
+                console.log(data.data)
             let users = data.data
             commit('SetUsers', users)
         })
