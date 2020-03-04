@@ -1,7 +1,7 @@
 <template>
     <v-container class="my-5">
         <div class="row justify-content-center">
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <v-col cols="12">
                     <v-row justify="end">
                         <v-spacer></v-spacer>
@@ -114,7 +114,7 @@
                                         x-small
                                         dark
                                         outlined
-                                        class="ma-2 no-underline"
+                                        class="ma-2 elevation-4 no-underline"
                                         @click="editItem(item)"
                                         ><v-icon>mdi-pencil</v-icon></v-btn
                                     >

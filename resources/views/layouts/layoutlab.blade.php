@@ -15,7 +15,10 @@
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Kanit|Prompt|Roboto&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
 
@@ -28,6 +31,9 @@
             position: fixed;
             bottom: 550px;
             right: 550px;
+        }
+        body{
+            font-family: 'Prompt' , sans-serif;
         }
     </style>
 
