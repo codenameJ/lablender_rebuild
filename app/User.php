@@ -41,8 +41,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    // public function getAuthPassword()
-    // {
-    //     return $this->password;
-    // }
+    public function Ta(){
+        return $this->hasMany(Ta::class,'user_id');
+    }
+
+    public function Student(){
+        return $this->hasMany(Student::class,'user_id');
+    }
+
 }
