@@ -52,22 +52,20 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'User_id'=>'required',
-            'Name' => 'required',
-            'Email' => 'required',
-            'Phone' => 'required',
-            'Password' => 'required',
-            'Type' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'password' => 'required',
+            'type' => '',
             'Lab' => '',
             'Stdid' => '',
         ]);
         $user = User::create([
-            //  'User_id' => $request->User_id,
-            'Name' => $request->name,
-            'Email' => $request->email,
-            'Phone' => $request->phome,
-            'Password' => bcrypt($request->password),
-            'Type' => $request->type,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'password' => bcrypt($request->password),
+            'type' => $request->type,
         ]);
 
          return response(['message'=>'User Added', 'user'=>$user]);
@@ -125,18 +123,19 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         $request->validate([
-            'Name' => 'required',
-            'Email' => 'required',
-            'Phone' => 'required',
-            'Type' => 'required',
+            'name' => 'required',
+            'email' => 'required',
+            'phone' => 'required',
+            'type' => 'required',
             'Lab' => '',
             'Stdid' => '',
         ]);
 
         $user->update([
-            'Name' => $request->name,
-            'Email' => $request->email,
-            'Type' => $request->type,
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone'=>$request->phone,
+            'type' => $request->type,
         ]);
 
         //  return response(['message'=>'User Updated', 'user'=>$user]);

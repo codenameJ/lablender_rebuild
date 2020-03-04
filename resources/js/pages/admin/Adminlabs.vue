@@ -192,6 +192,8 @@ export default {
             axios
                 .delete("/api/lab/" + item.id)
                 .then(response => console.log(response.data));
+
+            this.$store.dispatch("loadLabs");
         },
 
         close() {
@@ -215,6 +217,7 @@ export default {
                     .then(response => console.log(response.data));
             }
             this.close();
+            this.$store.dispatch("loadLabs");
             // location.reload();
         }
     },
@@ -233,11 +236,11 @@ export default {
         },
         filterLab: function() {
             return this.labs.filter(lab => {
-                return lab.course_name.match(this.search);
+                return lab.course_name.toLowerCase().includes(this.search.toLowerCase())
             });
         },
         formTitle() {
-            return this.editedIndex === -1 ? "New Equipment" : "Edit Equipment";
+            return this.editedIndex === -1 ? "New Lab" : "Edit Lab";
         }
     },
     watch: {
