@@ -13,7 +13,7 @@
                                 class="flex-column ma-0 fill-height"
                                 justify="center"
                             >
-                                <v-col align="center" class="mt-7 mx-3">
+                                <v-col style="font-size: 1vw; font-family: 'Kanit' , sans-serif;" align="center" class="mt-7 mx-3">
                                     เว็บไซต์นี้พัฒนาโดยนักศึกษาวิชาภาควิชาวิศวกรรมคอมพิวเตอร์
                                     มหาวิทยาลัยเชียงใหม่ (CPE#25)<br />
                                     ภาควิชาวิศวกรรมคอมพิวเตอร์ ชั้น 4 ตึก 30 ปี
@@ -33,6 +33,12 @@
     </div>
 </template>
 
+<style scoped>
+.headfont{
+
+}
+
+</style>
 <script>
 export default {
     name: "About",

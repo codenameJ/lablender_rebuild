@@ -19,6 +19,7 @@ Vue.use(Vuex);
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('homelayout', require('./components/homelayout.vue').default);
 Vue.component('applayout', require('./components/applayout.vue').default);
+Vue.component('welcome-card', require('./components/welcomecard.vue').default);
 
 const store = new Vuex.Store(
     StoreData);
@@ -33,5 +34,3 @@ const app = new Vue({
 Vue.use(Vuetify, {
     iconfont: 'mdi',
 });
-
-

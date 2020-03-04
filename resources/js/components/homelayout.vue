@@ -1,6 +1,6 @@
 <template>
     <div id="app" v-if="curuser">
-        <v-card id="lateral">
+        <v-card id="lateral" class="fixed-top">
             <v-toolbar dark tabs flat src="/img/navlayout.png" height="100">
                 <v-toolbar-title>
                     <v-list-item>
@@ -195,4 +195,12 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.fixed-content {
+    top: 0;
+    bottom:0;
+    position:fixed;
+    overflow-y:scroll;
+    overflow-x:hidden;
+}
+</style>

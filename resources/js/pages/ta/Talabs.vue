@@ -1,6 +1,6 @@
 <template>
-    <v-container class="my-5">
-        <v-card>
+    <!-- <v-container class="my-5">
+  <v-card>
             <div class="row justify-content-center">
                 <div class="col-md-9">
                     <v-toolbar
@@ -35,18 +35,24 @@
                                         >
                                     </v-card-actions>
 
-                                    <!-- <v-avatar class="ma-3" size="125" tile>
+                                    <v-avatar class="ma-3" size="125" tile>
                             <v-img :src="item.src"></v-img>
-                        </v-avatar> -->
+                        </v-avatar>
                                 </div>
                             </v-card>
                         </v-col>
                     </v-row>
                 </div>
-            </template>
+            
         </v-card>
-    </v-container>
-</template>
+
+    </v-container> 
+    
+ </template>-->
+
+
+
+<!-- 
 
 <script>
 export default {
@@ -77,4 +83,4 @@ export default {
         }
     }
 };
-</script>
+</script> -->

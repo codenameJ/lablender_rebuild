@@ -1,17 +1,57 @@
 <template>
     <div id="app">
         <v-content>
-            <div class="mx-auto mt-1 mb-2" max-width="1500">
-                <h1 align="center" class="mt-4">LAB LENDER</h1>
-                <h5 align="center">
-                    Let's get started by joining labs.
-                </h5>
-                <h5 align="center">
-                </h5>
+            <div class="mx-auto mt-1 mb-1">
+                <div class="flex-container">
+                    <v-row>
+                        <v-col>
+                            <v-img
+                                class="ml-12 mt-5 mb-3 homepic"
+                                src="/img/welcome-vector.png"
+                            />
+                        </v-col>
+                        <v-col><center>
+                            <br /><br />
+                            <h1
+                                style="font-size:60px"
+                                align="center"
+                                class="mt-4 font-weight-bold"
+                            >
+                                LAB LENDER
+                            </h1>
+                            <v-col
+                                style="font-size: 18px; font-family: 'Kanit' , sans-serif;"
+                                align="center"
+                                class="mt-7 mx-3"
+                            >
+                                ระบบยืม-คืน อุปกรณ์ภายในห้องปฎิบัติการ<br />
+                                ภายในภาควิชาวิศวกรรมคอมพิวเตอร์<br />
+                                คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่<br />
+                            </v-col>
+                            <br>
+                            
+                                <v-btn
+                                    style="text-decoration: none; font-family: 'Kanit'; color : #FFFFFF;"
+                                    href="/login"
+                                    class="button-btn-gradient"
+                                    x-large
+                                >
+                                    เริ่มต้นใช้งาน
+                                </v-btn>
+                            </center>
+                        </v-col>
+                    </v-row>
+                </div>
+
                 <v-divider></v-divider>
+                <h4 class="mt-7" align="center">
+                    Let's get started by joining labs.
+                </h4>
+                <h5 align="center"></h5>
+
                 <br />
-                <div style="display: flex">
-                    <v-card class="mx-auto" max-width="344">
+                <div class="flex-container">
+                    <v-card class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/labhowto1.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -22,7 +62,7 @@
                             เลือกแลปที่ต้องการเข้าร่วม
                         </v-card-subtitle>
 
-                        <v-card-actions class="justify-center">
+                        <!-- <v-card-actions class="justify-center">
                             <v-btn
                                 href="/labs"
                                 color="#f7797d"
@@ -32,9 +72,9 @@
                             >
                                 OUR LABS
                             </v-btn>
-                        </v-card-actions>
+                        </v-card-actions> -->
                     </v-card>
-                    <v-card class="mx-auto" max-width="344">
+                    <v-card class="mx-auto mb-5" max-width="400">
                         <v-img src="/img/labhowto2.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -45,14 +85,14 @@
                             กด Request เพื่อขอเข้าร่วมแลป
                         </v-card-subtitle>
 
-                        <v-card-actions class="justify-center">
+                        <!-- <v-card-actions class="justify-center">
                             <v-btn color="#5d26c1" text right>
                                 LENDING CART
                             </v-btn>
-                        </v-card-actions>
+                        </v-card-actions>-->
                     </v-card>
 
-                    <v-card class="mx-auto" max-width="344">
+                    <v-card class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/labhowto3.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -63,7 +103,7 @@
                             เมื่ออาจารย์รับเข้าแลป สามารถเริ่มต้นยืมของได้ทันที
                         </v-card-subtitle>
 
-                        <v-card-actions class="justify-center">
+                        <!-- <v-card-actions class="justify-center">
                             <v-btn
                                 href=""
                                 color="#11998e"
@@ -73,7 +113,7 @@
                             >
                                 YOUR REQUESTS
                             </v-btn>
-                        </v-card-actions>
+                        </v-card-actions> -->
                     </v-card>
                 </div>
             </div>
@@ -81,11 +121,50 @@
     </div>
 </template>
 
+<style scoped>
+.button-btn-gradient {
+    background-color: #0c0b0b;
+    background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
+    font-weight: bold;
+}
+
+div.flex-container {
+    display: flex;
+}
+
+@media screen and (min-width: 1301px) {
+    div.flex-container {
+        flex-direction: row;
+    }
+}
+
+@media screen and (max-width: 1300px) {
+    div.flex-container {
+        flex-direction: column;
+    }
+}
+
+div.homepic {
+}
+
+@media screen and (min-width: 801px) {
+    div.homepic {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    div.homepic {
+        width: 80vw;
+    }
+}
+</style>
+
 <script>
 export default {
     name: "Home",
     mounted() {
         console.log("home show");
-    },
+    }
 };
 </script>
