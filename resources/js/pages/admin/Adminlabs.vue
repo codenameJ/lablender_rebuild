@@ -1,7 +1,7 @@
 <template>
-    <v-container class="my-5">
+    <v-container class="mx-auto">
         <div class="row justify-content-center">
-            <div class="col-md-12">
+            <div class="col-12">
                 <v-col cols="12">
                     <v-row justify="end">
                         <v-spacer></v-spacer>
@@ -74,6 +74,8 @@
                     </v-row>
                 </v-col>
                 <v-row dense>
+                    <v-col cols="12"
+                        >
                     <v-toolbar
                         ><v-tabs background-color="transparent" v-model="tabs">
                             <v-tab style="text-decoration : none;" to=""
@@ -88,7 +90,8 @@
                             single-line
                             hide-details
                         ></v-text-field>
-                    </v-toolbar>
+                    </v-toolbar></v-col>
+
                     <v-col cols="12">
                         <div v-for="(item, i) in filterLab" :key="i">
                             <v-card class="my-2">
@@ -236,7 +239,9 @@ export default {
         },
         filterLab: function() {
             return this.labs.filter(lab => {
-                return lab.course_name.toLowerCase().includes(this.search.toLowerCase())
+                return lab.course_name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
             });
         },
         formTitle() {

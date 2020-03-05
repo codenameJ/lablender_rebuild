@@ -5,8 +5,9 @@
                 <div class="flex-container">
                     <v-row>
                         <v-col>
+                            <!-- ml-12 mt-5 mb-3  -->
                             <v-img
-                                class="ml-12 mt-5 mb-3 homepic"
+                                class="m-5 homepic"
                                 src="/img/welcome-vector.png"
                             />
                         </v-col>
@@ -15,14 +16,14 @@
                             <h1
                                 style="font-size:60px"
                                 align="center"
-                                class="mt-4 font-weight-bold"
+                                class="mt-2 font-weight-bold"
                             >
                                 LAB LENDER
                             </h1>
                             <v-col
                                 style="font-size: 18px; font-family: 'Kanit' , sans-serif;"
                                 align="center"
-                                class="mt-7 mx-3"
+                                class="mt-7"
                             >
                                 ระบบยืม-คืน อุปกรณ์ภายในห้องปฎิบัติการ<br />
                                 ภายในภาควิชาวิศวกรรมคอมพิวเตอร์<br />
