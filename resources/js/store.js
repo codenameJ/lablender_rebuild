@@ -1,4 +1,4 @@
-// import createPersistedState from 'vuex-persistedstate'
+import createPersistedState from 'vuex-persistedstate'
 
 export default{
     state: {
@@ -7,7 +7,7 @@ export default{
         selectedLab: {},
         selectedUser: {},
     },
-    // plugins: [createPersistedState()],
+    plugins: [createPersistedState()],
     mutations: {
         SetLabs(state, labs){
             state.labs=labs;
