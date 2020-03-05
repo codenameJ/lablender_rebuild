@@ -1,5 +1,5 @@
 <template>
-    <div id="app" v-if="curuser">
+    <div id="app" v-if="curprof">
         <v-container class="my-5">
             <div class="row justify-content-center">
                 <div class="col-md-9">
@@ -43,14 +43,15 @@
                                                         label="Course Name"
                                                     ></v-text-field>
                                                 </v-col>
-                                                <v-col cols="12" sm="6" md="4">
+                                                <!-- <v-col cols="12" sm="6" md="4">
                                                     <v-text-field
+                                                        disabled
                                                         v-model="
                                                             editedItem.professor_name
                                                         "
                                                         label="Professor"
                                                     ></v-text-field>
-                                                </v-col>
+                                                </v-col> -->
                                             </v-row>
                                         </v-container>
                                     </v-card-text>
@@ -158,13 +159,13 @@
 <script>
 export default {
     mounted() {
-        // this.getLabData();
         this.$store.dispatch("loadLabs");
-        this.$store.dispatch("loadUsers");
-        this.$store.dispatch("currentUser");
+        this.seteditname();
+        this.setdefaultname();
     },
     data: () => ({
         proflab: {},
+        professorname: "",
         dialog: false,
         search: "",
         tabs: null,
@@ -180,16 +181,16 @@ export default {
             professor_name: ""
         }
     }),
-    created() {
-        // this.getLabData();
-    },
+    created() {},
     methods: {
-        // getLabData() {
-        //     axios.get("/api/lab").then(Response => {
-        //         this.labs = Response.data;
-        //         console.log(this.labs);
-        //     });
-        // },
+        seteditname() {
+            this.editedItem.professor_name = this.curprof.name;
+            return this.editedItem.professor_name;
+        },
+        setdefaultname() {
+            this.defaultItem.professor_name = this.curprof.name;
+            return this.defaultItem.professor_name;
+        },
         editItem(item) {
             this.editedIndex = this.labs.indexOf(item);
             this.editedItem = Object.assign({}, item);
@@ -203,6 +204,8 @@ export default {
             axios
                 .delete("/api/lab/" + item.id)
                 .then(response => console.log(response.data));
+
+            this.$store.dispatch("loadLabs");
         },
 
         close() {
@@ -226,30 +229,22 @@ export default {
                     .then(response => console.log(response.data));
             }
             this.close();
-            // location.reload();
+            this.$store.dispatch("loadLabs");
         }
     },
     computed: {
-        // ...mapState([
-        //     'labs'
-        // ]),
         labs() {
             return this.$store.state.labs;
         },
-        curuser() {
-            this.proflab = this.$store.state.selectedUser;
-            return this.proflab;
+        curprof() {
+            return this.$store.state.selectedUser;
         },
         professorlab() {
             let sellab =
-                this.labs.filter(lab => lab.professor_name == this.proflab.name) ||
-                {};
+                this.labs.filter(
+                    lab => lab.professor_name == this.curprof.name
+                ) || {};
             return sellab;
-            // return (
-            //     this.labs.find(
-            //         lab => lab.course_id == this.$route.params.course_id
-            //     ) || {}
-            // );
         },
         activeFab() {
             switch (this.tabs) {
@@ -263,7 +258,7 @@ export default {
             });
         },
         formTitle() {
-            return this.editedIndex === -1 ? "New Equipment" : "Edit Equipment";
+            return this.editedIndex === -1 ? "New Lab" : "Edit Lab";
         }
     },
     watch: {
