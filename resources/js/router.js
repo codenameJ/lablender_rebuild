@@ -11,7 +11,6 @@ import Homecard from './pages/lab/Homecard';
 import Talabs from './pages/ta/Talabs';
 import Professorlabs from './pages/professor/Professorlabs';
 
-
 Vue.component('Home', Home);
 Vue.component('Adminlabs', Adminlabs);
 Vue.component('Studentlabs', Studentlabs);
