@@ -27,9 +27,12 @@ export default{
             return state.labs.find(lab => lab.course_id === course_id)
           },
 
-          professerlab: state => {
+        professerlab: state => {
             return state.labs.filter(lab => lab.professor_name)
           },
+        getUser(state) {
+            return state.users;
+        },
     },
     actions: {
         loadLabs({commit}){

@@ -165,7 +165,7 @@ export default {
 
     mounted() {
         this.$store.dispatch("loadUsers");
-        this.$store.dispatch("currentUser");
+        // this.$store.dispatch("currentUser");
         console.log(this.username);
     },
 
