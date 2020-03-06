@@ -1,28 +1,24 @@
 <template>
     <div id="app">
         <v-app id="inspire">
-            <v-card class="mt-4 elevation-4 d-inline-block mx-auto" style="max-width:80vw; max-height:90vh;">
+            <v-card class="mt-4 elevation-4 d-inline-block mx-auto" style="max-width:auto; max-height:auto">
                 <div class="flex-container">
                 <v-container>
-                    <v-row justify="space-between">
-                        <v-col cols="auto">
+                            <!-- ml-12 mt-5 mb-3  -->
                             <center>
                             <v-img
-                             class="ml-3 align-center" 
-                             src="/img/cpe.png"
-                             max-width="80%"
-                            max-height="80%"
-                             ></v-img>
+                                class="m-5 homepic justify-center"
+                                src="/img/cpe.png"
+                            />
                             </center>
-                        </v-col>
-
-                        <v-col cols="auto" class="text-center pl-0">
-                            <v-row
-                                class="flex-column ma-0 fill-height"
-                                justify="center"
+                            <center>
+                            
+                            <v-col
+                                style="font-size: 18px; font-family: 'Kanit' , sans-serif;"
+                                align="center"
+                                class="mt-2"
                             >
-                                <v-col style="font-size: calc(0.6em + 0.6vw); font-family: 'Kanit' , sans-serif;" align="center" class="mt-7 mx-3">
-                                    เว็บไซต์นี้พัฒนาโดยนักศึกษาวิชาภาควิชาวิศวกรรมคอมพิวเตอร์
+                                เว็บไซต์นี้พัฒนาโดยนักศึกษาวิชาภาควิชาวิศวกรรมคอมพิวเตอร์
                                     มหาวิทยาลัยเชียงใหม่ (CPE#25)<br />
                                     ภาควิชาวิศวกรรมคอมพิวเตอร์ ชั้น 4 ตึก 30 ปี
                                     คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่<br />
@@ -31,12 +27,14 @@
                                     Tel: 08-4614-0006, 0-5394-2023<br />
                                     Fax: 0-5394-2072<br />
                                     E-mail: cpe@eng.cmu.ac.th<br />
-                                </v-col>
-                            </v-row>
-                        </v-col>
-                    </v-row>
+                            </v-col>
+                            <br>
+                            
+                            </center>
                 </v-container>
                 </div>
+
+
             </v-card>
         </v-app>
     </div>
@@ -57,6 +55,22 @@ div.flex-container {
 @media screen and (max-width: 960px) {
     div.flex-container {
         flex-direction: column;
+    }
+}
+
+div.homepic {
+}
+
+@media screen and (min-width: 801px) {
+    div.homepic {
+        width: 15vw;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    div.homepic {
+        width: 40vw;
     }
 }
 
