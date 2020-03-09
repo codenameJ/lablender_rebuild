@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Assign;
 use App\Http\Controllers\Controller;
+use App\Lab;
 use App\Student;
 use App\Ta;
 use Illuminate\Http\Request;
@@ -19,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
 
-        $users = User::with('Ta')->with('Student')->get();
+        $users = User::with('Student')->with('Ta')->get();
         // $users = User::all();
         return response()->json($users);
 
@@ -57,7 +59,7 @@ class UserController extends Controller
             'phone' => 'required',
             'password' => 'required',
             'type' => '',
-            'Lab' => '',
+            'lab_id' => '',
             'student_id' => '',
         ]);
         $user = User::create([
@@ -73,6 +75,13 @@ class UserController extends Controller
         if ($request->type === 'ta') {
             $ta = Ta::create([
                 'user_id' => $user->id,
+            ]);
+
+            $lab = Lab::where('course_id', '=', $request->lab_id)->first();
+
+            $assign =Assign::create([
+                'ta_id' => $ta->id,
+                'lab_id' => $lab->id,
             ]);
 
             return response(['message' => 'ta Added', 'ta' => $ta]);

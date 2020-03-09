@@ -6,7 +6,6 @@
                     ><v-tabs
                         background-color="transparent"
                         v-model="tabs"
-                        @click="filterbytab"
                     >
                         <v-tab style="text-decoration : none;" to="">All</v-tab>
                         <v-tab style="text-decoration : none;">Students</v-tab>
@@ -120,15 +119,27 @@
                                                         chips
                                                     ></v-select>
                                                 </v-col>
-                                                <v-col cols="12" sm="6" md="4">
+                                                <!-- <v-col cols="12" sm="6" md="4">
                                                     <v-text-field
                                                         v-if="
                                                             editedItem.type ==
                                                                 'ta'
                                                         "
-                                                        v-model="editedItem.Lab"
+                                                        v-model="editedItem.lab_id"
                                                         label="Lab ID"
-                                                    ></v-text-field>
+                                                    ></v-text-field> -->
+
+                                                    <v-col cols="12" sm="6" md="4">
+                                                <v-select
+                                                v-if="
+                                                            editedItem.type ==
+                                                                'ta'
+                                                        "
+                                                    v-model="editedItem.lab_id"
+                                                    :items="labs"
+                                                    label="Lab ID"
+                                                    item-text="course_id"
+                                                ></v-select>
 
                                                     <v-text-field
                                                         v-if="
@@ -220,7 +231,8 @@ export default {
             password: "",
             phone: "",
             type: "",
-            student_id: ""
+            student_id: "",
+            lab_id:"",
         },
         defaultItem: {
             name: "",
@@ -228,7 +240,8 @@ export default {
             password: "",
             phone: "",
             type: "",
-            student_id: ""
+            student_id: "",
+            lab_id: ""
         }
     }),
     created() {},
@@ -237,6 +250,7 @@ export default {
             this.editedIndex = this.users.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
+            this.$store.dispatch("loadUsers");
         },
         deleteItem(item) {
             const index = this.users.indexOf(item);
@@ -279,8 +293,8 @@ export default {
         users() {
             return this.$store.state.users;
         },
-        students() {
-            return this.$store.state.users.student;
+        labs() {
+            return this.$store.state.labs;
         },
         activeFab() {
             switch (this.tabs) {
