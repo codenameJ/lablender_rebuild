@@ -43,3 +43,13 @@
     font-weight: bold;
 }
 </style>
+
+<script>
+export default {
+    computed: {
+        curlab() {
+            return this.$store.state.selectedLab;
+        },
+    },
+};
+</script>

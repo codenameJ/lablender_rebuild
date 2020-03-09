@@ -524,7 +524,7 @@ export default {
     created() {},
     mounted() {
         this.$store.dispatch("loadLabs");
-        this.$store.dispatch("currentLab");
+        // this.$store.dispatch("currentLab");
         console.log(this.username);
     },
     name: "Header",

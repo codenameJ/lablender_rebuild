@@ -4,6 +4,8 @@ export default{
     state: {
         users: [],
         labs: [],
+        equipments: [],
+        request_lists: [],
         selectedLab: {},
         selectedUser: {},
     },
@@ -15,6 +17,12 @@ export default{
         SetUsers(state, users){
             state.users=users;
         },
+        SetEquipments(state, equipments){
+            state.equipments=equipments;
+        },
+        SetRequest_lists(state, request_lists){
+            state.request_lists=request_lists;
+        },
         SetCurrentLab(state, selectedLab){
             state.selectedLab=selectedLab;
         },
@@ -23,16 +31,6 @@ export default{
         },
     },
     getters: {
-        getcurrentlab: (state) => (course_id) => {
-            return state.labs.find(lab => lab.course_id === course_id)
-          },
-
-        professerlab: state => {
-            return state.labs.filter(lab => lab.professor_name)
-          },
-        getUser(state) {
-            return state.users;
-        },
     },
     actions: {
         loadLabs({commit}){
@@ -47,6 +45,20 @@ export default{
                 console.log(data.data)
             let users = data.data
             commit('SetUsers', users)
+        })
+        },
+        loadEquipments({commit}){
+            axios.get("/api/equipment").then(data => {
+                console.log(data.data)
+            let equipments = data.data
+            commit('SetEquipments', equipments)
+        })
+        },
+        loadRequest_lists({commit}){
+            axios.get("/api/request_list").then(data => {
+                console.log(data.data)
+            let request_lists = data.data
+            commit('SetEquipments', request_lists)
         })
         },
         currentLab({commit}, curlab){
