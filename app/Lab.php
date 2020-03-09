@@ -11,4 +11,10 @@ class Lab extends Model
     protected $fillable = [
         'course_id', 'course_name', 'password', 'professor_name',
     ];
+
+    public function Ta()
+    {
+        return $this->belongsToMany(TA::class, 'id')->using(Assign::class, 'ta_id');
+        // return $this->belongsToMany(Lab::class,'assigns');
+    }
 }

@@ -15,4 +15,9 @@ class Ta extends Model
     public function User(){
         return $this->belongsTo(User::class,'id');
     }
+
+    public function Labs()
+    {
+        return $this->belongsToMany(Lab::class,'id');
+    }
 }
