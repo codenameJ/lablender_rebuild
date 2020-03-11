@@ -21,3 +21,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('user','Api\UserController');
 Route::resource('lab','Api\LabController');
 Route::resource('equipment','Api\EquipmentController');
+Route::resource('requestlist','Api\RequestlistController');
+Route::resource('announcement','Api\AnnouncementController');

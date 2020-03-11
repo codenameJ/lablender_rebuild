@@ -6,6 +6,7 @@ export default{
         labs: [],
         equipments: [],
         request_lists: [],
+        announcements: [],
         selectedLab: {},
         selectedUser: {},
     },
@@ -22,6 +23,9 @@ export default{
         },
         SetRequest_lists(state, request_lists){
             state.request_lists=request_lists;
+        },
+        SetAnnouncements(state, announcements){
+            state.announcements=announcements;
         },
         SetCurrentLab(state, selectedLab){
             state.selectedLab=selectedLab;
@@ -54,11 +58,18 @@ export default{
             commit('SetEquipments', equipments)
         })
         },
+        loadAnnouncements({commit}){
+            axios.get("/api/announcement").then(data => {
+                console.log(data.data)
+            let announcements = data.data
+            commit('SetAnnouncements', announcements)
+        })
+        },
         loadRequest_lists({commit}){
-            axios.get("/api/request_list").then(data => {
+            axios.get("/api/requestlist").then(data => {
                 console.log(data.data)
             let request_lists = data.data
-            commit('SetEquipments', request_lists)
+            commit('SetRequest_lists', request_lists)
         })
         },
         currentLab({commit}, curlab){

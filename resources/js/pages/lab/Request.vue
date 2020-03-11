@@ -1,132 +1,104 @@
 <template>
-    <v-container class="my-5">
-        <div class="row justify-content-center">
-            <div class="col-md-9">
-                <v-toolbar>
-                    <v-text-field
-                        v-model="search"
-                        append-icon="search"
-                        label="Search"
-                        single-line
-                        hide-details
-                    ></v-text-field>
-                </v-toolbar>
-            </div>
-            <div class="col-md-9">
-                <v-data-table
-                    :headers="headers"
-                    :items="filterEquipments"
-                    class="elevation-1"
-                >
-                    <template v-slot:top>
-                        <v-toolbar flat color="white">
-                            <v-toolbar-title>Request</v-toolbar-title>
-                            <v-divider class="mx-4" inset vertical></v-divider>
+    <v-content>
+        <v-container class="my-5">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <v-col cols="12">
+                        <v-row justify="end">
                             <v-spacer></v-spacer>
-                            <v-dialog v-model="dialog" max-width="500px">
-                                <template v-slot:activator="{ on }">
-                                    <v-btn
-                                        color="primary"
-                                        dark
-                                        class="mb-2"
-                                        v-on="on"
-                                        >Add Equipment</v-btn
+                        </v-row>
+                    </v-col>
+                    <v-row dense>
+                        <v-col cols="12">
+                            <v-toolbar>
+                                <v-text-field
+                                    v-model="search"
+                                    append-icon="search"
+                                    label="Search"
+                                    single-line
+                                    hide-details
+                                ></v-text-field> </v-toolbar
+                        ></v-col>
+
+                        <v-col cols="12">
+                            <div
+                                v-for="(item, i) in Requestlistsinlab"
+                                :key="i"
+                            >
+                                <v-card class="my-2">
+                                    <div
+                                        class="d-flex flex-no-wrap justify-space-between"
                                     >
-                                </template>
-                                <v-spacer></v-spacer>
-                                <v-card>
-                                    <v-card-title>
-                                        <span class="headline">{{
-                                            formTitle
-                                        }}</span>
-                                    </v-card-title>
+                                        <div>
+                                            <v-card-title
+                                                v-text="item.id"
+                                            ></v-card-title>
 
-                                    <v-card-text>
-                                        <v-container>
-                                            <v-row>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        v-model="
-                                                            editedItem.equip_id
-                                                        "
-                                                        label="ID"
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        v-model="
-                                                            editedItem.equip_name
-                                                        "
-                                                        label="Name"
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        v-model="
-                                                            editedItem.equip_qty
-                                                        "
-                                                        label="QTY"
-                                                    ></v-text-field>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-card-text>
-
+                                            <v-card-subtitle
+                                                v-text="
+                                                    getstudent(item.student_id)
+                                                "
+                                            ></v-card-subtitle>
+                                            <v-card-subtitle
+                                                v-text="item.status"
+                                            ></v-card-subtitle>
+                                        </div>
+                                    </div>
+                                    <v-data-table
+                                        :headers="detail_headers"
+                                        :items="item.request_detail"
+                                        hide-default-footer
+                                    >
+                                    </v-data-table>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn
-                                            color="blue darken-1"
-                                            text
-                                            @click="close"
-                                            >Cancel</v-btn
+                                            color="primary"
+                                            fab
+                                            x-small
+                                            dark
+                                            outlined
+                                            class="ma-2 elevation-4 no-underline"
+                                            @click="editItem(item)"
+                                            ><v-icon>mdi-pencil</v-icon></v-btn
                                         >
                                         <v-btn
-                                            color="blue darken-1"
-                                            text
-                                            @click="save"
-                                            >Save</v-btn
+                                            color="error"
+                                            fab
+                                            x-small
+                                            dark
+                                            outlined
+                                            class="ma-2 elevation-4 no-underline"
+                                            @click="deleteItem(item)"
+                                            ><v-icon
+                                                >delete_outline</v-icon
+                                            ></v-btn
                                         >
                                     </v-card-actions>
                                 </v-card>
-                            </v-dialog>
-                        </v-toolbar>
-                    </template>
-                    <template v-slot:item.action="{ item }">
-                        <v-icon small class="mr-2" @click="editItem(item)">
-                            edit
-                        </v-icon>
-                        <v-icon small @click="deleteItem(item)">
-                            delete
-                        </v-icon>
-                    </template>
-                </v-data-table>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </div>
             </div>
-        </div>
-    </v-container>
+        </v-container>
+    </v-content>
 </template>
 
 <script>
 export default {
     mounted() {
-        this.$store.dispatch("loadEquipments");
-        this.seteditlab();
-        this.setdefaultlab();
+        this.$store.dispatch("loadRequest_lists");
+        // this.seteditlab();
+        // this.setdefaultlab();
     },
     data: () => ({
         dialog: false,
         search: "",
-        headers: [
-            // { text: "ID", value: "id" },
-            { text: "Equip ID", value: "equip_id" },
-            {
-                text: "Equip Name",
-                align: "left",
-                sortable: false,
-                value: "equip_name"
-            },
-            { text: "Qty", value: "equip_qty" },
-            { text: "Lab", value: "lab_id" },
-            { text: "Actions", value: "action", sortable: false }
+        detail_headers: [
+            { text: "Detail ID", value: "id" },
+            { text: "Equipment ID", value: "equipment_id" },
+            { text: "Len Qty", value: "len_qty" }
         ],
         editedIndex: -1,
         editedItem: {
@@ -144,92 +116,75 @@ export default {
     }),
     created() {},
     methods: {
-        seteditlab() {
-            this.editedItem.lab_id = this.curlab.id;
-            return this.editedItem.lab_id;
-        },
-        setdefaultlab() {
-            this.defaultItem.lab_id = this.curlab.id;
-            return this.defaultItem.lab_id;
-        },
-        editItem(item) {
-            this.editedIndex = this.equipments.indexOf(item);
-            this.editedItem = Object.assign({}, item);
-            this.dialog = true;
-            this.$store.dispatch("loadEquipments");
+        getstudent(stdid) {
+            let thisuser =
+                this.users.find(user => {
+                    return user.student;
+                }) || {};
+            //     return user.student.find(std => std.id == stdid) || {};
+            // }) || {};
+            return thisuser.name;
         },
         deleteItem(item) {
-            const index = this.equipments.indexOf(item);
+            const index = this.request_lists.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
-                this.equipments.splice(index, 1);
+                this.request_lists.splice(index, 1);
 
             axios
-                .delete("/api/equipment/" + item.id)
+                .delete("/api/requestlist/" + item.id)
                 .then(response => console.log(response.data));
 
-            this.$store.dispatch("loadEquipments");
-        },
-
-        close() {
-            this.dialog = false;
-            setTimeout(() => {
-                this.editedItem = Object.assign({}, this.defaultItem);
-                this.editedIndex = -1;
-            }, 300);
-        },
-
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(
-                    this.equipments[this.editedIndex],
-                    this.editedItem
-                );
-                axios
-                    .put(
-                        "/api/equipment/" + this.editedItem.id,
-                        this.editedItem
-                    )
-                    .then(response => console.log(response.data));
-            } else {
-                this.equipments.push(this.editedItem);
-                axios
-                    .post("/api/equipment/", this.editedItem)
-                    .then(response => console.log(response.data));
-            }
-            this.close();
-            this.$store.dispatch("loadEquipments");
+            this.$store.dispatch("loadRequest_lists");
         }
+
+        // save() {
+        //     if (this.editedIndex > -1) {
+        //         Object.assign(
+        //             this.request_lists[this.editedIndex],
+        //             this.editedItem
+        //         );
+        //         axios
+        //             .put(
+        //                 "/api/requestlist/" + this.editedItem.id,
+        //                 this.editedItem
+        //             )
+        //             .then(response => console.log(response.data));
+        //     } else {
+        //         this.request_lists.push(this.editedItem);
+        //         axios
+        //             .post("/api/requestlist/", this.editedItem)
+        //             .then(response => console.log(response.data));
+        //     }
+        //     this.close();
+        //     this.$store.dispatch("loadRequest_lists");
+        // }
     },
     computed: {
-        equipments() {
-            return this.$store.state.equipments;
+        users() {
+            return this.$store.state.users;
+        },
+        request_lists() {
+            return this.$store.state.request_lists;
         },
         curlab() {
             return this.$store.state.selectedLab;
         },
-        equipmentsinlab() {
-            let selequips =
-                this.equipments.filter(
-                    equipment => equipment.lab_id == this.curlab.id
+        Requestlistsinlab() {
+            let selrequestlist =
+                this.request_lists.filter(
+                    request_list => request_list.lab_id == this.curlab.id
                 ) || {};
-            return selequips;
+            return selrequestlist;
         },
-        filterEquipments: function() {
-            return this.equipmentsinlab.filter(equip => {
-                return equip.equip_name
+        filterRequestlists: function() {
+            return this.Requestlistsinlab.filter(requestlist => {
+                return requestlist.student_id
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
             });
-        },
-        formTitle() {
-            return this.editedIndex === -1 ? "New Equipment" : "Edit Equipment";
         }
     },
-    watch: {
-        dialog(val) {
-            val || this.close();
-        }
-    }
+    watch: {}
 };
 </script>
 

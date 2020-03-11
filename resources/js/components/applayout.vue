@@ -524,6 +524,7 @@ export default {
     created() {},
     mounted() {
         this.$store.dispatch("loadLabs");
+        this.$store.dispatch("loadUsers");
         // this.$store.dispatch("currentLab");
         console.log(this.username);
     },
@@ -553,6 +554,15 @@ export default {
     },
 
     computed: {
+        users() {
+            return this.$store.state.users;
+        },
+        curuser() {
+            let seluser =
+                this.users.find(user => user.name == this.username) || {};
+            this.$store.dispatch("currentUser", seluser);
+            return seluser;
+        },
         isMobile() {
             return window.innerWidth < 600;
         },
