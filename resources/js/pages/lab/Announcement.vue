@@ -196,12 +196,14 @@ export default {
         },
         deleteItem(item) {
             const index = this.announcements.indexOf(item);
-            confirm("Are you sure you want to delete this item?") &&
-                this.announcements.splice(index, 1);
-
-            axios
-                .delete("/api/announcement/" + item.id)
-                .then(response => console.log(response.data));
+            if (
+                confirm("Are you sure you want to delete this item?") &&
+                this.announcements.splice(index, 1)
+            ) {
+                axios
+                    .delete("/api/announcement/" + item.id)
+                    .then(response => console.log(response.data));
+            }
 
             this.$store.dispatch("loadAnnouncements");
         },

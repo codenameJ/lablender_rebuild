@@ -14,9 +14,10 @@
                                                 <v-col cols="12" sm="6" md="4">
                                                     <v-text-field
                                                         v-model="
-                                                            editedItem.id
+                                                            editedItem.course_id
                                                         "
                                                         label="Course ID"
+                                                        data-vv-name="id"
                                                         disabled
                                                     ></v-text-field>
                                                 </v-col>
@@ -96,7 +97,11 @@
                                             <v-btn class="ma-2" disabled
                                                 >pending</v-btn
                                             >
-                                            <v-btn class="ma-2">Canceled</v-btn>
+                                            <v-btn
+                                                class="ma-2"
+                                                @click="canceledenrolled(item)"
+                                                >Canceled</v-btn
+                                            >
                                         </v-card-actions>
                                         <v-card-actions
                                             v-else-if="
@@ -131,8 +136,8 @@ export default {
     mounted() {
         this.$store.dispatch("loadEnrolls");
         this.$store.dispatch("loadLabs");
-        this.setEditStudentid();
-        this.setDefaultStudentid();
+        // this.setEditStudentid();
+        // this.setDefaultStudentid();
     },
     data: () => ({
         dialog: false,
@@ -141,27 +146,28 @@ export default {
         editedItem: {
             id: "",
             student_id: "",
-            status: ""
+            status: null
         },
         defaultItem: {
             id: "",
             student_id: "",
-            status: ""
+            status: null
         }
     }),
     created() {},
     methods: {
-        setEditStudentid() {
-            this.editItem.student_id = this.curstudent.student.id
-            return this.editItem.student_id;
-        },
-        setDefaultStudentid() {
-            this.defaultItem.student_id = this.getStudentId
-            return this.defaultItem.student_id;
-        },
+        // setEditStudentid() {
+        //     console.log(this.curstudent.id);
+        //     this.editedItem.student_id = this.curstudent.id;
+        //     return this.editedItem.student_id;
+        // },
+        // setDefaultStudentid() {
+        //     this.editedItem.lab_id = this.curstudent.id;
+        //     return this.defaultItem.student_id;
+        // },
         getEnrollStatus(labid) {
             let getstatus =
-                this.enrolls.find(enroll => enroll.lab_id == labid) || {};
+                this.enrolls.find(enroll => enroll.lab_id == labid && enroll.student_id == this.curstudent.id) || {};
             return getstatus.status;
         },
         getLabName(labid) {
@@ -176,14 +182,24 @@ export default {
             let getlab = this.labs.find(lab => lab.id == labid) || {};
             return getlab.course_id;
         },
-        getStudentId() {
-            let getstdid = this.users.find(user => user.id == curstudent.id) || {};
-            return getstdid.student.id;
-        },
         editItem(item) {
             this.editedIndex = this.labs.indexOf(item);
             this.editedItem = Object.assign({}, item);
+            this.editedItem.student_id = this.curstudent.id;
             this.dialog = true;
+        },
+        canceledenrolled(item) {
+            const index = this.labs.indexOf(item);
+            if (confirm("Are you sure you want to canceled this enrolled?")) {
+                axios
+                    .delete("/api/enroll/"+item.id,
+                    {
+                        student_id: this.curstudent.id
+                    })
+                    .then(response => console.log(response.data));
+            }
+            this.$store.dispatch("loadLabs");
+            this.$store.dispatch("loadEnrolls");
         },
         close() {
             this.dialog = false;
@@ -194,10 +210,11 @@ export default {
         },
         save() {
             axios
-                .post("/api/enroll/", this.editedItem)
+                .post("/api/enroll", this.editedItem)
                 .then(response => console.log(response.data));
             this.close();
             this.$store.dispatch("loadLabs");
+            this.$store.dispatch("loadEnrolls");
         }
     },
     watch: {
@@ -212,13 +229,17 @@ export default {
         enrolls() {
             return this.$store.state.enrolls;
         },
-        curstudent() {
+        curentuser() {
             return this.$store.state.selectedUser;
+        },
+        curstudent() {
+            console.log(this.curentuser.student);
+            return this.curentuser.student;
         },
         getEnrolllabs() {
             let studentlab =
                 this.enrolls.filter(
-                    enroll => enroll.student_id == this.curstudent.student.id
+                    enroll => enroll.student_id == this.curstudent.id
                 ) || {};
             return studentlab;
         },

@@ -45,7 +45,7 @@ class EnrollController extends Controller
             'lab_id' => $request->id,
             'student_id' => $request->student_id,
         ]);
-        return response(['message'=>'Enrolled Added', 'announcement'=>$enroll]);
+        return response(['message'=>'Enrolled Added', 'enroll'=>$enroll]);
     }
 
     /**
@@ -88,8 +88,8 @@ class EnrollController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id, $student_id)
     {
-        //
+        return Enroll::where('lab_id', '=' , $id)->where('student_id', '=', $student_id)->delete();
     }
 }
