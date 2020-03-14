@@ -7,11 +7,14 @@ export default{
         equipments: [],
         request_lists: [],
         announcements: [],
+        assigns: [],
+        enrolls: [],
         selectedLab: {},
         selectedUser: {},
     },
     plugins: [createPersistedState()],
     mutations: {
+        //set array data zone
         SetLabs(state, labs){
             state.labs=labs;
         },
@@ -27,6 +30,13 @@ export default{
         SetAnnouncements(state, announcements){
             state.announcements=announcements;
         },
+        SetAssigns(state, assigns){
+            state.assigns=assigns;
+        },
+        SetEnrolls(state, enrolls){
+            state.enrolls=enrolls;
+        },
+        //set current zone
         SetCurrentLab(state, selectedLab){
             state.selectedLab=selectedLab;
         },
@@ -37,9 +47,10 @@ export default{
     getters: {
     },
     actions: {
+        //load data array zone
         loadLabs({commit}){
             axios.get("/api/lab").then(data => {
-                // console.log(data.data)
+                console.log(data.data)
             let labs = data.data
             commit('SetLabs', labs)
         })
@@ -72,6 +83,21 @@ export default{
             commit('SetRequest_lists', request_lists)
         })
         },
+        loadAssigns({commit}){
+            axios.get("/api/assign").then(data => {
+                console.log(data.data)
+            let assigns = data.data
+            commit('SetAssigns', assigns)
+        })
+        },
+        loadEnrolls({commit}){
+            axios.get("/api/enroll").then(data => {
+                console.log(data.data)
+            let enrolls = data.data
+            commit('SetEnrolls', enrolls)
+        })
+        },
+        //load current zone
         currentLab({commit}, curlab){
             commit('SetCurrentLab', curlab)
         },

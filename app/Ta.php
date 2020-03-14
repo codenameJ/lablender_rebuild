@@ -18,6 +18,6 @@ class Ta extends Model
 
     public function Labs()
     {
-        return $this->belongsToMany(Lab::class,'id');
+        return $this->belongsToMany('App\Lab', 'assigns');
     }
 }

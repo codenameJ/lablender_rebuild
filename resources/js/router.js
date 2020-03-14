@@ -52,6 +52,36 @@ export default new VueRouter({
             path: '/ta/labs',
             component: Talabs,
         },
+        //ta lab page
+        {
+            path: '/ta/lab/:course_id',
+            props: true,
+            component: Homecard,
+        },
+        {
+            path: '/ta/lab/:course_id/equipment',
+            props: true,
+            name: 'ta_equipment',
+            component: Equipment,
+        },
+        {
+            path: '/ta/lab/:course_id/announcement',
+            props: true,
+            name: 'ta_announcement',
+            component: Announcement,
+        },
+        {
+            path: '/ta/lab/:course_id/history',
+            props: true,
+            name: 'ta_history',
+            component: History,
+        },
+        {
+            path: '/ta/lab/:course_id/request',
+            props: true,
+            name: 'ta_request',
+            component: Request,
+        },
         //professor
         {
             path: '/professor/labs',
@@ -60,6 +90,36 @@ export default new VueRouter({
         {
             path: '/professor/users',
             component: User,
+        },
+        //professor lab page
+        {
+            path: '/professor/lab/:course_id',
+            props: true,
+            component: Homecard,
+        },
+        {
+            path: '/professor/lab/:course_id/equipment',
+            props: true,
+            name: 'professor_equipment',
+            component: Equipment,
+        },
+        {
+            path: '/professor/lab/:course_id/announcement',
+            props: true,
+            name: 'professor_announcement',
+            component: Announcement,
+        },
+        {
+            path: '/professor/lab/:course_id/history',
+            props: true,
+            name: 'professor_history',
+            component: History,
+        },
+        {
+            path: '/professor/lab/:course_id/request',
+            props: true,
+            name: 'professor_request',
+            component: Request,
         },
         //admin home page
         {

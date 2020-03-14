@@ -84,99 +84,89 @@
                 <v-divider></v-divider>
 
                 <v-list nav dense v-if="type == 'admin'">
-                    <v-list-item link>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id"
+                        link
+                    >
                         <v-list-item-action>
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
-
                         <v-list-item-content>
                             <v-list-item-title>
-                                <router-link
-                                    class="menuhref"
-                                    :to="'/admin/lab/' + curlab.course_id"
-                                    >หน้าหลัก</router-link
-                                >
+                                หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/announcement'"
+                        link
+                    >
                         <v-list-item-action>
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
-                                <router-link
-                                    class="menuhref"
-                                    :to="
-                                        '/admin/lab/' +
-                                            curlab.course_id +
-                                            '/announcement'
-                                    "
-                                    >ประกาศ</router-link
-                                ></v-list-item-title
-                            >
+                                ประกาศ
+                            </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/equipment'"
+                        link
+                    >
                         <v-list-item-action>
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
-                                <router-link
-                                    class="menuhref"
-                                    :to="
-                                        '/admin/lab/' +
-                                            curlab.course_id +
-                                            '/equipment'
-                                    "
-                                    >อุปกรณ์</router-link
-                                ></v-list-item-title
-                            >
+                            <v-list-item-title>อุปกรณ์</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/request'"
+                        link
+                    >
                         <v-list-item-action>
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
-                                <router-link
-                                    class="menuhref"
-                                    :to="
-                                        '/admin/lab/' +
-                                            curlab.course_id +
-                                            '/request'
-                                    "
-                                    >คำขอยืม</router-link
-                                >
+                                คำขอยืม
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item link>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/history'"
+                        link
+                    >
                         <v-list-item-action>
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
-                                <router-link
-                                    class="menuhref"
-                                    :to="
-                                        '/admin/lab/' +
-                                            curlab.course_id +
-                                            '/history'
-                                    "
-                                    >ประวัติ</router-link
-                                ></v-list-item-title
-                            >
+                            <v-list-item-title> ประวัติ</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-group no-action>
+                    <v-list-item href="/admin/labs" class="menuhref" link>
+                        <v-list-item-action>
+                            <v-icon class="ml-2">home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                กลับสู่หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <!-- <v-list-group no-action>
                         <v-list-item slot="activator">
                             <v-list-item-action>
                                 <v-icon>account_circle</v-icon>
@@ -235,7 +225,7 @@
                                 >
                             </v-list-item-content>
                         </v-list-item>
-                    </v-list-group>
+                    </v-list-group> -->
                 </v-list>
 
                 <v-list nav dense v-if="type == 'professor'">
@@ -327,6 +317,17 @@
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item href="/professor/labs" class="menuhref" link>
+                        <v-list-item-action>
+                            <v-icon class="ml-2">home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                กลับสู่หน้าหลัก
+                            </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
@@ -422,6 +423,18 @@
                             >
                         </v-list-item-content>
                     </v-list-item>
+
+                    <v-list-item href="/ta/labs" class="menuhref" link>
+                        <v-list-item-action>
+                            <v-icon class="ml-2">home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                กลับสู่หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
                 </v-list>
 
                 <v-list nav dense v-if="type == 'student'">
@@ -509,6 +522,17 @@
                                     >ประวัติ</router-link
                                 ></v-list-item-title
                             >
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item href="/labs" class="menuhref" link>
+                        <v-list-item-action>
+                            <v-icon class="ml-2">home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>
+                                กลับสู่หน้าหลัก
+                            </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
                 </v-list>
