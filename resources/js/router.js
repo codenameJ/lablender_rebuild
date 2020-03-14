@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 
 import Home from './pages/mainhome/Home';
-import Equipment from './pages/lab/Equipment';
 import Adminlabs from './pages/admin/Adminlabs';
 import User from './pages/admin/User';
 import Studentlabs from './pages/student/Studentlabs';
@@ -10,16 +9,25 @@ import About from './pages/mainhome/About';
 import Homecard from './pages/lab/Homecard';
 import Talabs from './pages/ta/Talabs';
 import Professorlabs from './pages/professor/Professorlabs';
+//admin lab page
+import Equipment from './pages/lab/Equipment';
+import Announcement from './pages/lab/Announcement';
+import History from './pages/lab/History';
+import Request from './pages/lab/Request';
 
 Vue.component('Home', Home);
 Vue.component('Adminlabs', Adminlabs);
 Vue.component('Studentlabs', Studentlabs);
 Vue.component('About', About);
 Vue.component('User', User);
-Vue.component('Equipment', Equipment);
 Vue.component('Homecard', Homecard);
 Vue.component('Talabs', Talabs);
 Vue.component('Professorlabs', Professorlabs);
+//admin lab page
+Vue.component('Equipment', Equipment);
+Vue.component('Announcement', Announcement);
+Vue.component('History', History);
+Vue.component('Request', Request);
 
 Vue.use(VueRouter);
 
@@ -44,6 +52,36 @@ export default new VueRouter({
             path: '/ta/labs',
             component: Talabs,
         },
+        //ta lab page
+        {
+            path: '/ta/lab/:course_id',
+            props: true,
+            component: Homecard,
+        },
+        {
+            path: '/ta/lab/:course_id/equipment',
+            props: true,
+            name: 'ta_equipment',
+            component: Equipment,
+        },
+        {
+            path: '/ta/lab/:course_id/announcement',
+            props: true,
+            name: 'ta_announcement',
+            component: Announcement,
+        },
+        {
+            path: '/ta/lab/:course_id/history',
+            props: true,
+            name: 'ta_history',
+            component: History,
+        },
+        {
+            path: '/ta/lab/:course_id/request',
+            props: true,
+            name: 'ta_request',
+            component: Request,
+        },
         //professor
         {
             path: '/professor/labs',
@@ -53,7 +91,37 @@ export default new VueRouter({
             path: '/professor/users',
             component: User,
         },
-        //admin
+        //professor lab page
+        {
+            path: '/professor/lab/:course_id',
+            props: true,
+            component: Homecard,
+        },
+        {
+            path: '/professor/lab/:course_id/equipment',
+            props: true,
+            name: 'professor_equipment',
+            component: Equipment,
+        },
+        {
+            path: '/professor/lab/:course_id/announcement',
+            props: true,
+            name: 'professor_announcement',
+            component: Announcement,
+        },
+        {
+            path: '/professor/lab/:course_id/history',
+            props: true,
+            name: 'professor_history',
+            component: History,
+        },
+        {
+            path: '/professor/lab/:course_id/request',
+            props: true,
+            name: 'professor_request',
+            component: Request,
+        },
+        //admin home page
         {
             path: '/admin/labs',
             component: Adminlabs,
@@ -62,6 +130,7 @@ export default new VueRouter({
             path: '/admin/user',
             component: User,
         },
+        //admin lab page
         {
             path: '/admin/lab/:course_id',
             props: true,
@@ -73,7 +142,24 @@ export default new VueRouter({
             name: 'equipment',
             component: Equipment,
         },
-
+        {
+            path: '/admin/lab/:course_id/announcement',
+            props: true,
+            name: 'announcement',
+            component: Announcement,
+        },
+        {
+            path: '/admin/lab/:course_id/history',
+            props: true,
+            name: 'history',
+            component: History,
+        },
+        {
+            path: '/admin/lab/:course_id/request',
+            props: true,
+            name: 'request',
+            component: Request,
+        },
     ],
     mode: 'history',
     base: process.env.BASE_URL,

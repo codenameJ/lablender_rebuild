@@ -141,7 +141,7 @@
                                             dark
                                             class="ma-2 btn-gradient no-underline white--text"
                                             :href="
-                                                '/admin/lab/' + item.course_id
+                                                '/professor/lab/' + item.course_id
                                             "
                                             >Enter This Lab</v-btn
                                         >

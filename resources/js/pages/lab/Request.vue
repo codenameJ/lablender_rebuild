@@ -1,75 +1,210 @@
 <template>
-    <div id="app">
-        <v-content>
-            <h1>Request</h1>
-            <v-card>
-                <v-data-table
-                    :headers="headers"
-                    :items="requests"
-                    class="elevation-1 txt-title"
-                >
+    <v-content>
+        <v-container class="my-5">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <v-col cols="12">
+                        <v-row justify="end">
+                            <v-spacer></v-spacer>
+                        </v-row>
+                    </v-col>
+                    <v-row dense>
+                        <v-col cols="12">
+                            <v-toolbar>
+                                <v-text-field
+                                    v-model="search"
+                                    append-icon="search"
+                                    label="Search"
+                                    single-line
+                                    hide-details
+                                ></v-text-field> </v-toolbar
+                        ></v-col>
 
-                    <template v-slot:item.action="{ item }">
-                        <v-btn
-                            small
-                            rounded
-                            class="button-btn-gradient elevation-2"
-                            color="success"
-                            @click="editItem(item)"
-                        >
-                            <v-icon small class="mr-2" left
-                                >add_circle_outline</v-icon
+                        <v-col cols="12">
+                            <div
+                                v-for="(item, i) in Requestlistsinlab"
+                                :key="i"
                             >
-                            Lend
-                        </v-btn>
-                    </template>
-                </v-data-table>
-            </v-card>
-        </v-content>
-    </div>
+                                <v-card class="my-2">
+                                    <div
+                                        class="d-flex flex-no-wrap justify-space-between"
+                                    >
+                                        <div>
+                                            <v-card-title
+                                                v-text="item.id"
+                                            ></v-card-title>
+
+                                            <v-card-subtitle
+                                                v-text="
+                                                    getstudent(item.student_id)
+                                                "
+                                            ></v-card-subtitle>
+                                            <v-card-subtitle
+                                                v-text="item.status"
+                                            ></v-card-subtitle>
+                                        </div>
+                                    </div>
+                                    <v-data-table
+                                        :headers="detail_headers"
+                                        :items="item.request_detail"
+                                        hide-default-footer
+                                    >
+                                    </v-data-table>
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn
+                                            color="primary"
+                                            fab
+                                            x-small
+                                            dark
+                                            outlined
+                                            class="ma-2 elevation-4 no-underline"
+                                            @click="editItem(item)"
+                                            ><v-icon>mdi-pencil</v-icon></v-btn
+                                        >
+                                        <v-btn
+                                            color="error"
+                                            fab
+                                            x-small
+                                            dark
+                                            outlined
+                                            class="ma-2 elevation-4 no-underline"
+                                            @click="deleteItem(item)"
+                                            ><v-icon
+                                                >delete_outline</v-icon
+                                            ></v-btn
+                                        >
+                                    </v-card-actions>
+                                </v-card>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </div>
+            </div>
+        </v-container>
+    </v-content>
 </template>
 
 <script>
 export default {
     mounted() {
-        this.getRequestData();
+        this.$store.dispatch("loadRequest_lists");
+        // this.seteditlab();
+        // this.setdefaultlab();
     },
     data: () => ({
-        headers: [
-            // { text: "ID", value: "id" },
-            // { text: "Equip ID", value: "Equip_id" },
-            { text: "Request ID", value: "request_id" },
-            { text: "Student Id", value: "Student_id" },
-            { text: "Status", value: "status" },
-            // { text: "Lab", value: "Lab_id" },
-            // { text: "created at", value: "created_at" },
-            // { text: "updated at", value: "updated_at" },
-            // { text: "Actions", value: "action", sortable: false }
+        dialog: false,
+        search: "",
+        detail_headers: [
+            { text: "Detail ID", value: "id" },
+            { text: "Equipment ID", value: "equipment_id" },
+            { text: "Len Qty", value: "len_qty" }
         ],
-        requests: [],
-    }),
-
-
-    created() {
-        this.getRequestData();
-    },
-
-    methods: {
-
-        getRequestData() {
-            axios.get("api/request").then(Response => {
-                this.requests = Response.data;
-                console.log(this.requests);
-            });
+        editedIndex: -1,
+        editedItem: {
+            equip_id: "",
+            equip_name: "",
+            equip_qty: 0,
+            lab_id: ""
         },
-    }
+        defaultItem: {
+            equip_id: "",
+            equip_name: "",
+            equip_qty: 0,
+            lab_id: ""
+        }
+    }),
+    created() {},
+    methods: {
+        getstudent(stdid) {
+            let thisuser =
+                this.users.find(user => {
+                    return user.student;
+                }) || {};
+            //     return user.student.find(std => std.id == stdid) || {};
+            // }) || {};
+            return thisuser.name;
+        },
+        deleteItem(item) {
+            const index = this.request_lists.indexOf(item);
+            confirm("Are you sure you want to delete this item?") &&
+                this.request_lists.splice(index, 1);
+
+            axios
+                .delete("/api/requestlist/" + item.id)
+                .then(response => console.log(response.data));
+
+            this.$store.dispatch("loadRequest_lists");
+        }
+
+        // save() {
+        //     if (this.editedIndex > -1) {
+        //         Object.assign(
+        //             this.request_lists[this.editedIndex],
+        //             this.editedItem
+        //         );
+        //         axios
+        //             .put(
+        //                 "/api/requestlist/" + this.editedItem.id,
+        //                 this.editedItem
+        //             )
+        //             .then(response => console.log(response.data));
+        //     } else {
+        //         this.request_lists.push(this.editedItem);
+        //         axios
+        //             .post("/api/requestlist/", this.editedItem)
+        //             .then(response => console.log(response.data));
+        //     }
+        //     this.close();
+        //     this.$store.dispatch("loadRequest_lists");
+        // }
+    },
+    computed: {
+        users() {
+            return this.$store.state.users;
+        },
+        request_lists() {
+            return this.$store.state.request_lists;
+        },
+        curlab() {
+            return this.$store.state.selectedLab;
+        },
+        Requestlistsinlab() {
+            let selrequestlist =
+                this.request_lists.filter(
+                    request_list => request_list.lab_id == this.curlab.id
+                ) || {};
+            return selrequestlist;
+        },
+        filterRequestlists: function() {
+            return this.Requestlistsinlab.filter(requestlist => {
+                return requestlist.student_id
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
+        }
+    },
+    watch: {}
 };
 </script>
 
 <style scoped>
-.button-btn-gradient {
-    background-color: #0c0b0b;
+.btn-gradient {
     background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
     font-weight: bold;
+}
+
+.blackhref {
+    text-decoration: none;
+    color: #000000;
+}
+
+.whitehref {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.no-underline {
+    text-decoration: none;
 }
 </style>

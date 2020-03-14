@@ -2,18 +2,16 @@
     <v-container class="my-5">
         <div class="row justify-content-center">
             <div class="col-md-9">
-                <v-toolbar
-                    ><v-tabs
-                        background-color="transparent"
-                        v-model="tabs"
-                    >
-                        <v-tab style="text-decoration : none;" to="">All</v-tab>
+                <v-toolbar>
+                    <!-- <v-tabs background-color="transparent" v-model="tabs">
+                        <v-tab style="text-decoration : none;">All</v-tab>
                         <v-tab style="text-decoration : none;">Students</v-tab>
-                        <v-tab style="text-decoration : none;" to=""
-                            >Professor</v-tab
-                        >
+                        <v-tab style="text-decoration : none;">TAs</v-tab>
+                        <v-tab style="text-decoration : none;">Professors</v-tab>
                         <v-tabs-slider color="white"></v-tabs-slider>
-                    </v-tabs>
+                    </v-tabs> -->
+                    <v-divider class="mx-4" inset vertical></v-divider>
+                    <v-spacer />
                     <v-text-field
                         v-model="search"
                         append-icon="search"
@@ -26,13 +24,20 @@
             <div class="col-md-9">
                 <v-data-table
                     :headers="headers"
-                    :items="filterUser"
+                    :items="filterType"
                     class="elevation-1"
                 >
                     <template v-slot:top>
                         <v-toolbar flat color="white">
                             <v-toolbar-title>User</v-toolbar-title>
                             <v-divider class="mx-4" inset vertical></v-divider>
+                            <v-select
+                        label="User Type"
+                        :items="['', 'admin','student', 'ta', 'professor']"
+                        v-model="usertype"
+                        width="10"
+                        dense
+                    ></v-select>
                             <v-spacer></v-spacer>
                             <v-dialog v-model="dialog" max-width="500px">
                                 <template v-slot:activator="{ on }">
@@ -129,17 +134,19 @@
                                                         label="Lab ID"
                                                     ></v-text-field> -->
 
-                                                    <v-col cols="12" sm="6" md="4">
-                                                <v-select
-                                                v-if="
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-select
+                                                        v-if="
                                                             editedItem.type ==
                                                                 'ta'
                                                         "
-                                                    v-model="editedItem.lab_id"
-                                                    :items="labs"
-                                                    label="Lab ID"
-                                                    item-text="course_id"
-                                                ></v-select>
+                                                        v-model="
+                                                            editedItem.lab_id
+                                                        "
+                                                        :items="labs"
+                                                        label="Lab ID"
+                                                        item-text="course_id"
+                                                    ></v-select>
 
                                                     <v-text-field
                                                         v-if="
@@ -196,6 +203,7 @@ export default {
         // this.$store.dispatch("loadLabs");
     },
     data: () => ({
+        usertype: null,
         filtertab: null,
         dialog: false,
         search: "",
@@ -232,7 +240,7 @@ export default {
             phone: "",
             type: "",
             student_id: "",
-            lab_id:"",
+            lab_id: ""
         },
         defaultItem: {
             name: "",
@@ -307,6 +315,11 @@ export default {
                 return user.name
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
+            });
+        },
+        filterType() {
+            return this.filterUser.filter(type => {
+                return !this.usertype || type.type == this.usertype;
             });
         },
         formTitle() {

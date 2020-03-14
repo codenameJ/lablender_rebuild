@@ -14,7 +14,10 @@ class Lab extends Model
 
     public function Ta()
     {
-        return $this->belongsToMany(TA::class, 'id')->using(Assign::class, 'ta_id');
+        return $this->belongsToMany('App\Ta', 'assigns');
         // return $this->belongsToMany(Lab::class,'assigns');
+    }
+    public function Equipment(){
+        return $this->hasMany('App\Equipment');
     }
 }

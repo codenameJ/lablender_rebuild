@@ -1,202 +1,191 @@
 <template>
-    <div id="app" v-if="curlab">
-        <v-content>
-            <v-data-table
-                :headers="headers"
-                :items="equips"
-                class="elevation-1 txt-title"
-            >
-                <template v-slot:top>
-                    <v-toolbar flat color="white">
-                        <v-toolbar-title>Equipments {{curlab.course_id}} </v-toolbar-title>
-                        <v-divider class="mx-4" inset vertical></v-divider>
-                        <v-spacer></v-spacer>
-                        <v-dialog v-model="dialog" max-width="500px">
-                            <template v-slot:activator="{ on }">
-                                <v-btn
-                                    color="primary"
-                                    dark
-                                    class="mb-2"
-                                    v-on="on"
-                                    >Add Equipment</v-btn
-                                >
-                            </template>
-                            <v-card>
-                                <v-card-title>
-                                    <!-- <span class="headline">{{
-                                        formTitle
-                                    }}</span> -->
-                                </v-card-title>
-
-                                <v-card-text>
-                                    <v-container>
-                                        <v-row>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    v-model="
-                                                        editedItem.Equip_id
-                                                    "
-                                                    label="Equipment ID"
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    v-model="
-                                                        editedItem.Equip_Name
-                                                    "
-                                                    label="Equipment Name"
-                                                ></v-text-field>
-                                            </v-col>
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    v-model="
-                                                        editedItem.Equip_Num
-                                                    "
-                                                    label="QTY"
-                                                ></v-text-field>
-                                            </v-col>
-                                            <!-- <v-col cols="12" sm="6" md="4">
-                                                <v-text-field
-                                                    v-model="editedItem.Lab_id"
-                                                    label="Lab ID"
-                                                ></v-text-field>
-                                            </v-col> -->
-
-                                            <v-col cols="12" sm="6" md="4">
-                                                <v-select
-                                                    v-model="editedItem.Lab_id"
-                                                    :items="labs"
-                                                    label="Lab ID"
-                                                    item-text="Lab_id"
-                                                ></v-select>
-                                            </v-col>
-                                        </v-row>
-                                    </v-container>
-                                </v-card-text>
-
-                                <v-card-actions>
-                                    <v-spacer></v-spacer>
-                                    <v-btn
-                                        color="blue darken-1"
-                                        text
-                                        @click="close"
-                                        >Cancel</v-btn
-                                    >
-                                    <v-btn
-                                        color="blue darken-1"
-                                        text
-                                        @click="save"
-                                        >Save</v-btn
-                                    >
-                                </v-card-actions>
-                            </v-card>
-                        </v-dialog>
+    <v-content>
+        <v-container class="my-5">
+            <div class="row justify-content-center">
+                <div class="col-md-9">
+                    <v-toolbar>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Search"
+                            single-line
+                            hide-details
+                        ></v-text-field>
                     </v-toolbar>
-                </template>
-                <template v-slot:item.action="{ item }">
-                    <v-icon small class="mr-2" @click="editItem(item)">
-                        edit
-                    </v-icon>
-                    <v-icon small @click="deleteItem(item.id, item)">
-                        delete
-                    </v-icon>
-                </template>
-                <template v-slot:no-data>
-                    <!-- <v-btn color="primary" @click="getEquipData">Reset</v-btn> -->
-                </template>
-            </v-data-table>
-        </v-content>
-    </div>
+                </div>
+                <div class="col-md-9">
+                    <v-data-table
+                        :headers="headers"
+                        :items="filterEquipments"
+                        class="elevation-1"
+                    >
+                        <template v-slot:top>
+                            <v-toolbar flat color="white">
+                                <v-toolbar-title>Equipment</v-toolbar-title>
+                                <v-divider
+                                    class="mx-4"
+                                    inset
+                                    vertical
+                                ></v-divider>
+                                <v-spacer></v-spacer>
+                                <v-dialog v-model="dialog" max-width="500px">
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                            color="primary"
+                                            dark
+                                            class="mb-2"
+                                            v-on="on"
+                                            >Add Equipment</v-btn
+                                        >
+                                    </template>
+                                    <v-spacer></v-spacer>
+                                    <v-card>
+                                        <v-card-title>
+                                            <span class="headline">{{
+                                                formTitle
+                                            }}</span>
+                                        </v-card-title>
+
+                                        <v-card-text>
+                                            <v-container>
+                                                <v-row>
+                                                    <v-col
+                                                        cols="12"
+                                                        sm="6"
+                                                        md="4"
+                                                    >
+                                                        <v-text-field
+                                                            v-model="
+                                                                editedItem.equip_id
+                                                            "
+                                                            label="ID"
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                    <v-col
+                                                        cols="12"
+                                                        sm="6"
+                                                        md="4"
+                                                    >
+                                                        <v-text-field
+                                                            v-model="
+                                                                editedItem.equip_name
+                                                            "
+                                                            label="Name"
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                    <v-col
+                                                        cols="12"
+                                                        sm="6"
+                                                        md="4"
+                                                    >
+                                                        <v-text-field
+                                                            v-model="
+                                                                editedItem.equip_qty
+                                                            "
+                                                            label="QTY"
+                                                        ></v-text-field>
+                                                    </v-col>
+                                                </v-row>
+                                            </v-container>
+                                        </v-card-text>
+
+                                        <v-card-actions>
+                                            <v-spacer></v-spacer>
+                                            <v-btn
+                                                color="blue darken-1"
+                                                text
+                                                @click="close"
+                                                >Cancel</v-btn
+                                            >
+                                            <v-btn
+                                                color="blue darken-1"
+                                                text
+                                                @click="save"
+                                                >Save</v-btn
+                                            >
+                                        </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
+                            </v-toolbar>
+                        </template>
+                        <template v-slot:item.action="{ item }">
+                            <v-icon small class="mr-2" @click="editItem(item)">
+                                edit
+                            </v-icon>
+                            <v-icon small @click="deleteItem(item)">
+                                delete
+                            </v-icon>
+                        </template>
+                    </v-data-table>
+                </div>
+            </div>
+        </v-container>
+    </v-content>
 </template>
 
 <script>
 export default {
     mounted() {
-        // this.getEquipData();
-        // this.getLabData();
+        this.$store.dispatch("loadEquipments");
+        this.seteditlab();
+        this.setdefaultlab();
     },
     data: () => ({
-        // return {
         dialog: false,
         search: "",
         headers: [
             // { text: "ID", value: "id" },
-            { text: "Equip ID", value: "Equip_id" },
+            { text: "Equip ID", value: "equip_id" },
             {
                 text: "Equip Name",
                 align: "left",
                 sortable: false,
-                value: "Equip_Name"
+                value: "equip_name"
             },
-            { text: "Qty", value: "Equip_Num" },
-            { text: "Lab", value: "Lab_id" },
-            // { text: "created at", value: "created_at" },
-            // { text: "updated at", value: "updated_at" },
+            { text: "Qty", value: "equip_qty" },
+            { text: "Lab", value: "lab_id" },
             { text: "Actions", value: "action", sortable: false }
         ],
-        equips: [],
         editedIndex: -1,
         editedItem: {
-            Equip_id: 0,
-            Equip_Name: "",
-            Equip_Num: 0,
-            Lab_id: 0
+            equip_id: "",
+            equip_name: "",
+            equip_qty: 0,
+            lab_id: ""
         },
         defaultItem: {
-            Equip_id: 0,
-            Equip_Name: "",
-            Equip_Num: 0,
-            Lab_id: 0
-        },
-        labs: []
-        // },
-    }),
-
-    computed: {
-        curlab() {
-            return this.$store.state.selectedLab;
-        },
-    },
-
-    watch: {
-        dialog(val) {
-            val || this.close();
+            equip_id: "",
+            equip_name: "",
+            equip_qty: 0,
+            lab_id: ""
         }
-    },
-
-    created() {
-        // this.getEquipData();
-    },
-
+    }),
+    created() {},
     methods: {
-        // getEquipData() {
-        //     axios.get("api/equipment").then(Response => {
-        //         this.equips = Response.data;
-        //         console.log(this.equips);
-        //     });
-        // },
-
-        // getLabData() {
-        //     axios.get("api/lab").then(Response => {
-        //         this.labs = Response.data;
-        //         console.log(this.labs);
-        //     });
-        // },
-
+        seteditlab() {
+            this.editedItem.lab_id = this.curlab.id;
+            return this.editedItem.lab_id;
+        },
+        setdefaultlab() {
+            this.defaultItem.lab_id = this.curlab.id;
+            return this.defaultItem.lab_id;
+        },
         editItem(item) {
-            this.editedIndex = this.equips.indexOf(item);
+            this.editedIndex = this.equipments.indexOf(item);
             this.editedItem = Object.assign({}, item);
             this.dialog = true;
+            this.$store.dispatch("loadEquipments");
         },
-
-        deleteItem(id, item) {
-            const index = this.equips.indexOf(item);
+        deleteItem(item) {
+            const index = this.equipments.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
-                this.equips.splice(index, 1);
+                this.equipments.splice(index, 1);
 
             axios
-                .delete("api/equipment/" + item.id)
+                .delete("/api/equipment/" + item.id)
                 .then(response => console.log(response.data));
+
+            this.$store.dispatch("loadEquipments");
         },
 
         close() {
@@ -209,19 +198,76 @@ export default {
 
         save() {
             if (this.editedIndex > -1) {
-                Object.assign(this.equips[this.editedIndex], this.editedItem);
+                Object.assign(
+                    this.equipments[this.editedIndex],
+                    this.editedItem
+                );
                 axios
-                    .put("api/equipment/" + this.editedItem.id, this.editedItem)
+                    .put(
+                        "/api/equipment/" + this.editedItem.id,
+                        this.editedItem
+                    )
                     .then(response => console.log(response.data));
             } else {
-                this.equips.push(this.editedItem);
+                this.equipments.push(this.editedItem);
                 axios
-                    .post("api/equipment", this.editedItem)
+                    .post("/api/equipment/", this.editedItem)
                     .then(response => console.log(response.data));
             }
             this.close();
-            location.reload();
+            this.$store.dispatch("loadEquipments");
+        }
+    },
+    computed: {
+        equipments() {
+            return this.$store.state.equipments;
+        },
+        curlab() {
+            return this.$store.state.selectedLab;
+        },
+        equipmentsinlab() {
+            let selequips =
+                this.equipments.filter(
+                    equipment => equipment.lab_id == this.curlab.id
+                ) || {};
+            return selequips;
+        },
+        filterEquipments: function() {
+            return this.equipmentsinlab.filter(equip => {
+                return equip.equip_name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
+        },
+        formTitle() {
+            return this.editedIndex === -1 ? "New Equipment" : "Edit Equipment";
+        }
+    },
+    watch: {
+        dialog(val) {
+            val || this.close();
         }
     }
 };
 </script>
+
+<style scoped>
+.btn-gradient {
+    background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
+    font-weight: bold;
+}
+
+.blackhref {
+    text-decoration: none;
+    color: #000000;
+}
+
+.whitehref {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+</style>

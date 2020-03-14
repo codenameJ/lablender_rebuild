@@ -154,6 +154,7 @@ export default {
     mounted() {
         // this.getLabData();
         this.$store.dispatch("loadLabs");
+        // this.$store.dispatch("loadEquipments");
     },
     data: () => ({
         dialog: false,

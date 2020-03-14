@@ -16,6 +16,7 @@ class LabController extends Controller
     public function index()
     {
         $labs = Lab::all();
+        // $labs = Lab::with('Ta')->get();
         return response()->json($labs);
     }
 
@@ -42,12 +43,12 @@ class LabController extends Controller
             'course_name' => 'required',
             'professor_name' => 'required',
         ]);
-        $user = Lab::create([
+        $lab = Lab::create([
             'course_id' => $request->course_id,
             'course_name' => $request->course_name,
             'professor_name' => $request->professor_name,
         ]);
-        return response(['message'=>'lab Added', 'lab'=>$user]);
+        return response(['message'=>'lab Added', 'lab'=>$lab]);
     }
 
     /**

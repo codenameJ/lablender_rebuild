@@ -4,17 +4,39 @@ export default{
     state: {
         users: [],
         labs: [],
+        equipments: [],
+        request_lists: [],
+        announcements: [],
+        assigns: [],
+        enrolls: [],
         selectedLab: {},
         selectedUser: {},
     },
     plugins: [createPersistedState()],
     mutations: {
+        //set array data zone
         SetLabs(state, labs){
             state.labs=labs;
         },
         SetUsers(state, users){
             state.users=users;
         },
+        SetEquipments(state, equipments){
+            state.equipments=equipments;
+        },
+        SetRequest_lists(state, request_lists){
+            state.request_lists=request_lists;
+        },
+        SetAnnouncements(state, announcements){
+            state.announcements=announcements;
+        },
+        SetAssigns(state, assigns){
+            state.assigns=assigns;
+        },
+        SetEnrolls(state, enrolls){
+            state.enrolls=enrolls;
+        },
+        //set current zone
         SetCurrentLab(state, selectedLab){
             state.selectedLab=selectedLab;
         },
@@ -23,21 +45,12 @@ export default{
         },
     },
     getters: {
-        getcurrentlab: (state) => (course_id) => {
-            return state.labs.find(lab => lab.course_id === course_id)
-          },
-
-        professerlab: state => {
-            return state.labs.filter(lab => lab.professor_name)
-          },
-        getUser(state) {
-            return state.users;
-        },
     },
     actions: {
+        //load data array zone
         loadLabs({commit}){
             axios.get("/api/lab").then(data => {
-                // console.log(data.data)
+                console.log(data.data)
             let labs = data.data
             commit('SetLabs', labs)
         })
@@ -49,6 +62,42 @@ export default{
             commit('SetUsers', users)
         })
         },
+        loadEquipments({commit}){
+            axios.get("/api/equipment").then(data => {
+                console.log(data.data)
+            let equipments = data.data
+            commit('SetEquipments', equipments)
+        })
+        },
+        loadAnnouncements({commit}){
+            axios.get("/api/announcement").then(data => {
+                console.log(data.data)
+            let announcements = data.data
+            commit('SetAnnouncements', announcements)
+        })
+        },
+        loadRequest_lists({commit}){
+            axios.get("/api/requestlist").then(data => {
+                console.log(data.data)
+            let request_lists = data.data
+            commit('SetRequest_lists', request_lists)
+        })
+        },
+        loadAssigns({commit}){
+            axios.get("/api/assign").then(data => {
+                console.log(data.data)
+            let assigns = data.data
+            commit('SetAssigns', assigns)
+        })
+        },
+        loadEnrolls({commit}){
+            axios.get("/api/enroll").then(data => {
+                console.log(data.data)
+            let enrolls = data.data
+            commit('SetEnrolls', enrolls)
+        })
+        },
+        //load current zone
         currentLab({commit}, curlab){
             commit('SetCurrentLab', curlab)
         },
