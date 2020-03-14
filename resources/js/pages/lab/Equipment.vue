@@ -2,7 +2,7 @@
     <v-content>
         <v-container class="my-5">
             <div class="row justify-content-center">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <v-toolbar>
                         <v-text-field
                             v-model="search"
@@ -13,7 +13,7 @@
                         ></v-text-field>
                     </v-toolbar>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <v-data-table
                         :headers="headers"
                         :items="filterEquipments"

@@ -3,11 +3,6 @@
         <v-container class="my-5">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <v-col cols="12">
-                        <v-row justify="end">
-                            <v-spacer></v-spacer>
-                        </v-row>
-                    </v-col>
                     <v-row dense>
                         <v-col cols="12">
                             <v-toolbar>
@@ -17,33 +12,79 @@
                                     label="Search"
                                     single-line
                                     hide-details
-                                ></v-text-field> </v-toolbar
-                        ></v-col>
+                                ></v-text-field>
+                            </v-toolbar>
+                        </v-col>
+                    </v-row>
 
+                    <v-row>
                         <v-col cols="12">
                             <div
                                 v-for="(item, i) in Requestlistsinlab"
                                 :key="i"
                             >
                                 <v-card class="my-2">
-                                    <div
-                                        class="d-flex flex-no-wrap justify-space-between"
-                                    >
-                                        <div>
-                                            <v-card-title
-                                                v-text="item.id"
-                                            ></v-card-title>
+                                    <v-row>
+                                        <v-card-title
+                                            class="ml-4"
+                                            v-text="item.id"
+                                        ></v-card-title>
+                                        <v-spacer></v-spacer>
+                                        <v-card-actions class=" mr-5">
+                                            <v-btn
+                                                color="primary"
+                                                fab
+                                                x-small
+                                                dark
+                                                outlined
+                                                class="elevation-4 no-underline"
+                                                @click="editItem(item)"
+                                                ><v-icon
+                                                    >mdi-pencil</v-icon
+                                                ></v-btn
+                                            >
+                                            <v-btn
+                                                color="error"
+                                                fab
+                                                x-small
+                                                dark
+                                                outlined
+                                                class="elevation-4 no-underline"
+                                                @click="deleteItem(item)"
+                                            >
+                                                <v-icon>delete_outline</v-icon>
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-row>
 
-                                            <v-card-subtitle
-                                                v-text="
-                                                    getstudent(item.student_id)
-                                                "
-                                            ></v-card-subtitle>
-                                            <v-card-subtitle
+                                    <!-- --------------------------------------------------------------------- -->
+                                    <v-row>
+                                        <v-card-subtitle
+                                            class="ml-4"
+                                            v-text="getstudent(item.student_id)"
+                                        ></v-card-subtitle>
+                                    </v-row>
+
+                                    <v-row>
+                                        <v-card-subtitle class="ml-4">
+                                            <v-select
+                                                label="Status"
+                                                :items="[
+                                                    '',
+                                                    'wait',
+                                                    'ready',
+                                                    'recieve'
+                                                ]"
+                                                v-model="usertype"
+                                                width="10"
+                                                dense
+                                            ></v-select
+                                        ></v-card-subtitle>
+                                    </v-row>
+                                    <!-- <v-card-subtitle
                                                 v-text="item.status"
-                                            ></v-card-subtitle>
-                                        </div>
-                                    </div>
+                                            ></v-card-subtitle> -->
+
                                     <v-data-table
                                         :headers="detail_headers"
                                         :items="item.request_detail"
@@ -53,26 +94,16 @@
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn
-                                            color="primary"
-                                            fab
-                                            x-small
-                                            dark
-                                            outlined
-                                            class="ma-2 elevation-4 no-underline"
-                                            @click="editItem(item)"
-                                            ><v-icon>mdi-pencil</v-icon></v-btn
+                                            color="blue darken-1"
+                                            text
+                                            @click="close"
+                                            >Cancel</v-btn
                                         >
                                         <v-btn
-                                            color="error"
-                                            fab
-                                            x-small
-                                            dark
-                                            outlined
-                                            class="ma-2 elevation-4 no-underline"
-                                            @click="deleteItem(item)"
-                                            ><v-icon
-                                                >delete_outline</v-icon
-                                            ></v-btn
+                                            color="blue darken-1"
+                                            text
+                                            @click="save"
+                                            >Save</v-btn
                                         >
                                     </v-card-actions>
                                 </v-card>

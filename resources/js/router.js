@@ -54,7 +54,7 @@ export default new VueRouter({
         },
         //ta lab page
         {
-            path: '/ta/lab/:course_id',
+            path: '/ta/lab/:course_id/home',
             props: true,
             component: Homecard,
         },
@@ -93,7 +93,7 @@ export default new VueRouter({
         },
         //professor lab page
         {
-            path: '/professor/lab/:course_id',
+            path: '/professor/lab/:course_id/home',
             props: true,
             component: Homecard,
         },
@@ -132,7 +132,7 @@ export default new VueRouter({
         },
         //admin lab page
         {
-            path: '/admin/lab/:course_id',
+            path: '/admin/lab/:course_id/home',
             props: true,
             component: Homecard,
         },
