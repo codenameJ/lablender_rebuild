@@ -12,7 +12,13 @@ class Student extends Model
         'student_id', 'user_id',
     ];
 
-    public function User(){
-        return $this->belongsTo(User::class,'id');
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'id');
+    }
+
+    public function Labs()
+    {
+        return $this->belongsToMany(Lab::class, 'enrolls');
     }
 }
