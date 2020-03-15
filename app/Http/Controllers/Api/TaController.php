@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Assign;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Ta;
 
-class AssignController extends Controller
+class TaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class AssignController extends Controller
      */
     public function index()
     {
-        $assigns = Assign::all();
-        return response()->json($assigns);
+        $ta = Ta::with('Labs')->get();
+        return response()->json($ta);
     }
 
     /**

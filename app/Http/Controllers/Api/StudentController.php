@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Enroll;
 use App\Http\Controllers\Controller;
+use App\Student;
 use Illuminate\Http\Request;
 
-class EnrollController extends Controller
+class StudentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,8 +15,8 @@ class EnrollController extends Controller
      */
     public function index()
     {
-        $enrolls = Enroll::all();
-        return response()->json($enrolls);
+        $students = Student::with('Labs')->get();
+        return response()->json($students);
     }
 
     /**
@@ -37,15 +37,7 @@ class EnrollController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'id' => 'required',
-            'student_id' => 'required',
-        ]);
-        $enroll = Enroll::create([
-            'lab_id' => $request->id,
-            'student_id' => $request->student_id,
-        ]);
-        return response(['message'=>'Enrolled Added', 'enroll'=>$enroll]);
+        //
     }
 
     /**
@@ -88,8 +80,8 @@ class EnrollController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id, $student_id)
+    public function destroy($id)
     {
-        return Enroll::where('lab_id', '=' , $id)->where('student_id', '=', $student_id)->delete();
+        //
     }
 }

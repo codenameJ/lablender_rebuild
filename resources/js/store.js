@@ -3,12 +3,12 @@ import createPersistedState from 'vuex-persistedstate'
 export default{
     state: {
         users: [],
+        tas: [],
+        students: [],
         labs: [],
         equipments: [],
         request_lists: [],
         announcements: [],
-        assigns: [],
-        enrolls: [],
         selectedLab: {},
         selectedUser: {},
     },
@@ -30,11 +30,11 @@ export default{
         SetAnnouncements(state, announcements){
             state.announcements=announcements;
         },
-        SetAssigns(state, assigns){
-            state.assigns=assigns;
+        SetTas(state, tas){
+            state.tas=tas;
         },
-        SetEnrolls(state, enrolls){
-            state.enrolls=enrolls;
+        SetStudents(state, students){
+            state.students=students;
         },
         //set current zone
         SetCurrentLab(state, selectedLab){
@@ -50,51 +50,51 @@ export default{
         //load data array zone
         loadLabs({commit}){
             axios.get("/api/lab").then(data => {
-                console.log(data.data)
+                // console.log(data.data)
             let labs = data.data
             commit('SetLabs', labs)
         })
         },
         loadUsers({commit}){
             axios.get("/api/user").then(data => {
-                console.log(data.data)
+                // console.log(data.data)
             let users = data.data
             commit('SetUsers', users)
         })
         },
         loadEquipments({commit}){
             axios.get("/api/equipment").then(data => {
-                console.log(data.data)
+                // console.log(data.data)
             let equipments = data.data
             commit('SetEquipments', equipments)
         })
         },
         loadAnnouncements({commit}){
             axios.get("/api/announcement").then(data => {
-                console.log(data.data)
+                // console.log(data.data)
             let announcements = data.data
             commit('SetAnnouncements', announcements)
         })
         },
         loadRequest_lists({commit}){
             axios.get("/api/requestlist").then(data => {
-                console.log(data.data)
+                // console.log(data.data)
             let request_lists = data.data
             commit('SetRequest_lists', request_lists)
         })
         },
-        loadAssigns({commit}){
-            axios.get("/api/assign").then(data => {
-                console.log(data.data)
-            let assigns = data.data
-            commit('SetAssigns', assigns)
+        loadTas({commit}){
+            axios.get("/api/ta").then(data => {
+                // console.log(data.data)
+            let tas = data.data
+            commit('SetTas', tas)
         })
         },
-        loadEnrolls({commit}){
-            axios.get("/api/enroll").then(data => {
-                console.log(data.data)
-            let enrolls = data.data
-            commit('SetEnrolls', enrolls)
+        loadStudents({commit}){
+            axios.get("/api/student").then(data => {
+                // console.log(data.data)
+            let students = data.data
+            commit('SetStudents', students)
         })
         },
         //load current zone
