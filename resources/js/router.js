@@ -9,6 +9,8 @@ import About from './pages/mainhome/About';
 import Homecard from './pages/lab/Homecard';
 import Talabs from './pages/ta/Talabs';
 import Professorlabs from './pages/professor/Professorlabs';
+import Professorenrollment from './pages/professor/Professorenrollment';
+import Adminenrollment from './pages/admin/Adminenrollment';
 //admin lab page
 import Equipment from './pages/lab/Equipment';
 import Announcement from './pages/lab/Announcement';
@@ -23,6 +25,8 @@ Vue.component('User', User);
 Vue.component('Homecard', Homecard);
 Vue.component('Talabs', Talabs);
 Vue.component('Professorlabs', Professorlabs);
+Vue.component('Professorenrollment', Professorenrollment);
+Vue.component('Adminenrollment', Adminenrollment);
 //admin lab page
 Vue.component('Equipment', Equipment);
 Vue.component('Announcement', Announcement);
@@ -56,25 +60,25 @@ export default new VueRouter({
         {
             path: '/student/lab/:course_id/equipment',
             props: true,
-            name: 'ta_equipment',
+            name: 'student_equipment',
             component: Equipment,
         },
         {
             path: '/student/lab/:course_id/announcement',
             props: true,
-            name: 'ta_announcement',
+            name: 'student_announcement',
             component: Announcement,
         },
         {
             path: '/student/lab/:course_id/history',
             props: true,
-            name: 'ta_history',
+            name: 'student_history',
             component: History,
         },
         {
             path: '/student/lab/:course_id/request',
             props: true,
-            name: 'ta_request',
+            name: 'student_request',
             component: Request,
         },
         //ta
@@ -118,6 +122,10 @@ export default new VueRouter({
             component: Professorlabs,
         },
         {
+            path: '/professor/enrolls',
+            component: Professorenrollment,
+        },
+        {
             path: '/professor/users',
             component: User,
         },
@@ -155,6 +163,10 @@ export default new VueRouter({
         {
             path: '/admin/labs',
             component: Adminlabs,
+        },
+        {
+            path: '/admin/enrolls',
+            component: Adminenrollment,
         },
         {
             path: '/admin/user',

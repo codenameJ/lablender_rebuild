@@ -18,8 +18,7 @@
                             ></v-tabs-slider> </v-tabs
                     ></v-toolbar>
                     <v-row dense>
-                        <v-col v-for="(item, i) in getstudent" :key="i" cols="12">
-                            <div v-for="(lab, i) in item.labs" :key="i">
+                        <v-col v-for="(item, i) in alllabs" :key="i" cols="12">
                                 <v-card class="my-2">
                                     <div
                                         class="d-flex flex-no-wrap justify-space-between"
@@ -27,7 +26,7 @@
                                         <div>
                                             <v-card-title
                                                 class="headline"
-                                                v-text="lab.course_name"
+                                                v-text="item.course_name"
                                             ></v-card-title>
 
                                         <v-card-subtitle
@@ -35,15 +34,6 @@
                                         ></v-card-subtitle>
                                     </div>
 
-                                    <!-- <v-card-actions>
-                                            <v-btn
-                                                class="ma-2 btn-gradient no-underline white--text"
-                                                :href="
-                                                    '/student/lab/' + lab.course_id + '/home'
-                                                "
-                                                >Enter This Lab</v-btn
-                                            >
-                                        </v-card-actions> -->
                                     <template>
                                         <v-card-actions
                                             v-if="
@@ -86,7 +76,6 @@
                                     </template>
                                 </div>
                             </v-card>
-                            <!-- </div> -->
                         </v-col>
                     </v-row>
                 </div>
@@ -99,7 +88,7 @@ export default {
     mounted() {
         this.$store.dispatch("loadLabs");
         this.$store.dispatch("loadStudents");
-        // console.log(this.getstudent.labs)
+        console.log(this.getstudent)
     },
     data: () => ({
         tabs: null,
