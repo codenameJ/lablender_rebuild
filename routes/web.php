@@ -28,6 +28,8 @@ Route::resource('/lab','LabController');
 // Route::get('/lab/{id}', 'LabController@show');
 Route::get('admin/lab/{id}', 'LabController@show');
 
+
+Route::any('/student/lab/{any?}', 'LabController@index')->where('any','.*')->middleware('auth');
 Route::any('/ta/lab/{any?}', 'LabController@index')->where('any','.*')->middleware('auth');
 Route::any('/professor/lab/{any?}', 'LabController@index')->where('any','.*')->middleware('auth');
 Route::any('/admin/lab/{any?}', 'LabController@index')->where('any','.*')->middleware('auth');

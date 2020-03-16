@@ -19,6 +19,6 @@ class Student extends Model
 
     public function Labs()
     {
-        return $this->belongsToMany(Lab::class, 'enrolls');
+        return $this->belongsToMany(Lab::class, 'enrolls')->withPivot('status');
     }
 }

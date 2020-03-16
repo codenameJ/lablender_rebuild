@@ -47,6 +47,36 @@ export default new VueRouter({
             path: '/labs',
             component: Studentlabs,
         },
+         //student lab page
+         {
+            path: '/student/lab/:course_id/home',
+            props: true,
+            component: Homecard,
+        },
+        {
+            path: '/student/lab/:course_id/equipment',
+            props: true,
+            name: 'ta_equipment',
+            component: Equipment,
+        },
+        {
+            path: '/student/lab/:course_id/announcement',
+            props: true,
+            name: 'ta_announcement',
+            component: Announcement,
+        },
+        {
+            path: '/student/lab/:course_id/history',
+            props: true,
+            name: 'ta_history',
+            component: History,
+        },
+        {
+            path: '/student/lab/:course_id/request',
+            props: true,
+            name: 'ta_request',
+            component: Request,
+        },
         //ta
         {
             path: '/ta/labs',
@@ -54,7 +84,7 @@ export default new VueRouter({
         },
         //ta lab page
         {
-            path: '/ta/lab/:course_id',
+            path: '/ta/lab/:course_id/home',
             props: true,
             component: Homecard,
         },
@@ -93,7 +123,7 @@ export default new VueRouter({
         },
         //professor lab page
         {
-            path: '/professor/lab/:course_id',
+            path: '/professor/lab/:course_id/home',
             props: true,
             component: Homecard,
         },
@@ -132,7 +162,7 @@ export default new VueRouter({
         },
         //admin lab page
         {
-            path: '/admin/lab/:course_id',
+            path: '/admin/lab/:course_id/home',
             props: true,
             component: Homecard,
         },

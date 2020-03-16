@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Lab;
 use App\Student;
 use Illuminate\Http\Request;
 
@@ -37,7 +38,13 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $student = Student::where('id', '=', $request->student_id)->first();
+
+        $lab = Lab::where('id', '=', $request->lab_id)->first();
+
+        $student ->Labs()->attach($lab);
+
+        return response(['message' => 'Enroll Added', 'enroll' => $student]);
     }
 
     /**
@@ -71,7 +78,12 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $lab = Lab::where('id', '=', $request->lab_id)->first();
+        $student = Student::where('id', '=', $request->student_id)->first();
+
+        $student ->Labs()->detach($lab);
+
+        return response(['message' => 'Enroll removed', 'enroll' => $student]);
     }
 
     /**
