@@ -103,7 +103,7 @@
                                     </div>
 
                                     <v-card-actions>
-                                        <span>{{
+                                        <span class="ml-2">{{
                                             getAnnounceBy(item.user_id)
                                         }}</span>
                                         <v-spacer />

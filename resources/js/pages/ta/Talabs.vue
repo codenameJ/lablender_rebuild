@@ -1,9 +1,9 @@
 <template>
     <v-container class="my-5">
-        <v-card>
             <div class="row justify-content-center">
-                <div class="col-md-9">
-                    <h1>Our Labs</h1>
+                <div class="col-md-12">
+                    <v-row dense>
+                    <v-col cols="12">
                     <v-toolbar
                         ><v-tabs background-color="transparent" v-model="tabs">
                             <v-tab style="text-decoration : none;" to=""
@@ -18,7 +18,14 @@
                             <v-tabs-slider
                                 color="white"
                             ></v-tabs-slider> </v-tabs
-                    ></v-toolbar>
+                        ><v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Search"
+                            single-line
+                            hide-details
+                        ></v-text-field
+                    ></v-toolbar></v-col></v-row>
                     <v-row dense>
                         <v-col v-for="(item, i) in getta" :key="i" cols="12">
                             <div v-for="(lab, i) in item.labs" :key="i">
@@ -53,7 +60,6 @@
                     </v-row>
                 </div>
             </div>
-        </v-card>
     </v-container>
 </template>
 
@@ -90,3 +96,14 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.btn-gradient {
+    background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
+    font-weight: bold;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+</style>

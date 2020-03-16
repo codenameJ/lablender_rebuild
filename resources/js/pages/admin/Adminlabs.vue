@@ -136,7 +136,7 @@
                                     <v-btn
                                         dark
                                         class="ma-2 btn-gradient no-underline white--text"
-                                        :href="'/admin/lab/' + item.course_id"
+                                        :href="'/admin/lab/' + item.course_id + '/home'"
                                         >Enter This Lab</v-btn
                                     >
                                 </v-card-actions>

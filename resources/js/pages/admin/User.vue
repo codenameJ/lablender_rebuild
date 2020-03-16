@@ -10,7 +10,7 @@
                         <v-tab style="text-decoration : none;">Professors</v-tab>
                         <v-tabs-slider color="white"></v-tabs-slider>
                     </v-tabs> -->
-                    <v-divider class="mx-4" inset vertical></v-divider>
+                    <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
                     <v-spacer />
                     <v-text-field
                         v-model="search"
@@ -21,6 +21,7 @@
                     ></v-text-field>
                 </v-toolbar>
             </div>
+
             <div class="col-md-9">
                 <v-data-table
                     :headers="headers"
@@ -31,13 +32,13 @@
                         <v-toolbar flat color="white">
                             <v-toolbar-title>User</v-toolbar-title>
                             <v-divider class="mx-4" inset vertical></v-divider>
-                            <v-select
+                            <!-- <v-select
                         label="User Type"
                         :items="['', 'admin','student', 'ta', 'professor']"
                         v-model="usertype"
                         width="10"
                         dense
-                    ></v-select>
+                    ></v-select> -->
                             <v-spacer></v-spacer>
                             <v-dialog v-model="dialog" max-width="500px">
                                 <template v-slot:activator="{ on }">
@@ -49,7 +50,7 @@
                                         >Add User</v-btn
                                     >
                                 </template>
-                                <v-spacer></v-spacer>
+                               
                                 <v-card>
                                     <v-card-title>
                                         <span class="headline">{{
@@ -114,9 +115,7 @@
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="4">
                                                     <v-select
-                                                        v-model="
-                                                            editedItem.type
-                                                        "
+                                                        v-model="editedItem.type"
                                                         :items="selecttype"
                                                         label="Type"
                                                         item-text="name"
@@ -181,6 +180,15 @@
                                 </v-card>
                             </v-dialog>
                         </v-toolbar>
+                        <v-col cols="3">
+                        <v-select
+                        class="ml-1"
+                        label="User Type"
+                        :items="['', 'admin','student', 'ta', 'professor']"
+                        v-model="usertype"
+                        width="10"
+                        dense
+                    ></v-select><v-spacer></v-spacer></v-col>
                     </template>
                     <template v-slot:item.action="{ item }">
                         <v-icon small class="mr-2" @click="editItem(item)">

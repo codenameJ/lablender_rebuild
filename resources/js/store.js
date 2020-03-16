@@ -1,6 +1,6 @@
 import createPersistedState from 'vuex-persistedstate'
 
-export default{
+export default {
     state: {
         users: [],
         tas: [],
@@ -18,8 +18,8 @@ export default{
         SetLabs(state, labs){
             state.labs=labs;
         },
-        SetUsers(state, users){
-            state.users=users;
+        SetUsers(state, users) {
+            state.users = users;
         },
         SetEquipments(state, equipments){
             state.equipments=equipments;
@@ -40,8 +40,8 @@ export default{
         SetCurrentLab(state, selectedLab){
             state.selectedLab=selectedLab;
         },
-        SetCurrentUser(state, selectedUser){
-            state.selectedUser=selectedUser;
+        SetCurrentUser(state, selectedUser) {
+            state.selectedUser = selectedUser;
         },
     },
     getters: {
@@ -55,7 +55,7 @@ export default{
             commit('SetLabs', labs)
         })
         },
-        loadUsers({commit}){
+        loadUsers({ commit }) {
             axios.get("/api/user").then(data => {
                 // console.log(data.data)
             let users = data.data
@@ -101,7 +101,7 @@ export default{
         currentLab({commit}, curlab){
             commit('SetCurrentLab', curlab)
         },
-        currentUser({commit}, curuser){
+        currentUser({ commit }, curuser) {
             commit('SetCurrentUser', curuser)
         },
     },
