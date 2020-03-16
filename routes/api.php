@@ -23,5 +23,5 @@ Route::resource('lab','Api\LabController');
 Route::resource('equipment','Api\EquipmentController');
 Route::resource('requestlist','Api\RequestlistController');
 Route::resource('announcement','Api\AnnouncementController');
-Route::resource('assign','Api\AssignController');
-Route::resource('enroll','Api\EnrollController');
+Route::resource('ta','Api\TaController');
+Route::resource('student','Api\StudentController');

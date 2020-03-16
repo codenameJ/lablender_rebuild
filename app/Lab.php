@@ -17,6 +17,10 @@ class Lab extends Model
         return $this->belongsToMany('App\Ta', 'assigns');
         // return $this->belongsToMany(Lab::class,'assigns');
     }
+    public function Student()
+    {
+        return $this->belongsToMany(Student::class, 'enrolls');
+    }
     public function Equipment(){
         return $this->hasMany('App\Equipment');
     }

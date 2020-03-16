@@ -24,15 +24,6 @@ class UserController extends Controller
         $users = User::with('Student')->with('Ta')->get();
         // $users = User::all();
         return response()->json($users);
-
-        // $users = User::all();
-        // return response()->json($users);
-
-        // $tas = Ta::all();
-        // return response()->json($tas);
-
-        // $students = Student::all();
-        // return response()->json($students);
     }
 
     /**
@@ -79,10 +70,7 @@ class UserController extends Controller
 
             $lab = Lab::where('course_id', '=', $request->lab_id)->first();
 
-            $assign =Assign::create([
-                'ta_id' => $ta->id,
-                'lab_id' => $lab->id,
-            ]);
+            $ta ->Labs()->attach($lab);
 
             return response(['message' => 'ta Added', 'ta' => $ta]);
         }
