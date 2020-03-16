@@ -82,6 +82,9 @@
                         <v-tab style="text-decoration : none;" to="/admin/labs"
                             >Our Labs</v-tab
                         >
+                        <v-tab style="text-decoration : none;" to="/admin/enrolls"
+                            >Manage Enrollment</v-tab
+                        >
                         <v-tab style="text-decoration : none;" to="/admin/user"
                             >Manage User</v-tab
                         >
@@ -104,6 +107,11 @@
                             style="text-decoration : none;"
                             to="/professor/labs"
                             >Our Labs</v-tab
+                        >
+                        <v-tab
+                            style="text-decoration : none;"
+                            to="/professor/enrolls"
+                            >Manage Enroll</v-tab
                         >
                         <v-tab
                             style="text-decoration : none;"
