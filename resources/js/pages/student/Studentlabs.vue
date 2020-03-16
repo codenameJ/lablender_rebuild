@@ -1,9 +1,7 @@
 <template>
     <v-container class="my-5">
-        <v-card>
             <div class="row justify-content-center">
                 <div class="col-md-9">
-                    <h1>Our Labs</h1>
                     <v-toolbar
                         ><v-tabs background-color="transparent" v-model="tabs">
                             <v-tab style="text-decoration : none;" to=""
@@ -20,17 +18,17 @@
                             ></v-tabs-slider> </v-tabs
                     ></v-toolbar>
                     <v-row dense>
-                        <v-col v-for="(item, i) in alllabs" :key="i" cols="12">
-                            <!-- <div v-for="(lab, i) in item.labs" :key="i"> -->
-                            <v-card>
-                                <div
-                                    class="d-flex flex-no-wrap justify-space-between"
-                                >
-                                    <div>
-                                        <v-card-title
-                                            class="headline"
-                                            v-text="item.course_name"
-                                        ></v-card-title>
+                        <v-col v-for="(item, i) in getstudent" :key="i" cols="12">
+                            <div v-for="(lab, i) in item.labs" :key="i">
+                                <v-card class="my-2">
+                                    <div
+                                        class="d-flex flex-no-wrap justify-space-between"
+                                    >
+                                        <div>
+                                            <v-card-title
+                                                class="headline"
+                                                v-text="lab.course_name"
+                                            ></v-card-title>
 
                                         <v-card-subtitle
                                             v-text="item.professor_name"
@@ -39,9 +37,9 @@
 
                                     <!-- <v-card-actions>
                                             <v-btn
-                                                class="ma-2"
+                                                class="ma-2 btn-gradient no-underline white--text"
                                                 :href="
-                                                    '/student/lab/' + item.course_id
+                                                    '/student/lab/' + lab.course_id + '/home'
                                                 "
                                                 >Enter This Lab</v-btn
                                             >
@@ -93,7 +91,6 @@
                     </v-row>
                 </div>
             </div>
-        </v-card>
     </v-container>
 </template>
 
@@ -171,3 +168,24 @@ export default {
     }
 };
 </script>
+
+<style scoped>
+.btn-gradient {
+    background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
+    font-weight: bold;
+}
+
+.blackhref {
+    text-decoration: none;
+    color: #000000;
+}
+
+.whitehref {
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.no-underline {
+    text-decoration: none;
+}
+</style>
