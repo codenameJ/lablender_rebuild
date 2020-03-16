@@ -59,8 +59,7 @@
             <v-navigation-drawer
                 app
                 v-model="drawer"
-                class="background-gradient"
-                src="/img/nav1.png"
+                class="nav-gradient"
                 overlay-opacity="70"
                 absolute
                 dark
@@ -606,5 +605,10 @@ export default {
 .menuhref {
     text-decoration: none;
     color: #ffffff;
+}
+
+.nav-gradient{
+  background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
+  position: fixed;
 }
 </style>

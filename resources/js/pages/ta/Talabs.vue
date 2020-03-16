@@ -29,7 +29,7 @@
                     <v-row dense>
                         <v-col v-for="(item, i) in getta" :key="i" cols="12">
                             <div v-for="(lab, i) in item.labs" :key="i">
-                                <v-card>
+                                <v-card class="my-2">
                                     <div
                                         class="d-flex flex-no-wrap justify-space-between"
                                     >
@@ -46,9 +46,9 @@
 
                                         <v-card-actions>
                                             <v-btn
-                                                class="ma-2"
+                                                class="ma-2 btn-gradient no-underline white--text"
                                                 :href="
-                                                    '/ta/lab/' + lab.course_id
+                                                    '/ta/lab/' + lab.course_id + '/home'
                                                 "
                                                 >Enter This Lab</v-btn
                                             >
