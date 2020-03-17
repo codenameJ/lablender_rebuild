@@ -1,7 +1,7 @@
 <template>
     <v-container class="mx-auto">
         <div class="row justify-content-center">
-            <div class="col-12">
+            <div class="col-9">
                 <v-col cols="12">
                     <v-row justify="end">
                         <v-spacer></v-spacer>
@@ -76,7 +76,7 @@
                 <v-row dense>
                     <v-col cols="12"
                         >
-                    <v-toolbar
+                    <v-toolbar class="mb-3"
                         ><v-tabs background-color="transparent" v-model="tabs">
                             <v-tab style="text-decoration : none;" to=""
                                 >All</v-tab
@@ -94,7 +94,7 @@
 
                     <v-col cols="12">
                         <div v-for="(item, i) in filterLab" :key="i">
-                            <v-card class="my-2">
+                            <v-card class="mb-3">
                                 <div
                                     class="d-flex flex-no-wrap justify-space-between"
                                 >
@@ -137,7 +137,7 @@
                                         dark
                                         class="ma-2 btn-gradient no-underline white--text"
                                         :href="'/admin/lab/' + item.course_id + '/home'"
-                                        >Enter This Lab</v-btn
+                                        >Enter Lab</v-btn
                                     >
                                 </v-card-actions>
                             </v-card>
@@ -190,7 +190,7 @@ export default {
         },
         deleteItem(item) {
             const index = this.labs.indexOf(item);
-            confirm("Are you sure you want to delete this item?") &&
+            confirm("Are you sure you want to delete " + item.course_name + " ?") &&
                 this.labs.splice(index, 1);
 
             axios

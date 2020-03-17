@@ -1,7 +1,7 @@
 <template>
     <v-container class="my-5">
         <div class="row justify-content-center">
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <v-toolbar>
                     <!-- <v-tabs background-color="transparent" v-model="tabs">
                         <v-tab style="text-decoration : none;">All</v-tab>
@@ -22,7 +22,7 @@
                 </v-toolbar>
             </div>
 
-            <div class="col-md-9">
+            <div class="col-md-12">
                 <v-data-table
                     :headers="headers"
                     :items="filterType"
@@ -236,7 +236,7 @@ export default {
                 sortable: false,
                 value: "email"
             },
-            { text: "Phone", value: "phone" },
+            { text: "Phone", value: "phone", sortable: false},
             { text: "Type", value: "type" },
             { text: "Actions", value: "action", sortable: false }
         ],

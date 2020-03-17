@@ -2,7 +2,7 @@
     <div id="app">
         <v-container class="my-5">
             <div class="row justify-content-center">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <v-col cols="12">
                         <v-row justify="end">
                             <v-spacer></v-spacer>
@@ -22,7 +22,7 @@
                             <v-text-field
                                 v-model="search"
                                 append-icon="search"
-                                label="Search"
+                                label="Search for lab..."
                                 single-line
                                 hide-details
                             ></v-text-field>
@@ -40,13 +40,13 @@
                                             ></v-card-title>
                                         </div>
                                     </div>
-                                    <table class="table">
+                                    <table class="table" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th>student id</th>
-                                                <th>student Name</th>
-                                                <th>status</th>
-                                                <th>action</th>
+                                                <th style="width:25%">Student ID</th>
+                                                <th style="width:25%">Student Name</th>
+                                                <th style="width:25%">Status</th>
+                                                <th style="width:25%">Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -75,8 +75,9 @@
                                                 >
                                                     <v-btn
                                                         small
+                                                        outlined
                                                         rounded
-                                                        class="elevation-2"
+                                                        class="elevation-2 mr-2"
                                                         color="success"
                                                         @click="
                                                             acceptenroll(
@@ -95,6 +96,7 @@
                                                     </v-btn>
                                                     <v-btn
                                                         small
+                                                        outlined
                                                         rounded
                                                         class="elevation-2"
                                                         color="error"
@@ -109,7 +111,7 @@
                                                             small
                                                             class="mr-2"
                                                             left
-                                                            >add_circle_outline</v-icon
+                                                            >remove_circle_outline</v-icon
                                                         >
                                                         Decline
                                                     </v-btn>
@@ -117,6 +119,7 @@
                                                 <td v-else>
                                                     <v-btn
                                                         small
+                                                        outlined
                                                         rounded
                                                         class="elevation-2"
                                                         color="error"
@@ -131,7 +134,7 @@
                                                             small
                                                             class="mr-2"
                                                             left
-                                                            >add_circle_outline</v-icon
+                                                            >remove_circle_outline</v-icon
                                                         >
                                                         Remove
                                                     </v-btn>
@@ -157,7 +160,7 @@ export default {
     data: () => ({
         search: "",
         tabs: null,
-        student_headers: [{ text: "Student ID", value: "student_id" }]
+        student_headers: [{ text: "Student ID", value: "student_id" }],
     }),
     created() {},
     methods: {
@@ -166,7 +169,7 @@ export default {
             return stdname.name;
         },
         canceledenrolled(item, std) {
-            if (confirm("Are you sure you want to canceled this enrolled?")) {
+            if (confirm("Are you sure you want to cancel " + std.student_id + " enrollment?")) {
                 axios
                     .put("/api/enroll/" + item.id, {
                         student_id: std.id,
@@ -178,7 +181,7 @@ export default {
             }
         },
         acceptenroll(item, std) {
-            if (confirm("Are you sure you want to accept this enrolled?")) {
+            if (confirm("Are you sure you want to accept " + std.student_id + " enrollment?")) {
                 axios
                     .put("/api/enroll/" + item.id, {
                         student_id: std.id,

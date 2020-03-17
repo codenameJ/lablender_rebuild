@@ -24,8 +24,7 @@
                                 <v-card>
                                     <v-card-text>
                                         <v-container>
-                                            <v-col>
-                                                <v-col cols="12">
+                                            <h2 class="my-3">Add Announcement</h2>
                                                     <v-text-field
                                                         color="teal"
                                                         v-model="
@@ -39,8 +38,6 @@
                                                             </div>
                                                         </template>
                                                     </v-text-field>
-                                                </v-col>
-                                            </v-col>
                                             <v-row>
                                                 <v-col cols="12">
                                                     <v-textarea

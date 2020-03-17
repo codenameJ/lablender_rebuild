@@ -111,7 +111,7 @@
                         <v-tab
                             style="text-decoration : none;"
                             to="/professor/enrolls"
-                            >Manage Enroll</v-tab
+                            >Manage Enrollment</v-tab
                         >
                         <v-tab
                             style="text-decoration : none;"

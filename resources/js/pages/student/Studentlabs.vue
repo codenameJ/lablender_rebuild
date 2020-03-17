@@ -1,85 +1,100 @@
 <template>
     <v-container class="my-5">
-            <div class="row justify-content-center">
-                <div class="col-md-9">
-                    <v-toolbar
-                        ><v-tabs background-color="transparent" v-model="tabs">
-                            <v-tab style="text-decoration : none;" to=""
-                                >All</v-tab
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <v-row dense>
+                    <v-col cols="12">
+                        <v-toolbar class="mb-4"
+                            ><v-tabs
+                                background-color="transparent"
+                                v-model="tabs"
                             >
-                            <v-tab style="text-decoration : none;" to=""
-                                >Enrolled</v-tab
+                                <v-tab style="text-decoration : none;" to=""
+                                    >All</v-tab
+                                >
+                                <v-tab style="text-decoration : none;" to=""
+                                    >Enrolled</v-tab
+                                >
+                                <v-tab style="text-decoration : none;" to=""
+                                    >Pending</v-tab
+                                >
+                                <v-tabs-slider
+                                    color="white"
+                                ></v-tabs-slider> </v-tabs
+                            ><v-text-field
+                                v-model="search"
+                                append-icon="search"
+                                label="Search"
+                                single-line
+                                hide-details
+                            ></v-text-field></v-toolbar></v-col
+                ></v-row>
+                <v-row dense>
+                    <v-col v-for="(item, i) in filterLab" :key="i" cols="12">
+                        <v-card class="mb-1">
+                            <div
+                                class="d-flex flex-no-wrap justify-space-between"
                             >
-                            <v-tab style="text-decoration : none;" to=""
-                                >Pending</v-tab
-                            >
-                            <v-tabs-slider
-                                color="white"
-                            ></v-tabs-slider> </v-tabs
-                    ></v-toolbar>
-                    <v-row dense>
-                        <v-col v-for="(item, i) in alllabs" :key="i" cols="12">
-                                <v-card class="my-2">
-                                    <div
-                                        class="d-flex flex-no-wrap justify-space-between"
-                                    >
-                                        <div>
-                                            <v-card-title
-                                                class="headline"
-                                                v-text="item.course_name"
-                                            ></v-card-title>
+                                <div>
+                                    <v-card-title
+                                        class="headline"
+                                        v-text="item.course_name"
+                                    ></v-card-title>
 
-                                        <v-card-subtitle
-                                            v-text="item.professor_name"
-                                        ></v-card-subtitle>
-                                    </div>
-
-                                    <template>
-                                        <v-card-actions
-                                            v-if="
-                                                getEnrollStatus(item) ==
-                                                    'pending'
-                                            "
-                                        >
-                                            <v-btn class="ma-2" disabled
-                                                >pending</v-btn
-                                            >
-                                            <v-btn
-                                                class="ma-2"
-                                                @click="canceledenrolled(item)"
-                                                >Canceled</v-btn
-                                            >
-                                        </v-card-actions>
-                                        <v-card-actions
-                                            v-else-if="
-                                                getEnrollStatus(item) ==
-                                                    'joined'
-                                            "
-                                        >
-                                            <v-btn
-                                                class="ma-2"
-                                                dark
-                                                :href="
-                                                    '/student/lab/' +
-                                                        item.course_id + '/home'
-                                                "
-                                                >Enter This Labs</v-btn
-                                            >
-                                        </v-card-actions>
-                                        <v-card-actions v-else>
-                                            <v-btn
-                                                class="ma-2"
-                                                @click="jointhislab(item)"
-                                                >Joined This Lab</v-btn
-                                            >
-                                        </v-card-actions>
-                                    </template>
+                                    <v-card-subtitle
+                                        v-text="item.professor_name"
+                                    ></v-card-subtitle>
                                 </div>
-                            </v-card>
-                        </v-col>
-                    </v-row>
-                </div>
+
+                                <template>
+                                    <v-card-actions
+                                        v-if="
+                                            getEnrollStatus(item) == 'pending'
+                                        "
+                                    >
+                                        <v-btn class="ma-2" disabled
+                                            >pending</v-btn
+                                        >
+                                        <v-btn
+                                            text
+                                            color="#757575"
+                                            class="ma-2"
+                                            @click="canceledenrolled(item)"
+                                            >Cancel</v-btn
+                                        >
+                                    </v-card-actions>
+                                    <v-card-actions
+                                        v-else-if="
+                                            getEnrollStatus(item) == 'joined'
+                                        "
+                                    >
+                                        <v-btn
+                                            class="ma-2 elevation-2 btn-gradient no-underline"
+                                            dark
+                                            :href="
+                                                '/student/lab/' +
+                                                    item.course_id +
+                                                    '/home'
+                                            "
+                                            >Enter Lab</v-btn
+                                        >
+                                    </v-card-actions>
+                                    <v-card-actions v-else>
+                                        <v-btn
+                                            outlined
+                                            color="indigo"
+                                            class="ma-2 elevation-2"
+                                            @click="jointhislab(item)"
+                                            >Enroll</v-btn
+                                        >
+                                    </v-card-actions>
+                                </template>
+                            </div>
+                        </v-card>
+                    </v-col>
+                </v-row>
             </div>
+        </div>
     </v-container>
 </template>
 
@@ -88,11 +103,12 @@ export default {
     mounted() {
         this.$store.dispatch("loadLabs");
         this.$store.dispatch("loadStudents");
-        console.log(this.getstudent)
+        console.log(this.getstudent);
     },
     data: () => ({
         tabs: null,
-        dialog: false
+        dialog: false,
+        search: "",
     }),
     created() {},
     methods: {
@@ -107,7 +123,11 @@ export default {
             }
         },
         jointhislab(item) {
-            if (confirm("Are you sure you want to join this Lab?")) {
+            if (
+                confirm(
+                    "Are you sure you want to enroll " + item.course_name + "?"
+                )
+            ) {
                 axios
                     .post("/api/student", {
                         student_id: this.currentuser.student.id,
@@ -119,7 +139,13 @@ export default {
             }
         },
         canceledenrolled(item) {
-            if (confirm("Are you sure you want to canceled this enrolled?")) {
+            if (
+                confirm(
+                    "Are you sure you want to cancel " +
+                        item.course_name +
+                        " enrollment?"
+                )
+            ) {
                 axios
                     .put("/api/student/" + item.id, {
                         student_id: this.currentuser.student.id,
@@ -147,6 +173,13 @@ export default {
                     std => std.id == this.currentuser.student.id
                 ) || {};
             return studentlab;
+        },
+        filterLab: function() {
+            return this.alllabs.filter(lab => {
+                return lab.course_name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
         },
         activeFab() {
             switch (this.tabs) {
