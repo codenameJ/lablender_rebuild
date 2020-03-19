@@ -32,9 +32,10 @@
                             <br>
                             
                                 <v-btn
-                                    style="text-decoration: none; font-family: 'Kanit'; color : #FFFFFF;"
+                                    color="#3bad90"
+                                    outlined
+                                    style="text-decoration: none; font-family: 'Kanit'; font-size: 20px;"
                                     href="/login"
-                                    class="button-btn-gradient"
                                     x-large
                                 >
                                     เริ่มต้นใช้งาน
@@ -127,6 +128,17 @@
     background-color: #0c0b0b;
     background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
     font-weight: bold;
+}
+
+.outlined-gradient-button{
+    background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9),linear-gradient(to bottom, #2ad4d9, #2ad4a9); 
+    border-top: 2px solid #2ad4d9;
+    border-bottom:2px solid #2ad4a9; 
+    border-right:0px solid #2ad4a9; 
+    border-left:0px solid #2ad4a9; 
+    background-size: 2px 100%;
+    background-position:0 0, 100% 0;
+    background-repeat:no-repeat;
 }
 
 div.flex-container {
