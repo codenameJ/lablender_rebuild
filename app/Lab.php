@@ -19,7 +19,7 @@ class Lab extends Model
     }
     public function Student()
     {
-        return $this->belongsToMany(Student::class, 'enrolls');
+        return $this->belongsToMany(Student::class, 'enrolls')->withPivot('status');
     }
     public function Equipment(){
         return $this->hasMany('App\Equipment');

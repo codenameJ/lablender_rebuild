@@ -1,10 +1,10 @@
 <template>
     <v-container class="my-5">
             <div class="row justify-content-center">
-                <div class="col-md-12">
+                <div class="col-md-9">
                     <v-row dense>
                     <v-col cols="12">
-                    <v-toolbar
+                    <v-toolbar class="mb-4"
                         ><v-tabs background-color="transparent" v-model="tabs">
                             <v-tab style="text-decoration : none;" to=""
                                 >All</v-tab
@@ -29,7 +29,7 @@
                     <v-row dense>
                         <v-col v-for="(item, i) in getta" :key="i" cols="12">
                             <div v-for="(lab, i) in item.labs" :key="i">
-                                <v-card class="my-2">
+                                <v-card class="mb-3">
                                     <div
                                         class="d-flex flex-no-wrap justify-space-between"
                                     >
@@ -46,11 +46,12 @@
 
                                         <v-card-actions>
                                             <v-btn
-                                                class="ma-2 btn-gradient no-underline white--text"
+                                                class="ma-2 elevation-2 no-underline white--text"
+                                                color="#1a73e8"
                                                 :href="
                                                     '/ta/lab/' + lab.course_id + '/home'
                                                 "
-                                                >Enter This Lab</v-btn
+                                                >Enter Lab</v-btn
                                             >
                                         </v-card-actions>
                                     </div>

@@ -25,3 +25,4 @@ Route::resource('requestlist','Api\RequestlistController');
 Route::resource('announcement','Api\AnnouncementController');
 Route::resource('ta','Api\TaController');
 Route::resource('student','Api\StudentController');
+Route::resource('enroll','Api\EnrollController');

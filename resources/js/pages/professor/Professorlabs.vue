@@ -76,7 +76,7 @@
                         </v-row>
                     </v-col>
                     <v-row dense>
-                        <v-toolbar
+                        <v-toolbar class="mb-3"
                             ><v-tabs
                                 background-color="transparent"
                                 v-model="tabs"
@@ -96,7 +96,7 @@
                         </v-toolbar>
                         <v-col cols="12">
                             <div v-for="(item, i) in filterLab" :key="i">
-                                <v-card class="my-2">
+                                <v-card class="mb-3">
                                     <div
                                         class="d-flex flex-no-wrap justify-space-between"
                                     >
@@ -139,11 +139,12 @@
                                         <v-spacer></v-spacer>
                                         <v-btn
                                             dark
-                                            class="ma-2 btn-gradient no-underline white--text"
+                                            class="ma-2 elevation-2 no-underline white--text"
+                                            color="#1a73e8"
                                             :href="
                                                 '/professor/lab/' + item.course_id + '/home'
                                             "
-                                            >Enter This Lab</v-btn
+                                            >Enter Lab</v-btn
                                         >
                                     </v-card-actions>
                                 </v-card>
@@ -198,7 +199,7 @@ export default {
         },
         deleteItem(item) {
             const index = this.labs.indexOf(item);
-            confirm("Are you sure you want to delete this item?") &&
+            confirm("Are you sure you want to delete " + item.course_name + " ?") &&
                 this.labs.splice(index, 1);
 
             axios

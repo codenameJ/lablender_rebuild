@@ -64,17 +64,6 @@
                             เลือกแลปที่ต้องการเข้าร่วม
                         </v-card-subtitle>
 
-                        <!-- <v-card-actions class="justify-center">
-                            <v-btn
-                                href="/labs"
-                                color="#f7797d"
-                                style="text-decoration : none;"
-                                text
-                                right
-                            >
-                                OUR LABS
-                            </v-btn>
-                        </v-card-actions> -->
                     </v-card>
                     <v-card class="mx-auto mb-5" max-width="400">
                         <v-img src="/img/labhowto2.png" height="200px"></v-img>
@@ -86,12 +75,6 @@
                         <v-card-subtitle class="d-flex justify-center">
                             กด Request เพื่อขอเข้าร่วมแลป
                         </v-card-subtitle>
-
-                        <!-- <v-card-actions class="justify-center">
-                            <v-btn color="#5d26c1" text right>
-                                LENDING CART
-                            </v-btn>
-                        </v-card-actions>-->
                     </v-card>
 
                     <v-card class="mx-auto mb-5" max-width="344">
@@ -104,18 +87,6 @@
                         <v-card-subtitle class="d-flex justify-center">
                             เมื่ออาจารย์รับเข้าแลป สามารถเริ่มต้นยืมของได้ทันที
                         </v-card-subtitle>
-
-                        <!-- <v-card-actions class="justify-center">
-                            <v-btn
-                                href=""
-                                color="#11998e"
-                                style="text-decoration : none;"
-                                text
-                                right
-                            >
-                                YOUR REQUESTS
-                            </v-btn>
-                        </v-card-actions> -->
                     </v-card>
                 </div>
             </div>
@@ -128,17 +99,6 @@
     background-color: #0c0b0b;
     background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
     font-weight: bold;
-}
-
-.outlined-gradient-button{
-    background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9),linear-gradient(to bottom, #2ad4d9, #2ad4a9); 
-    border-top: 2px solid #2ad4d9;
-    border-bottom:2px solid #2ad4a9; 
-    border-right:0px solid #2ad4a9; 
-    border-left:0px solid #2ad4a9; 
-    background-size: 2px 100%;
-    background-position:0 0, 100% 0;
-    background-repeat:no-repeat;
 }
 
 div.flex-container {

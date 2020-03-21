@@ -20,12 +20,21 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit|Prompt|Roboto&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
+    
+<!-- 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"> -->
 
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
-
+    
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
         #navbar {
             position: fixed;
             width: 100%;
@@ -42,7 +51,7 @@
         .footer {
             padding: 7px;
             width: 100%;
-            background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
+            background-image: linear-gradient(to right, #2ad4d9, #2ad4aa);
             color: white;
             text-align: center;
         }
@@ -73,8 +82,8 @@
         </v-app>
     </div>
 
-    <div class="footer mt-5" >
-        <p>&copy; Copyright CPE#25 Chiang Mai University</p>
+    <div dark class="footer mt-5">
+        <p class="mt-2" style="font-family: 'Roboto">&copy; Copyright CPE CMU 2020</p>
     </div>
 
 </body>
