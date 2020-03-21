@@ -26,15 +26,31 @@
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        #navbar {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 99;
+        }
+
         #fixedbutton {
             position: fixed;
             bottom: 550px;
             right: 550px;
         }
 
-       body{
+        .footer {
+            padding: 7px;
+            width: 100%;
+            background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
+            color: white;
+            text-align: center;
+        }
+
+        body {
             font-family: 'Kanit';
-       }
+            background-color: white
+        }
     </style>
 
 
@@ -44,16 +60,21 @@
 
     <div id="app">
         <v-app>
-
-
             <!-- <applayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}"></applayout> -->
-            <homelayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}"></homelayout>
+            <div id="navbar">
+                <homelayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}"></homelayout>
+            </div>
 
 
+            <br><br><br><br><br><br><br><br>
             <v-col class="md-9">
                 @yield('content')
             </v-col>
         </v-app>
+    </div>
+
+    <div class="footer mt-5" >
+        <p>&copy; Copyright CPE#25 Chiang Mai University</p>
     </div>
 
 </body>
