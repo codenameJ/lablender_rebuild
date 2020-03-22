@@ -1,7 +1,7 @@
 <template>
     <v-container class="mx-auto">
         <div class="row justify-content-center">
-            <div class="col-9">
+            <div class="col-12">
                 <v-col cols="12">
                     <v-row justify="end">
                         <v-spacer></v-spacer>
@@ -136,13 +136,9 @@
 
                                     <v-spacer></v-spacer>
                                     <v-btn
-                                        dark
-                                        class="ma-2 btn-gradient no-underline white--text"
-                                        :href="
-                                            '/admin/lab/' +
-                                                item.course_id +
-                                                '/home'
-                                        "
+                                        class="ma-2 elevation-2 no-underline white--text"
+                                        color="#1a73e8"
+                                        :href="'/admin/lab/' + item.course_id + '/home'"
                                         >Enter Lab</v-btn
                                     >
                                 </v-card-actions>
