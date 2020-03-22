@@ -136,6 +136,11 @@
                         <v-tab style="text-decoration : none;" to="/ta/labs"
                             >Our Labs</v-tab
                         >
+                        <v-tab
+                            style="text-decoration : none;"
+                            to="/ta/enrolls"
+                            >Manage Enrollment</v-tab
+                        >
                         <v-tab style="text-decoration : none;" to="/about"
                             >About</v-tab
                         >

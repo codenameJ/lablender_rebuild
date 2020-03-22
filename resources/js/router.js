@@ -11,11 +11,16 @@ import Talabs from './pages/ta/Talabs';
 import Professorlabs from './pages/professor/Professorlabs';
 import Professorenrollment from './pages/professor/Professorenrollment';
 import Adminenrollment from './pages/admin/Adminenrollment';
+import Taenrollment from './pages/ta/Taenrollment'
 //admin lab page
 import Equipment from './pages/lab/Equipment';
 import Announcement from './pages/lab/Announcement';
 import History from './pages/lab/History';
 import Request from './pages/lab/Request';
+
+//student lab page
+import StudentEquipment from './pages/lab/StudentEquipment'
+import StudentRequest from './pages/lab/StudentRequest';
 
 Vue.component('Home', Home);
 Vue.component('Adminlabs', Adminlabs);
@@ -27,11 +32,16 @@ Vue.component('Talabs', Talabs);
 Vue.component('Professorlabs', Professorlabs);
 Vue.component('Professorenrollment', Professorenrollment);
 Vue.component('Adminenrollment', Adminenrollment);
+Vue.component('Taenrollment', Taenrollment);
 //admin lab page
 Vue.component('Equipment', Equipment);
 Vue.component('Announcement', Announcement);
 Vue.component('History', History);
 Vue.component('Request', Request);
+
+//student lab page
+Vue.component('StudentEquipment', StudentEquipment);
+Vue.component('StudentRequest', StudentRequest);
 
 Vue.use(VueRouter);
 
@@ -61,7 +71,7 @@ export default new VueRouter({
             path: '/student/lab/:course_id/equipment',
             props: true,
             name: 'student_equipment',
-            component: Equipment,
+            component: StudentEquipment,
         },
         {
             path: '/student/lab/:course_id/announcement',
@@ -79,12 +89,16 @@ export default new VueRouter({
             path: '/student/lab/:course_id/request',
             props: true,
             name: 'student_request',
-            component: Request,
+            component: StudentRequest,
         },
         //ta
         {
             path: '/ta/labs',
             component: Talabs,
+        },
+        {
+            path: '/ta/enrolls',
+            component: Taenrollment,
         },
         //ta lab page
         {
