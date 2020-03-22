@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Equipment;
 use App\Http\Controllers\Controller;
+use App\Request_detail;
 use App\Request_list;
 use Illuminate\Http\Request;
 
@@ -38,7 +40,35 @@ class RequestlistController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'student_id' => 'required',
+            'lab_id' => 'required',
+        ]);
+        $request_list = Request_list::create([
+            'student_id' => $request->student_id,
+            'lab_id' => $request->lab_id,
+        ]);
+
+        $data = $request->json()->all();
+
+        if ($request_list->id) {
+
+            foreach ($data['cart'] as $getcart) {
+                $request_detail = new Request_detail();
+                $request_detail->request_list_id = $request_list->id;
+                $request_detail->equipment_id = $getcart['id'];
+                $request_detail->len_qty = $getcart['amount'];
+                $request_detail->save();
+
+                $equipment = Equipment::where('id', '=', $getcart['id'])->first();
+                $oldqty = $equipment->equip_qty;
+                $newqty = $oldqty - $getcart['amount'];
+                $equipment->update([
+                    'equip_qty' => $newqty,
+                ]);
+            }
+            return response(['message' => 'requestlist Added', 'request' => $request_list]);
+        }
     }
 
     /**

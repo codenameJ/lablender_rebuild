@@ -1,65 +1,70 @@
 <template>
     <v-container class="my-5">
-            <div class="row justify-content-center">
-                <div class="col-md-9">
-                    <v-row dense>
+        <div class="row justify-content-center">
+            <div class="col-md-9">
+                <v-row dense>
                     <v-col cols="12">
-                    <v-toolbar class="mb-4"
-                        ><v-tabs background-color="transparent" v-model="tabs">
-                            <v-tab style="text-decoration : none;" to=""
-                                >All</v-tab
+                        <v-toolbar class="mb-4"
+                            ><v-tabs
+                                background-color="transparent"
+                                v-model="tabs"
                             >
-                            <v-tab style="text-decoration : none;" to=""
-                                >Enrolled</v-tab
-                            >
-                            <v-tab style="text-decoration : none;" to=""
-                                >Pending</v-tab
-                            >
-                            <v-tabs-slider
-                                color="white"
-                            ></v-tabs-slider> </v-tabs
-                        ><v-text-field
-                            v-model="search"
-                            append-icon="search"
-                            label="Search"
-                            single-line
-                            hide-details
-                        ></v-text-field
-                    ></v-toolbar></v-col></v-row>
-                    <v-row dense>
-                        <v-col v-for="(item, i) in getta" :key="i" cols="12">
-                            <div v-for="(lab, i) in item.labs" :key="i">
-                                <v-card class="mb-3">
-                                    <div
-                                        class="d-flex flex-no-wrap justify-space-between"
-                                    >
-                                        <div>
-                                            <v-card-title
-                                                class="headline"
-                                                v-text="lab.course_name"
-                                            ></v-card-title>
+                                <v-tab style="text-decoration : none;" to=""
+                                    >All</v-tab
+                                >
+                                <v-tab style="text-decoration : none;" to=""
+                                    >Enrolled</v-tab
+                                >
+                                <v-tab style="text-decoration : none;" to=""
+                                    >Pending</v-tab
+                                >
+                                <v-tabs-slider
+                                    color="white"
+                                ></v-tabs-slider> </v-tabs
+                            ><v-text-field
+                                v-model="search"
+                                append-icon="search"
+                                label="Search"
+                                single-line
+                                hide-details
+                            ></v-text-field></v-toolbar></v-col
+                ></v-row>
+                <v-row dense>
+                    <v-col v-for="(item, i) in getta" :key="i" cols="12">
+                        <div v-for="(lab, i) in item.labs" :key="i">
+                            <v-card class="mb-3">
+                                <div
+                                    class="d-flex flex-no-wrap justify-space-between"
+                                >
+                                    <div>
+                                        <v-card-title
+                                            class="headline"
+                                            v-text="lab.course_name"
+                                        ></v-card-title>
 
-                                            <v-card-subtitle
-                                                v-text="lab.professor_name"
-                                            ></v-card-subtitle>
-                                        </div>
-
-                                        <v-card-actions>
-                                            <v-btn
-                                                class="ma-2 btn-gradient no-underline white--text"
-                                                :href="
-                                                    '/ta/lab/' + lab.course_id + '/home'
-                                                "
-                                                >Enter Lab</v-btn
-                                            >
-                                        </v-card-actions>
+                                        <v-card-subtitle
+                                            v-text="lab.professor_name"
+                                        ></v-card-subtitle>
                                     </div>
-                                </v-card>
-                            </div>
-                        </v-col>
-                    </v-row>
-                </div>
+
+                                    <v-card-actions>
+                                        <v-btn
+                                            class="ma-2 btn-gradient no-underline white--text"
+                                            :href="
+                                                '/ta/lab/' +
+                                                    lab.course_id +
+                                                    '/home'
+                                            "
+                                            >Enter Lab</v-btn
+                                        >
+                                    </v-card-actions>
+                                </div>
+                            </v-card>
+                        </div>
+                    </v-col>
+                </v-row>
             </div>
+        </div>
     </v-container>
 </template>
 
@@ -70,11 +75,11 @@ export default {
     },
     data: () => ({
         labs: [],
-        tabs: null
+        tabs: null,
+        search: "",
     }),
     created() {},
-    methods: {
-    },
+    methods: {},
     computed: {
         tas() {
             return this.$store.state.tas;
@@ -86,6 +91,13 @@ export default {
             let talab =
                 this.tas.filter(ta => ta.id == this.currentuser.ta.id) || {};
             return talab;
+        },
+        filterLab: function() {
+            return this.getta.labs.filter(lab => {
+                return lab.course_name
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
         },
         activeFab() {
             switch (this.tabs) {

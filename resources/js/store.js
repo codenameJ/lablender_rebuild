@@ -11,6 +11,8 @@ export default {
         announcements: [],
         selectedLab: {},
         selectedUser: {},
+
+        cart:[],
     },
     plugins: [createPersistedState()],
     mutations: {
@@ -35,6 +37,30 @@ export default {
         },
         SetStudents(state, students){
             state.students=students;
+        },
+        //cart
+        addToCart(state, item){
+            let found = state.cart.find(product => product.equip_id == item.equip_id);
+            
+            if(found){
+                var oldamount = parseInt(found.amount);
+                var inamount = parseInt(item.amount);
+                var total = oldamount + inamount;
+                found.amount = total;
+            }else{
+            state.cart.push(item);
+            }
+            // state.cart.push(item);
+        },
+        removeFromCart(state, index){
+            // let index = state.cart.indexOf(item);
+            state.cart.splice(index,1);
+        },
+        clearCart(state, cartlength){
+            state.cart.splice(0, cartlength);
+        },
+        SetNewCart(state, cartlength){
+            state.cart.splice(0, cartlength);
         },
         //set current zone
         SetCurrentLab(state, selectedLab){
@@ -97,6 +123,7 @@ export default {
             commit('SetStudents', students)
         })
         },
+        //cart
         //load current zone
         currentLab({commit}, curlab){
             commit('SetCurrentLab', curlab)

@@ -75,7 +75,6 @@
                                                     'ready',
                                                     'recieve'
                                                 ]"
-                                                v-model="usertype"
                                                 width="10"
                                                 dense
                                             ></v-select
@@ -91,7 +90,7 @@
                                         hide-default-footer
                                     >
                                     </v-data-table>
-                                    <v-card-actions>
+                                    <!-- <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn
                                             color="blue darken-1"
@@ -105,7 +104,7 @@
                                             @click="save"
                                             >Save</v-btn
                                         >
-                                    </v-card-actions>
+                                    </v-card-actions> -->
                                 </v-card>
                             </div>
                         </v-col>

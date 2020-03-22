@@ -7,6 +7,7 @@
                 ></v-app-bar-nav-icon>
                 <v-toolbar-title>Lab Lender</v-toolbar-title>
                 <v-spacer></v-spacer>
+                <lendingcart />
                 <v-btn icon>
                     <v-icon>notifications</v-icon>
                 </v-btn>
@@ -164,67 +165,6 @@
                             </v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
-
-                    <!-- <v-list-group no-action>
-                        <v-list-item slot="activator">
-                            <v-list-item-action>
-                                <v-icon>account_circle</v-icon>
-                            </v-list-item-action>
-                            <v-list-item-content>
-                                <v-list-item-title
-                                    >จัดการผู้ใช้</v-list-item-title
-                                >
-                            </v-list-item-content>
-                        </v-list-item>
-
-                        <v-list-item link>
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    <router-link
-                                        class="menuhref ml-2"
-                                        :to="
-                                            '/admin/lab/' +
-                                                curlab.course_id +
-                                                '/user'
-                                        "
-                                        >ผู้ใช้งานทั้งหมด</router-link
-                                    ></v-list-item-title
-                                >
-                            </v-list-item-content>
-                        </v-list-item>
-
-                        <v-list-item link>
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    <router-link
-                                        class="menuhref ml-2"
-                                        :to="
-                                            '/admin/lab/' +
-                                                curlab.course_id +
-                                                '/ta'
-                                        "
-                                        >ผู้ช่วยสอน</router-link
-                                    ></v-list-item-title
-                                >
-                            </v-list-item-content>
-                        </v-list-item>
-
-                        <v-list-item link>
-                            <v-list-item-content>
-                                <v-list-item-title>
-                                    <router-link
-                                        class="menuhref ml-2"
-                                        :to="
-                                            '/admin/lab/' +
-                                                curlab.course_id +
-                                                '/student'
-                                        "
-                                        >นักศึกษา</router-link
-                                    ></v-list-item-title
-                                >
-                            </v-list-item-content>
-                        </v-list-item>
-                    </v-list-group> -->
                 </v-list>
 
                 <v-list nav dense v-if="type == 'professor'">
@@ -324,7 +264,7 @@
                 <v-list nav dense v-if="type == 'ta'">
                     <v-list-item
                         class="menuhref"
-                        :to="'/ta/lab/' + curlab.course_id +'/home'"
+                        :to="'/ta/lab/' + curlab.course_id + '/home'"
                         link
                     >
                         <v-list-item-action>
@@ -412,7 +352,7 @@
                 <v-list nav dense v-if="type == 'student'">
                     <v-list-item
                         class="menuhref"
-                        :to="'/lab/' + curlab.course_id + '/home'"
+                        :to="'/student/lab/' + curlab.course_id + '/home'"
                         link
                     >
                         <v-list-item-action>
@@ -427,7 +367,9 @@
 
                     <v-list-item
                         class="menuhref"
-                        :to="'/lab/' + curlab.course_id + '/announcement'"
+                        :to="
+                            '/student/lab/' + curlab.course_id + '/announcement'
+                        "
                         link
                     >
                         <v-list-item-action>
@@ -442,7 +384,7 @@
 
                     <v-list-item
                         class="menuhref"
-                        :to="'/lab/' + curlab.course_id + '/equipment'"
+                        :to="'/student/lab/' + curlab.course_id + '/equipment'"
                         link
                     >
                         <v-list-item-action>
@@ -455,7 +397,7 @@
 
                     <v-list-item
                         class="menuhref"
-                        :to="'/lab/' + curlab.course_id + '/request'"
+                        :to="'/student/lab/' + curlab.course_id + '/request'"
                         link
                     >
                         <v-list-item-action>
@@ -470,7 +412,7 @@
 
                     <v-list-item
                         class="menuhref"
-                        :to="'/lab/' + curlab.course_id + '/history'"
+                        :to="'/student/lab/' + curlab.course_id + '/history'"
                         link
                     >
                         <v-list-item-action>
@@ -483,7 +425,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item href="/labs" class="menuhref" link>
+                    <v-list-item class="menuhref" href="/labs" link>
                         <v-list-item-action>
                             <v-icon class="ml-2">keyboard_backspace</v-icon>
                         </v-list-item-action>
@@ -505,6 +447,7 @@ export default {
 
     created() {},
     mounted() {
+        this.$store.commit("SetNewCart", this.viewCart.length);
         this.$store.dispatch("loadLabs");
         this.$store.dispatch("loadUsers");
         // this.$store.dispatch("currentLab");
@@ -521,21 +464,10 @@ export default {
         drawer: true
     }),
 
-    // beforeRouteEnter(to, from, next) {
-    //     getPost(to.params.id, (err, post) => {
-    //         next(vm => vm.setData(err, post));
-    //     });
-    // },
-
-    // beforeRouteUpdate(to, from, next) {
-    //     this.post = null;
-    //     getPost(to.params.id, (err, post) => {
-    //         this.setData(err, post);
-    //         next();
-    //     });
-    // },
-
     computed: {
+        viewCart() {
+            return this.$store.state.cart;
+        },
         users() {
             return this.$store.state.users;
         },
@@ -558,11 +490,6 @@ export default {
                 ) || {};
             this.$store.dispatch("currentLab", sellab);
             return sellab;
-            // return (
-            //     this.labs.find(
-            //         lab => lab.course_id == this.$route.params.course_id
-            //     ) || {}
-            // );
         }
     },
 
@@ -570,28 +497,12 @@ export default {
         dialog(val) {
             val || this.close();
         }
-        // $route(to, from) {}
     },
 
     methods: {
         sidebarToggle() {
             this.drawer = !this.drawer;
-        }
-
-        // checkMobile() {
-        //     console.log("ttt");
-        //     if (this.isMobile) {
-        //         this.drawer = false;
-        //     }
-        // },
-
-        // setData(err, post) {
-        //     if (err) {
-        //         this.error = err.toString();
-        //     } else {
-        //         this.post = post;
-        //     }
-        // }
+        },
     }
 };
 </script>
@@ -607,8 +518,8 @@ export default {
     color: #ffffff;
 }
 
-.nav-gradient{
-  background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
-  position: fixed;
+.nav-gradient {
+    background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
+    position: fixed;
 }
 </style>
