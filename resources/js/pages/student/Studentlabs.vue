@@ -108,7 +108,7 @@ export default {
     data: () => ({
         tabs: null,
         dialog: false,
-        search: "",
+        search: ""
     }),
     created() {},
     methods: {

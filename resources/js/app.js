@@ -20,6 +20,7 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 Vue.component('homelayout', require('./components/homelayout.vue').default);
 Vue.component('applayout', require('./components/applayout.vue').default);
 Vue.component('welcome-card', require('./components/welcomecard.vue').default);
+Vue.component('lendingcart', require('./components/lendingcart.vue').default);
 
 const store = new Vuex.Store(
     StoreData);

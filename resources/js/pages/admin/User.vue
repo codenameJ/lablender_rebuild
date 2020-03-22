@@ -50,7 +50,7 @@
                                         >Add User</v-btn
                                     >
                                 </template>
-                               
+
                                 <v-card>
                                     <v-card-title>
                                         <span class="headline">{{
@@ -115,7 +115,9 @@
                                                 </v-col>
                                                 <v-col cols="12" sm="6" md="4">
                                                     <v-select
-                                                        v-model="editedItem.type"
+                                                        v-model="
+                                                            editedItem.type
+                                                        "
                                                         :items="selecttype"
                                                         label="Type"
                                                         item-text="name"
@@ -181,14 +183,22 @@
                             </v-dialog>
                         </v-toolbar>
                         <v-col cols="3">
-                        <v-select
-                        class="ml-1"
-                        label="User Type"
-                        :items="['', 'admin','student', 'ta', 'professor']"
-                        v-model="usertype"
-                        width="10"
-                        dense
-                    ></v-select><v-spacer></v-spacer></v-col>
+                            <v-select
+                                class="ml-1"
+                                label="User Type"
+                                :items="[
+                                    '',
+                                    'admin',
+                                    'student',
+                                    'ta',
+                                    'professor'
+                                ]"
+                                v-model="usertype"
+                                width="10"
+                                dense
+                            ></v-select
+                            ><v-spacer></v-spacer
+                        ></v-col>
                     </template>
                     <template v-slot:item.action="{ item }">
                         <v-icon small class="mr-2" @click="editItem(item)">
@@ -236,7 +246,7 @@ export default {
                 sortable: false,
                 value: "email"
             },
-            { text: "Phone", value: "phone", sortable: false},
+            { text: "Phone", value: "phone", sortable: false },
             { text: "Type", value: "type" },
             { text: "Actions", value: "action", sortable: false }
         ],
@@ -270,14 +280,16 @@ export default {
         },
         deleteItem(item) {
             const index = this.users.indexOf(item);
-            confirm("Are you sure you want to delete this item?") &&
-                this.users.splice(index, 1);
+            if (
+                confirm("Are you sure you want to delete this item?") &&
+                this.users.splice(index, 1)
+            ) {
+                axios
+                    .delete("/api/user/" + item.id)
+                    .then(response => console.log(response.data));
 
-            axios
-                .delete("/api/user/" + item.id)
-                .then(response => console.log(response.data));
-
-            this.$store.dispatch("loadUsers");
+                this.$store.dispatch("loadUsers");
+            }
         },
 
         close() {

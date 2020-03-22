@@ -17,6 +17,7 @@
                                         class="white--text"
                                         outlined
                                         v-on="on"
+                                        v-if="usernow.type != 'student'"
                                         ><v-icon class="mr-2">add</v-icon>Add
                                         Post</v-btn
                                     >

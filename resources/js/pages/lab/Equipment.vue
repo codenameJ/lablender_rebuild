@@ -178,14 +178,16 @@ export default {
         },
         deleteItem(item) {
             const index = this.equipments.indexOf(item);
-            confirm("Are you sure you want to delete this item?") &&
-                this.equipments.splice(index, 1);
+            if (
+                confirm("Are you sure you want to delete this item?") &&
+                this.equipments.splice(index, 1)
+            ) {
+                axios
+                    .delete("/api/equipment/" + item.id)
+                    .then(response => console.log(response.data));
 
-            axios
-                .delete("/api/equipment/" + item.id)
-                .then(response => console.log(response.data));
-
-            this.$store.dispatch("loadEquipments");
+                this.$store.dispatch("loadEquipments");
+            }
         },
 
         close() {
