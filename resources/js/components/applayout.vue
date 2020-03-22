@@ -447,7 +447,8 @@ export default {
 
     created() {},
     mounted() {
-        this.$store.commit("SetNewCart", this.viewCart.length);
+        // this.$store.commit("SetNewCart", this.viewCart.length);
+        this.$store.dispatch("clearCartItems");
         this.$store.dispatch("loadLabs");
         this.$store.dispatch("loadUsers");
         // this.$store.dispatch("currentLab");

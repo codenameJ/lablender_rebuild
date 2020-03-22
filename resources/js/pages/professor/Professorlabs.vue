@@ -141,7 +141,9 @@
                                             dark
                                             class="ma-2 btn-gradient no-underline white--text"
                                             :href="
-                                                '/professor/lab/' + item.course_id + '/home'
+                                                '/professor/lab/' +
+                                                    item.course_id +
+                                                    '/home'
                                             "
                                             >Enter Lab</v-btn
                                         >
@@ -198,14 +200,18 @@ export default {
         },
         deleteItem(item) {
             const index = this.labs.indexOf(item);
-            confirm("Are you sure you want to delete " + item.course_name + " ?") &&
-                this.labs.splice(index, 1);
+            if (
+                confirm(
+                    "Are you sure you want to delete " + item.course_name + " ?"
+                ) &&
+                this.labs.splice(index, 1)
+            ) {
+                axios
+                    .delete("/api/lab/" + item.id)
+                    .then(response => console.log(response.data));
 
-            axios
-                .delete("/api/lab/" + item.id)
-                .then(response => console.log(response.data));
-
-            this.$store.dispatch("loadLabs");
+                this.$store.dispatch("loadLabs");
+            }
         },
 
         close() {

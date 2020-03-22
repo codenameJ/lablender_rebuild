@@ -20,6 +20,7 @@ import Request from './pages/lab/Request';
 
 //student lab page
 import StudentEquipment from './pages/lab/StudentEquipment'
+import StudentRequest from './pages/lab/StudentRequest';
 
 Vue.component('Home', Home);
 Vue.component('Adminlabs', Adminlabs);
@@ -40,6 +41,7 @@ Vue.component('Request', Request);
 
 //student lab page
 Vue.component('StudentEquipment', StudentEquipment);
+Vue.component('StudentRequest', StudentRequest);
 
 Vue.use(VueRouter);
 
@@ -87,7 +89,7 @@ export default new VueRouter({
             path: '/student/lab/:course_id/request',
             props: true,
             name: 'student_request',
-            component: Request,
+            component: StudentRequest,
         },
         //ta
         {

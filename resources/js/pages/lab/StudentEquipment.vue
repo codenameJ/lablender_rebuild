@@ -108,7 +108,6 @@ export default {
         dialogcart: false,
         search: "",
         headers: [
-            // { text: "ID", value: "id" },
             { text: "Equip ID", value: "equip_id" },
             {
                 text: "Equip Name",
@@ -117,7 +116,6 @@ export default {
                 value: "equip_name"
             },
             { text: "Qty", value: "equip_qty" },
-            { text: "Lab", value: "lab_id" },
             { text: "Actions", value: "action", sortable: false }
         ],
         editedIndex: -1,
@@ -134,8 +132,6 @@ export default {
             lab_id: ""
         },
         cartadd: {
-            // lab_id: "",
-            // student_id: "",
             equip_id: 0,
             equip_name: "",
             amount: 0
@@ -197,16 +193,11 @@ export default {
         },
         addCart(equipment) {
             this.cartadd.id = equipment.id;
-            // this.cartadd.lab_id = this.curlab.id;
-            // this.cartadd.student_id = this.currentuser.student.id;
             this.cartadd.equip_id = equipment.equip_id;
             this.cartadd.equip_name = equipment.equip_name;
             this.cartadd.amount = this.quantity;
             this.$store.commit("addToCart", this.cartadd);
             this.cartadd = {};
-            // this.carts.push(this.cartadd);
-            // this.cartadd = {};
-            // this.storeCart();
             this.close();
         },
         removeCart(index) {

@@ -74,23 +74,25 @@
                     </v-row>
                 </v-col>
                 <v-row dense>
-                    <v-col cols="12"
-                        >
-                    <v-toolbar class="mb-3"
-                        ><v-tabs background-color="transparent" v-model="tabs">
-                            <v-tab style="text-decoration : none;" to=""
-                                >All</v-tab
+                    <v-col cols="12">
+                        <v-toolbar class="mb-3"
+                            ><v-tabs
+                                background-color="transparent"
+                                v-model="tabs"
                             >
-                            <v-tabs-slider color="white"></v-tabs-slider>
-                        </v-tabs>
-                        <v-text-field
-                            v-model="search"
-                            append-icon="search"
-                            label="Search"
-                            single-line
-                            hide-details
-                        ></v-text-field>
-                    </v-toolbar></v-col>
+                                <v-tab style="text-decoration : none;" to=""
+                                    >All</v-tab
+                                >
+                                <v-tabs-slider color="white"></v-tabs-slider>
+                            </v-tabs>
+                            <v-text-field
+                                v-model="search"
+                                append-icon="search"
+                                label="Search"
+                                single-line
+                                hide-details
+                            ></v-text-field> </v-toolbar
+                    ></v-col>
 
                     <v-col cols="12">
                         <div v-for="(item, i) in filterLab" :key="i">
@@ -136,7 +138,11 @@
                                     <v-btn
                                         dark
                                         class="ma-2 btn-gradient no-underline white--text"
-                                        :href="'/admin/lab/' + item.course_id + '/home'"
+                                        :href="
+                                            '/admin/lab/' +
+                                                item.course_id +
+                                                '/home'
+                                        "
                                         >Enter Lab</v-btn
                                     >
                                 </v-card-actions>
@@ -190,14 +196,18 @@ export default {
         },
         deleteItem(item) {
             const index = this.labs.indexOf(item);
-            confirm("Are you sure you want to delete " + item.course_name + " ?") &&
-                this.labs.splice(index, 1);
+            if (
+                confirm(
+                    "Are you sure you want to delete " + item.course_name + " ?"
+                ) &&
+                this.labs.splice(index, 1)
+            ) {
+                axios
+                    .delete("/api/lab/" + item.id)
+                    .then(response => console.log(response.data));
 
-            axios
-                .delete("/api/lab/" + item.id)
-                .then(response => console.log(response.data));
-
-            this.$store.dispatch("loadLabs");
+                this.$store.dispatch("loadLabs");
+            }
         },
 
         close() {

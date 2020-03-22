@@ -3,10 +3,7 @@
         <div class="row justify-content-center">
             <div class="col-md-9">
                 <v-toolbar
-                    ><v-tabs
-                        background-color="transparent"
-                        v-model="tabs"
-                    >
+                    ><v-tabs background-color="transparent" v-model="tabs">
                         <v-tab style="text-decoration : none;" to="">All</v-tab>
                         <v-tab style="text-decoration : none;">Students</v-tab>
                         <v-tab style="text-decoration : none;" to=""
@@ -129,17 +126,19 @@
                                                         label="Lab ID"
                                                     ></v-text-field> -->
 
-                                                    <v-col cols="12" sm="6" md="4">
-                                                <v-select
-                                                v-if="
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-select
+                                                        v-if="
                                                             editedItem.type ==
                                                                 'ta'
                                                         "
-                                                    v-model="editedItem.lab_id"
-                                                    :items="labs"
-                                                    label="Lab ID"
-                                                    item-text="course_id"
-                                                ></v-select>
+                                                        v-model="
+                                                            editedItem.lab_id
+                                                        "
+                                                        :items="labs"
+                                                        label="Lab ID"
+                                                        item-text="course_id"
+                                                    ></v-select>
 
                                                     <v-text-field
                                                         v-if="
@@ -232,7 +231,7 @@ export default {
             phone: "",
             type: "",
             student_id: "",
-            lab_id:"",
+            lab_id: ""
         },
         defaultItem: {
             name: "",
@@ -254,14 +253,16 @@ export default {
         },
         deleteItem(item) {
             const index = this.users.indexOf(item);
-            confirm("Are you sure you want to delete this item?") &&
-                this.users.splice(index, 1);
+            if (
+                confirm("Are you sure you want to delete this item?") &&
+                this.users.splice(index, 1)
+            ) {
+                axios
+                    .delete("/api/user/" + item.id)
+                    .then(response => console.log(response.data));
 
-            axios
-                .delete("/api/user/" + item.id)
-                .then(response => console.log(response.data));
-
-            this.$store.dispatch("loadUsers");
+                this.$store.dispatch("loadUsers");
+            }
         },
 
         close() {

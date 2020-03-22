@@ -76,7 +76,7 @@ export default {
     data: () => ({
         labs: [],
         tabs: null,
-        search: "",
+        search: ""
     }),
     created() {},
     methods: {},

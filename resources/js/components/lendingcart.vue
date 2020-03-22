@@ -104,7 +104,7 @@ export default {
         CheckOut() {
             this.getcart = this.viewCart;
             console.log(this.getcart);
-            if (confirm("Confirm your lending")) {
+            if(confirm("Confirm your lending")){
                 axios
                     .post("/api/requestlist/", {
                         cart: this.getcart,

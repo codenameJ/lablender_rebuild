@@ -44,10 +44,18 @@
                                     <table class="table" style="width:100%">
                                         <thead>
                                             <tr>
-                                                <th style="width:25%">Student ID</th>
-                                                <th style="width:25%">Student Name</th>
-                                                <th style="width:25%">Status</th>
-                                                <th style="width:25%">Action</th>
+                                                <th style="width:25%">
+                                                    Student ID
+                                                </th>
+                                                <th style="width:25%">
+                                                    Student Name
+                                                </th>
+                                                <th style="width:25%">
+                                                    Status
+                                                </th>
+                                                <th style="width:25%">
+                                                    Action
+                                                </th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -80,7 +88,12 @@
                                                         rounded
                                                         class="elevation-2 mr-2"
                                                         color="success"
-                                                        @click="acceptenroll(item,std)"
+                                                        @click="
+                                                            acceptenroll(
+                                                                item,
+                                                                std
+                                                            )
+                                                        "
                                                     >
                                                         <v-icon
                                                             small
@@ -165,24 +178,36 @@ export default {
             return stdname.name;
         },
         canceledenrolled(item, std) {
-            if (confirm("Are you sure you want to cancel " + std.student_id + " enrollment?")) {
+            if (
+                confirm(
+                    "Are you sure you want to cancel " +
+                        std.student_id +
+                        " enrollment?"
+                )
+            ) {
                 axios
                     .put("/api/enroll/" + item.id, {
                         student_id: std.id,
                         lab_id: item.id,
-                        cmd: 'cancel'
+                        cmd: "cancel"
                     })
                     .then(response => console.log(response.data));
                 this.$store.dispatch("loadLabs");
             }
         },
-        acceptenroll(item, std){
-                        if (confirm("Are you sure you want to accept " + std.student_id + " enrollment?")) {
+        acceptenroll(item, std) {
+            if (
+                confirm(
+                    "Are you sure you want to accept " +
+                        std.student_id +
+                        " enrollment?"
+                )
+            ) {
                 axios
                     .put("/api/enroll/" + item.id, {
                         student_id: std.id,
                         lab_id: item.id,
-                        cmd: 'accept'
+                        cmd: "accept"
                     })
                     .then(response => console.log(response.data));
                 this.$store.dispatch("loadLabs");
@@ -215,7 +240,8 @@ export default {
         },
         filterLab: function() {
             return this.labs.filter(lab => {
-                return lab.course_name.toLowerCase()
+                return lab.course_name
+                    .toLowerCase()
                     .includes(this.search.toLowerCase());
             });
         }
