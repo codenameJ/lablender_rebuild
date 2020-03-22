@@ -56,8 +56,8 @@ export default {
             // let index = state.cart.indexOf(item);
             state.cart.splice(index,1);
         },
-        clearCart(state, cartlength){
-            state.cart.splice(0, cartlength);
+        clearCart(state){
+            state.cart = [];
         },
         SetNewCart(state, cartlength){
             state.cart.splice(0, cartlength);
@@ -124,6 +124,9 @@ export default {
         })
         },
         //cart
+        clearCartItems({ commit }) {
+            commit('clearCart');
+        },
         //load current zone
         currentLab({commit}, curlab){
             commit('SetCurrentLab', curlab)

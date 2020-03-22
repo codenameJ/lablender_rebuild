@@ -136,12 +136,6 @@ export default {
         cartadd: {
             // lab_id: "",
             // student_id: "",
-            //detail:[]
-            equip_id: 0,
-            equip_name: "",
-            amount: 0
-        },
-        adddetail: {
             equip_id: 0,
             equip_name: "",
             amount: 0
@@ -151,13 +145,13 @@ export default {
     }),
 
     computed: {
-        currentuser() {
+        currentuser(){
             return this.$store.state.selectedUser;
         },
         viewCart() {
             return this.$store.state.cart;
         },
-        showBadge() {
+        showBadge(){
             this.badge = this.viewCart.length;
             return this.badge;
         },
@@ -189,7 +183,8 @@ export default {
         }
     },
 
-    created() {},
+    created() {
+    },
 
     methods: {
         seteditlab() {
@@ -215,7 +210,7 @@ export default {
             this.close();
         },
         removeCart(index) {
-            this.$store.commit("removeFromCart", index);
+            this.$store.commit('removeFromCart', index);
         },
 
         editItem(item) {

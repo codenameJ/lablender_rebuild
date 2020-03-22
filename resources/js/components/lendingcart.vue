@@ -95,7 +95,7 @@ export default {
         removeCart(index) {
             this.$store.commit("removeFromCart", index);
         },
-        ClearCart(){
+        ClearCart() {
             this.$store.commit("SetNewCart", this.viewCart.length);
         },
         closecart() {
@@ -113,6 +113,7 @@ export default {
                     })
                     .then(response => console.log(response.data));
                 this.$store.dispatch("loadEquipments");
+                this.$store.dispatch("clearCartItems");
                 this.closecart();
             }
         }
