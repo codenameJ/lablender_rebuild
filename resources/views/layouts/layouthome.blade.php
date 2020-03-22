@@ -56,6 +56,10 @@
             text-align: center;
         }
 
+        .roboto {
+            font-family: 'Roboto'
+        }
+
         body {
             font-family: 'Kanit';
             background-color: white
@@ -83,7 +87,7 @@
     </div>
 
     <div dark class="footer mt-5">
-        <p class="mt-2" style="font-family: 'Roboto">&copy; Copyright CPE CMU 2020</p>
+        <p class="mt-2 roboto">&copy; Copyright CPE CMU 2020</p>
     </div>
 
 </body>
