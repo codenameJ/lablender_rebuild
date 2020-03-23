@@ -102,7 +102,11 @@ class RequestlistController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request_list = Request_list::find($id);
+        $request_list->status = $request->get('status');
+        $request_list->update();
+        
+        return response(['message' => 'request list Update', 'request list' => $request_list]);
     }
 
     /**

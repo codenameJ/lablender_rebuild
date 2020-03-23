@@ -31,18 +31,6 @@
                                         ></v-card-title>
                                         <v-spacer></v-spacer>
                                         <v-card-actions class=" mr-5">
-                                            <!-- <v-btn
-                                                color="primary"
-                                                fab
-                                                x-small
-                                                dark
-                                                outlined
-                                                class="elevation-4 no-underline"
-                                                @click="editItem(item)"
-                                                ><v-icon
-                                                    >mdi-pencil</v-icon
-                                                ></v-btn
-                                            > -->
                                             <v-btn
                                                 color="error"
                                                 fab
@@ -65,24 +53,23 @@
                                         ></v-card-subtitle>
                                     </v-row>
 
+                                    <v-card-subtitle
+                                        v-text="item.status"
+                                    ></v-card-subtitle>
+
                                     <v-row>
                                         <v-card-subtitle class="ml-4">
                                             <v-select
                                                 label="Status"
-                                                :items="[
-                                                    '',
-                                                    'wait',
-                                                    'ready',
-                                                    'recieve'
-                                                ]"
+                                                :items="ReqStatus"
+                                                v-model="editedItem.status"
+                                                item-text="text"
                                                 width="10"
-                                                dense
-                                            ></v-select
-                                        ></v-card-subtitle>
+                                            >
+                                                dense ></v-select
+                                            ></v-card-subtitle
+                                        >
                                     </v-row>
-                                    <!-- <v-card-subtitle
-                                                v-text="item.status"
-                                            ></v-card-subtitle> -->
 
                                     <v-data-table
                                         :headers="detail_headers"
@@ -95,7 +82,7 @@
                                         <v-btn
                                             color="blue darken-1"
                                             text
-                                            @click="save"
+                                            @click="save(item)"
                                             >Save</v-btn
                                         >
                                     </v-card-actions>
@@ -117,6 +104,11 @@ export default {
     data: () => ({
         dialog: false,
         search: "",
+        ReqStatus: [
+            { value: 1, text: "wait" },
+            { value: 2, text: "ready" },
+            { value: 3, text: "recieve" }
+        ],
         detail_headers: [
             { text: "Detail ID", value: "id" },
             { text: "Equipment ID", value: "equipment_id" },
@@ -124,16 +116,10 @@ export default {
         ],
         editedIndex: -1,
         editedItem: {
-            equip_id: "",
-            equip_name: "",
-            equip_qty: 0,
-            lab_id: ""
+            status: ""
         },
         defaultItem: {
-            equip_id: "",
-            equip_name: "",
-            equip_qty: 0,
-            lab_id: ""
+            status: ""
         }
     }),
     created() {},
@@ -156,9 +142,15 @@ export default {
 
             this.$store.dispatch("loadRequest_lists");
         },
-        save(){
-
-        },
+        save(item) {
+            console.log(this.editedItem);
+            axios
+                .put("/api/requestlist/" + item.id, {
+                    status: this.editedItem.status
+                })
+                .then(response => console.log(response.data));
+            this.$store.dispatch("loadRequest_lists");
+        }
     },
     computed: {
         users() {
@@ -176,14 +168,14 @@ export default {
                     request_list => request_list.lab_id == this.curlab.id
                 ) || {};
             return selrequestlist;
-        },
-        filterRequestlists: function() {
-            return this.Requestlistsinlab.filter(requestlist => {
-                return requestlist.student_id
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
         }
+        // filterRequestlists: function() {
+        //     return this.Requestlistsinlab.student.filter(requestlist => {
+        //         return requestlist.st
+        //             .toLowerCase()
+        //             .includes(this.search.toLowerCase());
+        //     });
+        // }
     },
     watch: {}
 };
