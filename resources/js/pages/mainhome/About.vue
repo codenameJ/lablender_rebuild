@@ -36,12 +36,13 @@
 
 
             </v-card>
-        </v-app>
+        </v-app>        
     </div>
+
+    
 </template>
 
 <style scoped>
-
 div.flex-container {
     display: flex;
 }

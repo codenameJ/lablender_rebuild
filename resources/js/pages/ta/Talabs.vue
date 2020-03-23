@@ -49,13 +49,14 @@
 
                                     <v-card-actions>
                                         <v-btn
-                                            class="ma-2 btn-gradient no-underline white--text"
+                                            class="ma-2 elevation-2 no-underline white--text"
+                                            color="#1a73e8"
                                             :href="
                                                 '/ta/lab/' +
                                                     lab.course_id +
                                                     '/home'
                                             "
-                                            >Enter Lab</v-btn
+                                            ><v-icon class="mr-2">launch</v-icon>Enter Lab</v-btn
                                         >
                                     </v-card-actions>
                                 </div>

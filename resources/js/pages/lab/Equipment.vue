@@ -31,11 +31,11 @@
                                 <v-dialog v-model="dialog" max-width="500px">
                                     <template v-slot:activator="{ on }">
                                         <v-btn
+                                            class="white--text"
                                             color="primary"
-                                            dark
-                                            class="mb-2"
+                                            outlined
                                             v-on="on"
-                                            >Add Equipment</v-btn
+                                            ><v-icon class="mr-2">add</v-icon>Add Equipment</v-btn
                                         >
                                     </template>
                                     <v-spacer></v-spacer>

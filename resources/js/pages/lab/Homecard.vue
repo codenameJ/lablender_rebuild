@@ -12,8 +12,8 @@
                 </h5>
                 <v-divider></v-divider>
                 <br />
-                <div style="display: flex">
-                    <v-card class="mx-auto" max-width="344">
+                <div class="flex-container">
+                    <v-card class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto1.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -34,15 +34,9 @@
                             >
                                 SEE EQUIPMENTS
                             </v-btn>
-
-                            <!-- <v-btn icon @click="show = !show">
-                        <v-icon>{{
-                            show ? "mdi-chevron-up" : "mdi-chevron-down"
-                        }}</v-icon>
-                    </v-btn> -->
                         </v-card-actions>
                     </v-card>
-                    <v-card class="mx-auto" max-width="344">
+                    <v-card class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto2.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -57,15 +51,9 @@
                             <v-btn color="green darken-3" text right>
                                 LENDING CART
                             </v-btn>
-
-                            <!-- <v-btn icon @click="show = !show">
-                        <v-icon>{{
-                            show ? "mdi-chevron-up" : "mdi-chevron-down"
-                        }}</v-icon>
-                    </v-btn> -->
                         </v-card-actions>
                     </v-card>
-                    <v-card class="mx-auto" max-width="344">
+                    <v-card class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto3.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -86,12 +74,6 @@
                             >
                                 YOUR REQUESTS
                             </v-btn>
-
-                            <!-- <v-btn icon @click="show = !show">
-                        <v-icon>{{
-                            show ? "mdi-chevron-up" : "mdi-chevron-down"
-                        }}</v-icon>
-                    </v-btn> -->
                         </v-card-actions>
                     </v-card>
                 </div>
@@ -120,5 +102,21 @@ export default {
     background-color: #0c0b0b;
     background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
     font-weight: bold;
+}
+
+div.flex-container {
+    display: flex;
+}
+
+@media screen and (min-width: 1351px) {
+    div.flex-container {
+        flex-direction: row;
+    }
+}
+
+@media screen and (max-width: 1350px) {
+    div.flex-container {
+        flex-direction: column;
+    }
 }
 </style>

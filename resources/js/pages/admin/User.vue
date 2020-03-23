@@ -44,10 +44,11 @@
                                 <template v-slot:activator="{ on }">
                                     <v-btn
                                         color="primary"
+                                        outlined
                                         dark
                                         class="mb-2"
                                         v-on="on"
-                                        >Add User</v-btn
+                                        ><v-icon class="mr-2">add</v-icon>Add User</v-btn
                                     >
                                 </template>
 
@@ -109,7 +110,7 @@
                                                         "
                                                         :counter="10"
                                                         :rules="phoneRules"
-                                                        label="phone"
+                                                        label="Phone"
                                                         type="number"
                                                     ></v-text-field>
                                                 </v-col>

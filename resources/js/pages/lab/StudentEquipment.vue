@@ -1,97 +1,127 @@
 <template>
     <div id="app">
         <v-content>
-            <v-card>
-                <v-data-table
-                    :headers="headers"
-                    :items="filterEquipments"
-                    class="elevation-1 txt-title"
-                >
-                    <template v-slot:top>
-                        <v-toolbar flat color="white">
-                            <v-toolbar-title>Equipments</v-toolbar-title>
-                            <v-spacer></v-spacer>
-
-                            <v-text-field
-                                v-model="search"
-                                append-icon="search"
-                                label="Search"
-                                single-line
-                                hide-details
-                            ></v-text-field>
-
-                            <v-dialog v-model="dialog" max-width="500px">
-                                <v-card>
-                                    <v-card-title>
-                                        <span class="headline">Lend</span>
-                                    </v-card-title>
-
-                                    <v-card-text>
-                                        <v-container>
-                                            <v-row>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        :value="
-                                                            editedItem.equip_id
-                                                        "
-                                                        label="Equipment ID"
-                                                        readonly
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        :value="
-                                                            editedItem.equip_name
-                                                        "
-                                                        label="Equipment Name"
-                                                        readonly
-                                                    ></v-text-field>
-                                                </v-col>
-                                                <v-col cols="12" sm="6" md="4">
-                                                    <v-text-field
-                                                        v-model="quantity"
-                                                        value="0"
-                                                        label="QTY"
-                                                    ></v-text-field>
-                                                </v-col>
-                                            </v-row>
-                                        </v-container>
-                                    </v-card-text>
-                                    <v-card-actions>
-                                        <v-spacer></v-spacer>
-                                        <v-btn
-                                            color="blue darken-1"
-                                            text
-                                            @click="close"
-                                            >Cancel</v-btn
-                                        >
-                                        <v-btn
-                                            color="blue darken-1"
-                                            text
-                                            @click="addCart(editedItem)"
-                                            >Lend</v-btn
-                                        >
-                                    </v-card-actions>
-                                </v-card>
-                            </v-dialog>
-                        </v-toolbar>
-                    </template>
-                    <template v-slot:item.action="{ item }">
-                        <v-btn
-                            small
-                            rounded
-                            class="button-btn-gradient elevation-2"
-                            color="success"
-                            @click="editItem(item)"
-                        >
-                            <v-icon small class="mr-2" left
-                                >add_circle_outline</v-icon
+            <v-container class="my-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <v-card>
+                            <v-data-table
+                                :headers="headers"
+                                :items="filterEquipments"
+                                class="elevation-1 txt-title"
                             >
-                            Lend
-                        </v-btn>
-                    </template>
-                </v-data-table>
-            </v-card>
+                                <template v-slot:top>
+                                    <v-toolbar flat color="white">
+                                        <v-toolbar-title
+                                            >Equipments</v-toolbar-title
+                                        >
+                                        <v-spacer></v-spacer>
+
+                                        <v-text-field
+                                            v-model="search"
+                                            append-icon="search"
+                                            label="Search"
+                                            single-line
+                                            hide-details
+                                        ></v-text-field>
+
+                                        <v-dialog
+                                            v-model="dialog"
+                                            max-width="500px"
+                                        >
+                                            <v-card>
+                                                <v-card-title>
+                                                    <span class="headline"
+                                                        >Lend</span
+                                                    >
+                                                </v-card-title>
+
+                                                <v-card-text>
+                                                    <v-container>
+                                                        <v-row>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="6"
+                                                                md="4"
+                                                            >
+                                                                <v-text-field
+                                                                    :value="
+                                                                        editedItem.equip_id
+                                                                    "
+                                                                    label="Equipment ID"
+                                                                    readonly
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="6"
+                                                                md="4"
+                                                            >
+                                                                <v-text-field
+                                                                    :value="
+                                                                        editedItem.equip_name
+                                                                    "
+                                                                    label="Equipment Name"
+                                                                    readonly
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="6"
+                                                                md="4"
+                                                            >
+                                                                <v-text-field
+                                                                    v-model="
+                                                                        quantity
+                                                                    "
+                                                                    value="0"
+                                                                    label="QTY"
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                </v-card-text>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn
+                                                        color="blue darken-1"
+                                                        text
+                                                        @click="close"
+                                                        >Cancel</v-btn
+                                                    >
+                                                    <v-btn
+                                                        color="blue darken-1"
+                                                        text
+                                                        @click="
+                                                            addCart(editedItem)
+                                                        "
+                                                        >Lend</v-btn
+                                                    >
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </v-toolbar>
+                                </template>
+                                <template v-slot:item.action="{ item }">
+                                    <v-btn
+                                        small
+                                        rounded
+                                        outlined
+                                        class="elevation-2"
+                                        color="#1a73e8"
+                                        @click="editItem(item)"
+                                    >
+                                        <v-icon small class="mr-2" left
+                                            >add_circle_outline</v-icon
+                                        >
+                                        Lend
+                                    </v-btn>
+                                </template>
+                            </v-data-table>
+                        </v-card>
+                    </div>
+                </div>
+            </v-container>
         </v-content>
     </div>
 </template>
@@ -141,13 +171,13 @@ export default {
     }),
 
     computed: {
-        currentuser(){
+        currentuser() {
             return this.$store.state.selectedUser;
         },
         viewCart() {
             return this.$store.state.cart;
         },
-        showBadge(){
+        showBadge() {
             this.badge = this.viewCart.length;
             return this.badge;
         },
@@ -179,8 +209,7 @@ export default {
         }
     },
 
-    created() {
-    },
+    created() {},
 
     methods: {
         seteditlab() {
@@ -201,7 +230,7 @@ export default {
             this.close();
         },
         removeCart(index) {
-            this.$store.commit('removeFromCart', index);
+            this.$store.commit("removeFromCart", index);
         },
 
         editItem(item) {
