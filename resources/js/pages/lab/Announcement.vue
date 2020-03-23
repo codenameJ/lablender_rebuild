@@ -14,7 +14,6 @@
                                 <template v-slot:activator="{ on }">
                                     <v-btn
                                         color="#1a73e8"
-                                        class="white--text"
                                         outlined
                                         v-on="on"
                                         v-if="usernow.type != 'student'"
@@ -25,9 +24,9 @@
                                 <v-card>
                                     <v-card-text>
                                         <v-container>
-                                            <h2 class="my-3">Add Announcement</h2>
+                                            <h2 color="#212121" class="my-4">Add Announcement</h2>
                                                     <v-text-field
-                                                        color="teal"
+                                                        color="#1a73e8"
                                                         v-model="
                                                             editedItem.announcement_name
                                                         "
@@ -61,14 +60,14 @@
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn
-                                            color="blue darken-1"
+                                            color="#1a73e8"
                                             text
                                             @click="close"
                                             >Cancel</v-btn
                                         >
                                         <v-btn
-                                            color="blue darken-1"
-                                            text
+                                            class="white--text"
+                                            color="#1a73e8"
                                             @click="save"
                                             >Save</v-btn
                                         >
@@ -84,7 +83,7 @@
                                 v-for="(item, i) in Announcementsinlab"
                                 :key="i"
                             >
-                                <v-card class="my-2">
+                                <v-card class="mb-4">
                                     <div
                                         class="d-flex flex-no-wrap justify-space-between"
                                     >

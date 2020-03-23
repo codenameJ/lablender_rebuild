@@ -9,7 +9,7 @@
                                 <v-text-field
                                     v-model="search"
                                     append-icon="search"
-                                    label="Search"
+                                    label="Search by request id or student id..."
                                     single-line
                                     hide-details
                                 ></v-text-field>
@@ -17,17 +17,43 @@
                         </v-col>
                     </v-row>
 
+                    <template>
+                        <v-tabs
+                            fixed-tabs
+                            color="#1a73e8"
+                            background-color="white"
+                            class="mt-3 mb-1"
+                        >
+                            <v-tab>
+                                Wait
+                            </v-tab>
+                            <v-tab>
+                                Ready
+                            </v-tab>
+                            <v-tab>
+                                Recieved
+                            </v-tab>
+
+                            <!-- วนลูป status ให้หน่อยสิจ๊ะที่รัก
+                                <v-tab v-for="item in items" :key="item">
+                                {{ item }}
+                            </v-tab> 
+                            -->
+
+                        </v-tabs>
+                    </template>
+
                     <v-row>
                         <v-col cols="12">
                             <div
                                 v-for="(item, i) in Requestlistsinlab"
                                 :key="i"
                             >
-                                <v-card class="my-2">
+                                <v-card class="mb-5">
                                     <v-row>
                                         <v-card-title
                                             class="ml-4"
-                                            v-text="item.id"
+                                            v-text="'Request ID : ' + item.id"
                                         ></v-card-title>
                                         <v-spacer></v-spacer>
                                         <v-card-actions class=" mr-5">
@@ -49,15 +75,30 @@
                                     <v-row>
                                         <v-card-subtitle
                                             class="ml-4"
-                                            v-text="getstudent(item.student_id)"
+                                            v-text="
+                                                'Lending date : 24/3/2020 17:42 (dummyeiei)'
+                                            "
                                         ></v-card-subtitle>
                                     </v-row>
 
-                                    <v-card-subtitle
-                                        v-text="item.status"
-                                    ></v-card-subtitle>
-
                                     <v-row>
+                                        <v-card-subtitle
+                                            class="ml-4"
+                                            v-text="
+                                                'Lend by : ' +
+                                                    getstudent(item.student_id)
+                                            "
+                                        ></v-card-subtitle>
+                                    </v-row>
+
+                                <v-row>
+                                    <v-card-subtitle
+                                        class="ml-4"
+                                        v-text=" 'Status : '"
+                                    ></v-card-subtitle>
+                                    <v-chip :color="getColor(item.status)" dark>{{ item.status }}</v-chip>
+                                </v-row>
+                                    <!-- <v-row>
                                         <v-card-subtitle class="ml-4">
                                             <v-select
                                                 label="Status"
@@ -69,9 +110,10 @@
                                                 dense ></v-select
                                             ></v-card-subtitle
                                         >
-                                    </v-row>
-
+                                    </v-row> -->
+                                    <div class="col-12">
                                     <v-data-table
+                                        class="mt-2"
                                         :headers="detail_headers"
                                         :items="item.request_detail"
                                         hide-default-footer
@@ -79,13 +121,24 @@
                                     </v-data-table>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
+                                        <v-card-subtitle class="ml-4">
+                                            <v-select
+                                                label="Status"
+                                                :items="ReqStatus"
+                                                v-model="editedItem.status"
+                                                item-text="text"
+                                                width="10"
+                                            >
+                                                dense ></v-select
+                                            ></v-card-subtitle
+                                        >
                                         <v-btn
+                                            outlined
                                             color="blue darken-1"
-                                            text
                                             @click="save(item)"
                                             >Save</v-btn
                                         >
-                                    </v-card-actions>
+                                    </v-card-actions></div>
                                 </v-card>
                             </div>
                         </v-col>
@@ -112,6 +165,7 @@ export default {
         detail_headers: [
             { text: "Detail ID", value: "id" },
             { text: "Equipment ID", value: "equipment_id" },
+            { text: "Equipment Name", value: "equipment_name"},
             { text: "Len Qty", value: "len_qty" }
         ],
         editedIndex: -1,
@@ -124,6 +178,13 @@ export default {
     }),
     created() {},
     methods: {
+        getColor (status) {
+        if (status == "wait") return 'blue-grey'
+        else if (status == "ready") return 'green'
+        else if (status == "broken") return 'red'
+        else if (status == "missing") return 'orange accent-2'
+        else return 'blue'
+      },
         getstudent(stdid) {
             let thisuser =
                 this.users.find(user => {

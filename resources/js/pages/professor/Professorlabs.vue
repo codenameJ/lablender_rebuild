@@ -2,7 +2,7 @@
     <div id="app" v-if="curprof">
         <v-container class="my-5">
             <div class="row justify-content-center">
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <v-col cols="12">
                         <v-row justify="end">
                             <v-spacer></v-spacer>
