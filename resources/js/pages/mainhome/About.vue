@@ -36,42 +36,13 @@
 
 
             </v-card>
-        </v-app>
-        <!-- Test lend button -->
-                        <v-btn
-                            small
-                            rounded
-                            outlined
-                            class="elevation-2"
-                            color="#1a73e8"
-                            @click="editItem(item)"
-                        >
-                            <v-icon small class="mr-2" left
-                                >add_circle_outline</v-icon
-                            >
-                            Lend
-                        </v-btn>
-
-                      
+        </v-app>        
     </div>
 
     
 </template>
 
 <style scoped>
-
-.outlined-gradient-button{
-    background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9),linear-gradient(to bottom, #2ad4d9, #2ad4a9); 
-    border-top: 2px solid #2ad4d9;
-    border-bottom:2px solid #2ad4a9; 
-    border-right:0px solid #2ad4a9; 
-    border-left:0px solid #2ad4a9; 
-    background-size: 2px 100%;
-    background-position:0 0, 100% 0;
-    background-repeat:no-repeat;
-}
-
-
 div.flex-container {
     display: flex;
 }

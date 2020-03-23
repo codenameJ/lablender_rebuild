@@ -146,7 +146,7 @@
                                                     item.course_id +
                                                     '/home'
                                             "
-                                            >Enter Lab</v-btn
+                                            ><v-icon class="mr-2">launch</v-icon>Enter Lab</v-btn
                                         >
                                     </v-card-actions>
                                 </v-card>

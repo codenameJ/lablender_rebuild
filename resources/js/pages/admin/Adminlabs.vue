@@ -139,7 +139,7 @@
                                         class="ma-2 elevation-2 no-underline white--text"
                                         color="#1a73e8"
                                         :href="'/admin/lab/' + item.course_id + '/home'"
-                                        >Enter Lab</v-btn
+                                        ><v-icon class="mr-2">launch</v-icon>Enter Lab</v-btn
                                     >
                                 </v-card-actions>
                             </v-card>
