@@ -2,14 +2,14 @@
     <div id="app">
         <v-dialog v-model="dialogcart" max-width="500px">
             <template v-slot:activator="{ on }">
-                <v-badge>
+                <v-badge class="mr-4">
                     <span slot="badge">{{ showBadge }}</span>
                     <v-icon v-on="on">shopping_cart</v-icon>
                 </v-badge>
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="headline">Lending Cart</span>
+                    <span class="headline">Lending Cart<v-icon class="ml-2" v-on="on">shopping_cart</v-icon></span>
                 </v-card-title>
 
                 <v-card-text>
@@ -20,15 +20,17 @@
                                     v-for="(cart, i) in viewCart"
                                     v-bind:key="i"
                                 >
-                                    <td>
+                                    <td class="my-auto">
                                         {{ cart.equip_name }}
                                     </td>
-                                    <td>
+                                    <td class="my-auto">
                                         {{ cart.amount }}
                                     </td>
                                     <td>
                                         <v-btn
-                                            color="blue darken-1"
+                                            small
+                                            class="my-auto"
+                                            color="error"
                                             text
                                             @click="removeCart(i)"
                                             >delete</v-btn
@@ -46,8 +48,9 @@
                         >Cancel</v-btn
                     >
                     <v-btn
-                        color="blue darken-1"
+                        color="#1a73e8"
                         style="text-decoration:none"
+                        class="white--text"
                         @click="CheckOut"
                         >Check Out</v-btn
                     >
