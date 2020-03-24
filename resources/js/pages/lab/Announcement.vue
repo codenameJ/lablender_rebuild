@@ -103,6 +103,12 @@
                                         <span class="ml-2">{{
                                             getAnnounceBy(item.user_id)
                                         }}</span>
+                                        <span class="ml-2">{{
+                                            item.created_at
+                                        }}</span>
+                                        <span class="ml-2">{{
+                                            item.updated_at
+                                        }}</span>
                                         <v-spacer />
                                         <v-btn
                                             color="primary"
