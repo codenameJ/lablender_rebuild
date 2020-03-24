@@ -15,7 +15,7 @@ class AnnouncementController extends Controller
      */
     public function index()
     {
-        $announcements = Announcement::all();
+        $announcements = Announcement::orderBy('updated_at', 'desc')->get();
         return response()->json($announcements);
     }
 
