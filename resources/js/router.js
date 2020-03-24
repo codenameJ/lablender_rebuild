@@ -17,6 +17,7 @@ import Equipment from './pages/lab/Equipment';
 import Announcement from './pages/lab/Announcement';
 import History from './pages/lab/History';
 import Request from './pages/lab/Request';
+import Maintenance from './pages/lab/Maintenance';
 
 //student lab page
 import StudentEquipment from './pages/lab/StudentEquipment'
@@ -38,6 +39,7 @@ Vue.component('Equipment', Equipment);
 Vue.component('Announcement', Announcement);
 Vue.component('History', History);
 Vue.component('Request', Request);
+Vue.component('Maintenance', Maintenance);
 
 //student lab page
 Vue.component('StudentEquipment', StudentEquipment);
@@ -61,8 +63,8 @@ export default new VueRouter({
             path: '/labs',
             component: Studentlabs,
         },
-         //student lab page
-         {
+        //student lab page
+        {
             path: '/student/lab/:course_id/home',
             props: true,
             component: Homecard,
@@ -86,11 +88,18 @@ export default new VueRouter({
             component: History,
         },
         {
+            path: '/student/lab/:course_id/maintenance',
+            props: true,
+            name: 'student_maintenance',
+            component: Maintenance,
+        },
+        {
             path: '/student/lab/:course_id/request',
             props: true,
             name: 'student_request',
             component: StudentRequest,
         },
+
         //ta
         {
             path: '/ta/labs',
@@ -129,6 +138,12 @@ export default new VueRouter({
             props: true,
             name: 'ta_request',
             component: Request,
+        },
+        {
+            path: '/ta/lab/:course_id/maintenance',
+            props: true,
+            name: 'ta_maintenance',
+            component: Maintenance,
         },
         //professor
         {
@@ -173,6 +188,12 @@ export default new VueRouter({
             name: 'professor_request',
             component: Request,
         },
+        {
+            path: '/professor/lab/:course_id/maintenance',
+            props: true,
+            name: 'professor_maintenance',
+            component: Maintenance,
+        },
         //admin home page
         {
             path: '/admin/labs',
@@ -215,6 +236,12 @@ export default new VueRouter({
             props: true,
             name: 'request',
             component: Request,
+        },
+        {
+            path: '/admin/lab/:course_id/maintenance',
+            props: true,
+            name: 'maintenance',
+            component: Maintenance,
         },
     ],
     mode: 'history',

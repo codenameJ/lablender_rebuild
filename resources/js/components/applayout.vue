@@ -120,7 +120,7 @@
                         link
                     >
                         <v-list-item-action>
-                            <v-icon class="ml-2">build</v-icon>
+                            <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>อุปกรณ์</v-list-item-title>
@@ -152,6 +152,19 @@
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title> ประวัติ</v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">build</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>บำรุงรักษา</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -210,7 +223,7 @@
                         link
                     >
                         <v-list-item-action>
-                            <v-icon class="ml-2">build</v-icon>
+                            <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
@@ -246,6 +259,19 @@
                             <v-list-item-title>
                                 ประวัติ
                             </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">build</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>บำรุงรักษา</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -298,7 +324,7 @@
                         link
                     >
                         <v-list-item-action>
-                            <v-icon class="ml-2">build</v-icon>
+                            <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title>
@@ -334,6 +360,19 @@
                             <v-list-item-title>
                                 ประวัติ
                             </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">build</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>บำรุงรักษา</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -388,7 +427,7 @@
                         link
                     >
                         <v-list-item-action>
-                            <v-icon class="ml-2">build</v-icon>
+                            <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
                             <v-list-item-title> อุปกรณ์</v-list-item-title>
@@ -422,6 +461,19 @@
                             <v-list-item-title>
                                 ประวัติ
                             </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">build</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title>บำรุงรักษา</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 

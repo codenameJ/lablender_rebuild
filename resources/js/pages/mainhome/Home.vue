@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <v-content>
-            <div class="mx-auto mt-1 mb-1">
+            <div class="mx-auto mt-1 mb-1" >
                 <div class="flex-container">
                     <v-row>
                         <v-col>
@@ -91,7 +91,7 @@
                 </div>
             </div>
         </v-content>
-    </div>
+        </div>
 </template>
 
 <style scoped>
@@ -130,6 +130,10 @@ div.homepic {
     div.homepic {
         width: 80vw;
     }
+}
+
+bgcolor{
+    background-color: #EEEEEE;
 }
 </style>
 

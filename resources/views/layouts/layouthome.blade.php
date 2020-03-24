@@ -62,7 +62,6 @@
 
         body {
             font-family: 'Kanit';
-            background-color: white
         }
     </style>
 

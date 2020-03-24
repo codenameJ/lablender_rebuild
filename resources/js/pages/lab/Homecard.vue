@@ -7,10 +7,10 @@
                 <h1 align="center">{{ curlab.course_name }}</h1>
                 <h2 align="center">{{ curlab.course_id }}</h2>
                 <br>
+                <v-divider></v-divider>
                 <h5 align="center">
                     Easy steps to lend any equipments in the lab!
                 </h5>
-                <v-divider></v-divider>
                 <br />
                 <div class="flex-container">
                     <v-card class="mx-auto mb-5" max-width="344">

@@ -24,20 +24,21 @@
                                 <v-card>
                                     <v-card-text>
                                         <v-container>
-                                            <h2 color="#212121" class="my-4">Add Announcement</h2>
-                                                    <v-text-field
-                                                        color="#1a73e8"
-                                                        v-model="
-                                                            editedItem.announcement_name
-                                                        "
-                                                    >
-                                                        <template v-slot:label>
-                                                            <div>
-                                                                Announcement
-                                                                Subject
-                                                            </div>
-                                                        </template>
-                                                    </v-text-field>
+                                            <h2 color="#212121" class="my-4">
+                                                Add Announcement
+                                            </h2>
+                                            <v-text-field
+                                                color="#1a73e8"
+                                                v-model="
+                                                    editedItem.announcement_name
+                                                "
+                                            >
+                                                <template v-slot:label>
+                                                    <div>
+                                                        Announcement Subject
+                                                    </div>
+                                                </template>
+                                            </v-text-field>
                                             <v-row>
                                                 <v-col cols="12">
                                                     <v-textarea
@@ -84,55 +85,58 @@
                                 :key="i"
                             >
                                 <v-card class="mb-4">
-                                    <div
-                                        class="d-flex flex-no-wrap justify-space-between"
-                                    >
-                                        <div>
-                                            <v-card-title
-                                                class="headline"
-                                                v-text="item.announcement_name"
-                                            ></v-card-title>
-
-                                            <v-card-subtitle
-                                                v-text="item.describe"
-                                            ></v-card-subtitle>
-                                        </div>
-                                    </div>
-
                                     <v-card-actions>
-                                        <span class="ml-2">{{
-                                            getAnnounceBy(item.user_id)
-                                        }}</span>
-                                        <span class="ml-2">{{
-                                            item.created_at
-                                        }}</span>
-                                        <span class="ml-2">{{
-                                            item.updated_at
-                                        }}</span>
-                                        <v-spacer />
-                                        <v-btn
-                                            color="primary"
-                                            fab
-                                            x-small
-                                            dark
-                                            outlined
-                                            class="ma-2 elevation-4 no-underline"
-                                            @click="editItem(item)"
-                                            ><v-icon>mdi-pencil</v-icon></v-btn
+                                            <v-card-text>
+                                                <v-card-title class="headline black--text mb-2">
+                                                    {{ item.announcement_name }}
+                                                
+                                                <v-spacer />
+                                        <template
+                                            v-if="usernow.type != 'student'"
                                         >
-                                        <v-btn
-                                            color="error"
-                                            fab
-                                            x-small
-                                            dark
-                                            outlined
-                                            class="ma-2 elevation-4 no-underline"
-                                            @click="deleteItem(item)"
-                                            ><v-icon
-                                                >delete_outline</v-icon
-                                            ></v-btn
+                                            <v-btn
+                                                color="primary"
+                                                fab
+                                                x-small
+                                                dark
+                                                outlined
+                                                class="ma-2 elevation-4 no-underline"
+                                                @click="editItem(item)"
+                                                ><v-icon
+                                                    >mdi-pencil</v-icon
+                                                ></v-btn
+                                            >
+                                            <v-btn
+                                                color="error"
+                                                fab
+                                                x-small
+                                                dark
+                                                outlined
+                                                class="ma-2 elevation-4 no-underline"
+                                                @click="deleteItem(item)"
+                                                ><v-icon
+                                                    >delete_outline</v-icon
+                                                ></v-btn
+                                            ></template
+                                        > </v-card-title>
+                                                <v-card-subtitle style="font-size:17px">
+                                                    {{ item.describe }}
+                                                </v-card-subtitle>
+                                            </v-card-text>
+                                        </v-card-actions>
+                                        <v-divider> </v-divider>
+                                    <v-row
+                                        ><v-card-subtitle
+                                            class="ml-9 mb-4"
+                                            style="font-size:15px;"
+                                            ><b>{{
+                                                "Posted by : " +
+                                                    getAnnounceBy(item.user_id)
+                                            }}</b
+                                            ><br />
+                                            {{ item.created_at }}</v-card-subtitle
                                         >
-                                    </v-card-actions>
+                                    </v-row>
                                 </v-card>
                             </div>
                         </v-col>
