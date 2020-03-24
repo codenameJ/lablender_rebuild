@@ -76,7 +76,7 @@
                                         <v-card-subtitle
                                             class="ml-4"
                                             v-text="
-                                                'Lending date : 24/3/2020 17:42 (dummyeiei)'
+                                                'Lending date : ' + item.created_at
                                             "
                                         ></v-card-subtitle>
                                     </v-row>
