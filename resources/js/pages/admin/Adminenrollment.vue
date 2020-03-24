@@ -40,108 +40,82 @@
                                             ></v-card-title>
                                         </div>
                                     </div>
-                                    <table class="table" style="width:100%">
-                                        <thead>
-                                            <tr>
-                                                <th style="width:25%">Student ID</th>
-                                                <th style="width:25%">Student Name</th>
-                                                <th style="width:25%">Status</th>
-                                                <th style="width:25%">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr
-                                                v-for="(std, i) in item.student"
-                                                :key="i"
+                                    <v-data-table
+                                        class="mt-2"
+                                        :headers="student_headers"
+                                        :items="item.student"
+                                        hide-default-footer
+                                    >
+                                        <template #item.student_name="{item}">{{
+                                            getstudentname(item.user_id)
+                                        }}</template>
+                                        <template #item.status="{item}">{{
+                                            item.pivot.status
+                                        }}</template>
+                                        <template #item.action="{item}">
+                                            <template
+                                                v-if="
+                                                    item.pivot.status ==
+                                                        'pending'
+                                                "
                                             >
-                                                <td>
-                                                    {{ std.student_id }}
-                                                </td>
-                                                <td>
-                                                    {{
-                                                        getstudentname(
-                                                            std.user_id
-                                                        )
-                                                    }}
-                                                </td>
-                                                <td>
-                                                    {{ std.pivot.status }}
-                                                </td>
-                                                <td
-                                                    v-if="
-                                                        std.pivot.status ==
-                                                            'pending'
+                                                <v-btn
+                                                    small
+                                                    outlined
+                                                    rounded
+                                                    class="elevation-2 mr-2"
+                                                    color="success"
+                                                    @click="acceptenroll(item)"
+                                                >
+                                                    <v-icon
+                                                        small
+                                                        class="mr-2"
+                                                        left
+                                                        >add_circle_outline</v-icon
+                                                    >
+                                                    Accept
+                                                </v-btn>
+                                                <v-btn
+                                                    small
+                                                    outlined
+                                                    rounded
+                                                    class="elevation-2"
+                                                    color="error"
+                                                    @click="
+                                                        canceledenrolled(item)
                                                     "
                                                 >
-                                                    <v-btn
+                                                    <v-icon
                                                         small
-                                                        outlined
-                                                        rounded
-                                                        class="elevation-2 mr-2"
-                                                        color="success"
-                                                        @click="
-                                                            acceptenroll(
-                                                                item,
-                                                                std
-                                                            )
-                                                        "
+                                                        class="mr-2"
+                                                        left
+                                                        >remove_circle_outline</v-icon
                                                     >
-                                                        <v-icon
-                                                            small
-                                                            class="mr-2"
-                                                            left
-                                                            >add_circle_outline</v-icon
-                                                        >
-                                                        Accept
-                                                    </v-btn>
-                                                    <v-btn
+                                                    Decline
+                                                </v-btn>
+                                            </template>
+                                            <template v-else>
+                                                <v-btn
+                                                    small
+                                                    outlined
+                                                    rounded
+                                                    class="elevation-2"
+                                                    color="error"
+                                                    @click="
+                                                        canceledenrolled(item)
+                                                    "
+                                                >
+                                                    <v-icon
                                                         small
-                                                        outlined
-                                                        rounded
-                                                        class="elevation-2"
-                                                        color="error"
-                                                        @click="
-                                                            canceledenrolled(
-                                                                item,
-                                                                std
-                                                            )
-                                                        "
+                                                        class="mr-2"
+                                                        left
+                                                        >remove_circle_outline</v-icon
                                                     >
-                                                        <v-icon
-                                                            small
-                                                            class="mr-2"
-                                                            left
-                                                            >remove_circle_outline</v-icon
-                                                        >
-                                                        Decline
-                                                    </v-btn>
-                                                </td>
-                                                <td v-else>
-                                                    <v-btn
-                                                        small
-                                                        outlined
-                                                        rounded
-                                                        class="elevation-2"
-                                                        color="error"
-                                                        @click="
-                                                            canceledenrolled(
-                                                                item,
-                                                                std
-                                                            )
-                                                        "
-                                                    >
-                                                        <v-icon
-                                                            small
-                                                            class="mr-2"
-                                                            left
-                                                            >remove_circle_outline</v-icon
-                                                        >
-                                                        Remove
-                                                    </v-btn>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                                                    Remove
+                                                </v-btn>
+                                            </template>
+                                        </template>
+                                    </v-data-table>
                                 </v-card>
                             </div>
                         </v-col>
@@ -159,8 +133,14 @@ export default {
     },
     data: () => ({
         search: "",
+        search_student: "",
         tabs: null,
-        student_headers: [{ text: "Student ID", value: "student_id" }],
+        student_headers: [
+            { text: "Student ID", value: "student_id" },
+            { text: "Student Name", value: "student_name", sortable: false },
+            { text: "Status", value: "status" },
+            { text: "Action", value: "action", sortable: false }
+        ]
     }),
     created() {},
     methods: {
@@ -168,24 +148,36 @@ export default {
             let stdname = this.users.find(user => user.id == userid) || {};
             return stdname.name;
         },
-        canceledenrolled(item, std) {
-            if (confirm("Are you sure you want to cancel " + std.student_id + " enrollment?")) {
+        canceledenrolled(item) {
+            if (
+                confirm(
+                    "Are you sure you want to cancel " +
+                        item.student_id +
+                        " enrollment?"
+                )
+            ) {
                 axios
-                    .put("/api/enroll/" + item.id, {
-                        student_id: std.id,
-                        lab_id: item.id,
+                    .put("/api/enroll/" + item.pivot.lab_id, {
+                        student_id: item.pivot.student_id,
+                        lab_id: item.pivot.lab_id,
                         cmd: "cancel"
                     })
                     .then(response => console.log(response.data));
                 this.$store.dispatch("loadLabs");
             }
         },
-        acceptenroll(item, std) {
-            if (confirm("Are you sure you want to accept " + std.student_id + " enrollment?")) {
+        acceptenroll(item) {
+            if (
+                confirm(
+                    "Are you sure you want to accept " +
+                        item.student_id +
+                        " enrollment?"
+                )
+            ) {
                 axios
-                    .put("/api/enroll/" + item.id, {
-                        student_id: std.id,
-                        lab_id: item.id,
+                    .put("/api/enroll/" + item.pivot.lab_id, {
+                        student_id: item.pivot.student_id,
+                        lab_id: item.pivot.lab_id,
                         cmd: "accept"
                     })
                     .then(response => console.log(response.data));
@@ -212,7 +204,7 @@ export default {
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
             });
-        }
+        },
     },
     watch: {}
 };

@@ -118,6 +118,7 @@
                                         :items="item.request_detail"
                                         hide-default-footer
                                     >
+                                    <template #item.equipment_name="{item}">{{getEquipName(item.equipment_id)}}</template>
                                     </v-data-table>
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
@@ -192,6 +193,11 @@ export default {
                 }) || {};
             return thisuser.name;
         },
+        getEquipName(equipId) {
+            let equipname =
+                this.equipments.find(equip => equip.id == equipId) || {};
+            return equipname.equip_name;
+        },
         deleteItem(item) {
             const index = this.request_lists.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
@@ -214,6 +220,9 @@ export default {
         }
     },
     computed: {
+        equipments() {
+            return this.$store.state.equipments;
+        },
         users() {
             return this.$store.state.users;
         },

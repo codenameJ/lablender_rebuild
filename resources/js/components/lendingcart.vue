@@ -9,7 +9,7 @@
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="headline">Lending Cart<v-icon class="ml-2" v-on="on">shopping_cart</v-icon></span>
+                    <span class="headline">Lending Cart<v-icon class="ml-2">shopping_cart</v-icon></span>
                 </v-card-title>
 
                 <v-card-text>
