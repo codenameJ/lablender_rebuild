@@ -81,10 +81,6 @@
                                         ></v-card-subtitle>
                                     </v-row>
 
-                                    <v-card-subtitle
-                                        v-text="item.status"
-                                    ></v-card-subtitle>
-
                                     <v-row>
                                         <v-card-subtitle
                                             class="ml-4"
