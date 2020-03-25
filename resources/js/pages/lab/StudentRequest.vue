@@ -166,6 +166,7 @@ export default {
         else if (status == "ready") return 'green'
         else if (status == "broken") return 'red'
         else if (status == "missing") return 'orange accent-2'
+        else if (status == "returned") return '#1a73e8'
         else return '#CE93D8'
       },
         getEquipName(equipId) {
