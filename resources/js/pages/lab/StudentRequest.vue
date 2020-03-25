@@ -20,17 +20,16 @@
                     <v-row>
                         <v-col cols="12">
                             <div v-for="(item, i) in StudentRequest" :key="i">
-                                <v-card class="my-2">
+                                <v-card class="mb-5">
                                     <v-row>
                                         <v-card-title
                                             class="ml-4"
-                                            v-text="
-                                                'Request No. ' + parseInt(i + 1)
-                                            "
+                                            v-text="'Request No. ' + item.id"
                                         ></v-card-title>
                                         <v-spacer></v-spacer>
                                         <v-card-actions class=" mr-5">
                                             <v-btn
+                                                v-if="item.status == 'wait'"
                                                 color="error"
                                                 fab
                                                 x-small
@@ -45,17 +44,36 @@
                                     </v-row>
 
                                     <!-- --------------------------------------------------------------------- -->
+
                                     <v-row>
                                         <v-card-subtitle
                                             class="ml-4"
-                                            v-text="currentuser.name"
+                                            v-text="
+                                                'Lending date : ' +
+                                                    item.created_at
+                                            "
                                         ></v-card-subtitle>
                                     </v-row>
+
                                     <v-row>
                                         <v-card-subtitle
                                             class="ml-4"
-                                            v-text="'Status : ' + item.status"
+                                            v-text="
+                                                'Lend by : ' + currentuser.name
+                                            "
                                         ></v-card-subtitle>
+                                    </v-row>
+
+                                    <v-row>
+                                        <v-card-subtitle
+                                            class="ml-4"
+                                            v-text="'Status : '"
+                                        ></v-card-subtitle>
+                                        <v-chip
+                                            :color="getColor(item.status)"
+                                            dark
+                                            >{{ item.status }}</v-chip
+                                        >
                                     </v-row>
                                     <!-- <v-data-table
                                         :headers="detail_headers"
@@ -63,7 +81,7 @@
                                         hide-default-footer
                                     >
                                     </v-data-table> -->
-                                    <table class="table" style="width:100%">
+                                    <!-- <table class="table" style="width:100%">
                                         <thead>
                                             <tr>
                                                 <th style="width:25%">
@@ -92,7 +110,17 @@
                                                 </td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                    </table> -->
+                                    <div class="col-12">
+                                    <v-data-table
+                                        class="mt-2"
+                                        :headers="detail_headers"
+                                        :items="item.request_detail"
+                                        hide-default-footer
+                                    >
+                                    <template #item.equipment_name="{item}">{{getEquipName(item.equipment_id)}}</template>
+                                    </v-data-table>
+                                    </div>
                                 </v-card>
                             </div>
                         </v-col>
@@ -112,8 +140,9 @@ export default {
         dialog: false,
         search: "",
         detail_headers: [
-            // { text: "Detail ID", value: "id" },
+            { text: "Detail ID", value: "id" },
             { text: "Equipment ID", value: "equipment_id" },
+            { text: "Equipment Name", value: "equipment_name"},
             { text: "Len Qty", value: "len_qty" }
         ],
         editedIndex: -1,
@@ -132,6 +161,13 @@ export default {
     }),
     created() {},
     methods: {
+        getColor (status) {
+        if (status == "wait") return 'blue-grey'
+        else if (status == "ready") return 'green'
+        else if (status == "broken") return 'red'
+        else if (status == "missing") return 'orange accent-2'
+        else return '#CE93D8'
+      },
         getEquipName(equipId) {
             let equipname =
                 this.equipments.find(equip => equip.id == equipId) || {};

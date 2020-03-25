@@ -76,6 +76,7 @@
                                                                     "
                                                                     value="0"
                                                                     label="QTY"
+                                                                    type="number"
                                                                 ></v-text-field>
                                                             </v-col>
                                                         </v-row>

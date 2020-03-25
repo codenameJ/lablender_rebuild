@@ -53,7 +53,7 @@
                                     <v-row>
                                         <v-card-title
                                             class="ml-4"
-                                            v-text="'Request ID : ' + item.id"
+                                            v-text="'Request No. ' + item.id"
                                         ></v-card-title>
                                         <v-spacer></v-spacer>
                                         <v-card-actions class=" mr-5">
@@ -184,7 +184,7 @@ export default {
         else if (status == "ready") return 'green'
         else if (status == "broken") return 'red'
         else if (status == "missing") return 'orange accent-2'
-        else return 'blue'
+        else return '#CE93D8'
       },
         getstudent(stdid) {
             let thisuser =
