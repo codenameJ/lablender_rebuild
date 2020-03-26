@@ -71,11 +71,9 @@
                                                                 md="4"
                                                             >
                                                                 <v-input-number 
+                                                                v-model="quantity" 
                                                                 label="QTY"
-                                                                v-model="quantity"
-                                                                value="0"
-                                                                type="number"
-                                                                min="1">
+                                                                :min=1>
                                                                 </v-input-number>
                                                             </v-col>
                                                         </v-row>
@@ -167,7 +165,7 @@ export default {
             amount: 0
         },
         badge: 0,
-        quantity: 1
+        quantity: ""
     }),
 
     computed: {
