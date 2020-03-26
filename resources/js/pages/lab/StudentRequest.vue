@@ -17,6 +17,31 @@
                         </v-col>
                     </v-row>
 
+                    <template>
+                        <v-tabs
+                            fixed-tabs
+                            color="#1a73e8"
+                            background-color="white"
+                            class="mt-3 mb-1"
+                        >
+                            <v-tab>
+                                Wait
+                            </v-tab>
+                            <v-tab>
+                                Ready
+                            </v-tab>
+                            <v-tab>
+                                Recieved
+                            </v-tab>
+
+                            <!-- วนลูป status ให้หน่อยสิจ๊ะที่รัก
+                                <v-tab v-for="item in items" :key="item">
+                                {{ item }}
+                            </v-tab> 
+                            -->
+                        </v-tabs>
+                    </template>
+
                     <v-row>
                         <v-col cols="12">
                             <div v-for="(item, i) in StudentRequest" :key="i">
@@ -112,14 +137,21 @@
                                         </tbody>
                                     </table> -->
                                     <div class="col-12">
-                                    <v-data-table
-                                        class="mt-2"
-                                        :headers="detail_headers"
-                                        :items="item.request_detail"
-                                        hide-default-footer
-                                    >
-                                    <template #item.equipment_name="{item}">{{getEquipName(item.equipment_id)}}</template>
-                                    </v-data-table>
+                                        <v-data-table
+                                            class="mt-2"
+                                            :headers="detail_headers"
+                                            :items="item.request_detail"
+                                            hide-default-footer
+                                        >
+                                            <template
+                                                #item.equipment_name="{item}"
+                                                >{{
+                                                    getEquipName(
+                                                        item.equipment_id
+                                                    )
+                                                }}</template
+                                            >
+                                        </v-data-table>
                                     </div>
                                 </v-card>
                             </div>
@@ -142,7 +174,7 @@ export default {
         detail_headers: [
             { text: "Detail ID", value: "id" },
             { text: "Equipment ID", value: "equipment_id" },
-            { text: "Equipment Name", value: "equipment_name"},
+            { text: "Equipment Name", value: "equipment_name" },
             { text: "Len Qty", value: "len_qty" }
         ],
         editedIndex: -1,
@@ -161,13 +193,13 @@ export default {
     }),
     created() {},
     methods: {
-        getColor (status) {
-        if (status == "wait") return 'blue-grey'
-        else if (status == "ready") return 'green'
-        else if (status == "broken") return 'red'
-        else if (status == "missing") return 'orange accent-2'
-        else return '#CE93D8'
-      },
+        getColor(status) {
+            if (status == "wait") return "blue-grey";
+            else if (status == "ready") return "green";
+            else if (status == "broken") return "red";
+            else if (status == "missing") return "orange accent-2";
+            else return "#CE93D8";
+        },
         getEquipName(equipId) {
             let equipname =
                 this.equipments.find(equip => equip.id == equipId) || {};
