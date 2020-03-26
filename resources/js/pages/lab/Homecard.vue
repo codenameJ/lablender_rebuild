@@ -13,7 +13,11 @@
                 </h5>
                 <br />
                 <div class="flex-container">
-                    <v-card class="mx-auto mb-5" max-width="344">
+                    <v-hover
+                    v-slot:default="{ hover }"
+                    open-delay="200"
+                    >
+                    <v-card :elevation="hover ? 16 : 2" class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto1.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -35,8 +39,12 @@
                                 SEE EQUIPMENTS
                             </v-btn>
                         </v-card-actions>
-                    </v-card>
-                    <v-card class="mx-auto mb-5" max-width="344">
+                    </v-card></v-hover>
+                    <v-hover
+                    v-slot:default="{ hover }"
+                    open-delay="200"
+                    >
+                    <v-card :elevation="hover ? 16 : 2" class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto2.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -53,7 +61,12 @@
                             </v-btn>
                         </v-card-actions>
                     </v-card>
-                    <v-card class="mx-auto mb-5" max-width="344">
+                    </v-hover>
+                    <v-hover
+                    v-slot:default="{ hover }"
+                    open-delay="200"
+                    >
+                    <v-card :elevation="hover ? 16 : 2"  class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto3.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -76,6 +89,7 @@
                             </v-btn>
                         </v-card-actions>
                     </v-card>
+                    </v-hover>
                 </div>
             </div>
         </v-content>

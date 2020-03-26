@@ -40,11 +40,9 @@
     background-image: linear-gradient(to bottom, #2ad4d9, #2ad4a9);
     font-weight: bold;
 }
-
 div.headtext {
     color: "black";
 }
-
 @media screen and (min-width: 801px) {
     div.headtext {
         font-size: calc(1em + 1vw);
@@ -56,33 +54,27 @@ div.headtext {
         font-size: 6vw;
     }
 } */
-
 div.headsubtext {
     color: "black";
 }
-
 @media screen and (min-width: 801px){
     div.headsubtext {
         font-size: 1.25vw;
     }
 }
-
 @media screen and (max-width: 800px) {
     div.headsubtext {
         font-size: 4vw;
     }
 }
-
 /* div.login-button {
     display: flex;
 }
-
 @media screen and (min-width: 601px) {
   div.login-button {
     justify-content: right;
   }
 }
-
 @media screen and (max-width: 600px) {
   div.login-button{
     text-align:center;

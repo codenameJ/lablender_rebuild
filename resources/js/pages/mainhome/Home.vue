@@ -1,6 +1,7 @@
 <template>
     <div id="app">
         <v-content>
+
             <div class="mx-auto mt-1 mb-1" >
                 <div class="flex-container">
                     <v-row>
@@ -30,9 +31,12 @@
                                 คณะวิศวกรรมศาสตร์ มหาวิทยาลัยเชียงใหม่<br />
                             </v-col>
                             <br>
-                            
-                                <v-btn
-                                    color="#3bad90"
+                            <v-hover
+                    v-slot:default="{ hover }"
+                    open-delay="200"
+                    >
+                     <v-btn :elevation="hover ? 16 : 2" 
+                                    color="#2ad4a9"
                                     outlined
                                     style="text-decoration: none; font-family: 'Kanit'; font-size: 20px;"
                                     href="/login"
@@ -40,6 +44,7 @@
                                 >
                                     เริ่มต้นใช้งาน
                                 </v-btn>
+                            </v-hover>
                             </center>
                         </v-col>
                     </v-row>
@@ -53,7 +58,11 @@
 
                 <br />
                 <div class="flex-container">
-                    <v-card class="mx-auto mb-5" max-width="344">
+                    <v-hover
+                    v-slot:default="{ hover }"
+                    open-delay="200"
+                    >
+                    <v-card :elevation="hover ? 16 : 2" class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/labhowto1.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -65,7 +74,12 @@
                         </v-card-subtitle>
 
                     </v-card>
-                    <v-card class="mx-auto mb-5" max-width="400">
+                    </v-hover>
+                    <v-hover
+                    v-slot:default="{ hover }"
+                    open-delay="200"
+                    >
+                    <v-card :elevation="hover ? 16 : 2" class="mx-auto mb-5" max-width="400">
                         <v-img src="/img/labhowto2.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -76,8 +90,12 @@
                             กด Request เพื่อขอเข้าร่วมแลป
                         </v-card-subtitle>
                     </v-card>
-
-                    <v-card class="mx-auto mb-5" max-width="344">
+                    </v-hover>
+                    <v-hover
+                    v-slot:default="{ hover }"
+                    open-delay="200"
+                    >
+                    <v-card :elevation="hover ? 16 : 2"  class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/labhowto3.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -88,6 +106,7 @@
                             เมื่ออาจารย์รับเข้าแลป สามารถเริ่มต้นยืมของได้ทันที
                         </v-card-subtitle>
                     </v-card>
+                    </v-hover>
                 </div>
             </div>
         </v-content>
