@@ -151,13 +151,13 @@ export default {
             equip_id: "",
             equip_name: "",
             equip_qty: 0,
-            lab_id: ""
+            lab_id: "",
         },
         defaultItem: {
             equip_id: "",
             equip_name: "",
             equip_qty: 0,
-            lab_id: ""
+            lab_id: "",
         },
         cartadd: {
             equip_id: 0,
@@ -165,7 +165,7 @@ export default {
             amount: 0
         },
         badge: 0,
-        quantity: ""
+        quantity: 1
     }),
 
     computed: {
@@ -225,6 +225,7 @@ export default {
             this.cartadd.amount = this.quantity;
             this.$store.commit("addToCart", this.cartadd);
             this.cartadd = {};
+            this.quantity = 1;
             this.close();
         },
         removeCart(index) {
