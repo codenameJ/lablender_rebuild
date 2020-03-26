@@ -20,14 +20,15 @@
     <link href="https://fonts.googleapis.com/css?family=Kanit|Prompt|Roboto&display=swap" rel="stylesheet">
 
     <link href="https://cdn.jsdelivr.net/npm/@mdi/font@4.x/css/materialdesignicons.min.css" rel="stylesheet">
-    
-<!-- 
+
+    <!-- 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css"> -->
 
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
-    
+
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     <style>
         input::-webkit-outer-spin-button,
         input::-webkit-inner-spin-button {
@@ -51,7 +52,7 @@
         .footer {
             padding: 7px;
             width: 100%;
-            background-image: linear-gradient(to right, #2ad4d9, #2ad4aa);
+            background-image: linear-gradient(to right, #2ad4d9, #2ad4a9);
             color: white;
             text-align: center;
         }

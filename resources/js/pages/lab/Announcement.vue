@@ -119,7 +119,7 @@
                                                 ></v-btn
                                             ></template
                                         > </v-card-title>
-                                                <v-card-subtitle style="font-size:17px">
+                                                <v-card-subtitle style="font-size:17px; color:#424242;">
                                                     {{ item.describe }}
                                                 </v-card-subtitle>
                                             </v-card-text>
@@ -128,7 +128,7 @@
                                     <v-row
                                         ><v-card-subtitle
                                             class="ml-9 mb-4"
-                                            style="font-size:15px;"
+                                            style="font-size:15px; color: #9E9E9E;"
                                             ><b>{{
                                                 "Posted by : " +
                                                     getAnnounceBy(item.user_id)

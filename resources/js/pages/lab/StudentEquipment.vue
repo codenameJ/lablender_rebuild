@@ -70,13 +70,13 @@
                                                                 sm="6"
                                                                 md="4"
                                                             >
-                                                                <v-text-field
-                                                                    v-model="
-                                                                        quantity
-                                                                    "
-                                                                    value="0"
-                                                                    label="QTY"
-                                                                ></v-text-field>
+                                                                <v-input-number 
+                                                                label="QTY"
+                                                                v-model="quantity"
+                                                                value="0"
+                                                                type="number"
+                                                                min="1">
+                                                                </v-input-number>
                                                             </v-col>
                                                         </v-row>
                                                     </v-container>

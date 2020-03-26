@@ -9,12 +9,21 @@
             </template>
             <v-card>
                 <v-card-title>
-                    <span class="headline">Lending Cart<v-icon class="ml-2">shopping_cart</v-icon></span>
+                    <span class="headline"
+                        >Lending Cart<v-icon class="ml-2"
+                            >shopping_cart</v-icon
+                        ></span
+                    >
                 </v-card-title>
 
                 <v-card-text>
                     <v-container>
                         <v-row>
+                            <p v-if="this.viewCart.length == 0">
+                                <center>
+                                    Your Lending Cart is empty.
+                                </center>
+                            </p>
                             <table class="table table-striped text left">
                                 <tr
                                     v-for="(cart, i) in viewCart"
@@ -44,16 +53,36 @@
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn color="blue darken-1" text @click="closecart"
+                    <v-btn
+                        v-if="this.viewCart.length == 0"
+                        color="blue darken-1"
+                        text
+                        @click="closecart"
+                        >Close</v-btn
+                    >
+                    <v-btn
+                        v-if="this.viewCart.length != 0"
+                        color="blue darken-1"
+                        text
+                        @click="closecart"
                         >Cancel</v-btn
                     >
                     <v-btn
+                        v-if="this.viewCart.length != 0"
                         color="#1a73e8"
                         style="text-decoration:none"
                         class="white--text"
                         @click="CheckOut"
-                        >Check Out</v-btn
-                    >
+                        >Check Out
+                    </v-btn>
+                    <v-btn
+                        v-if="this.viewCart.length == 0"
+                        color="#1a73e8"
+                        style="text-decoration:none"
+                        class="white--text"
+                        disabled
+                        >Check Out
+                    </v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -107,7 +136,7 @@ export default {
         CheckOut() {
             this.getcart = this.viewCart;
             console.log(this.getcart);
-            if(confirm("Confirm your lending")){
+            if (confirm("Confirm your lending")) {
                 axios
                     .post("/api/requestlist/", {
                         cart: this.getcart,
