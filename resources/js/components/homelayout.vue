@@ -1,8 +1,12 @@
 <template>
     <div id="app" v-if="curuser">
-        <v-toolbar dark tabs flat 
-        style="background-image: linear-gradient(to right, #2ad4d9, #2ad4aa);"
-        height="100">
+        <v-toolbar
+            dark
+            tabs
+            flat
+            style="background-image: linear-gradient(to right, #2ad4d9, #2ad4a9;"
+            height="100"
+        >
             <v-toolbar-title>
                 <v-list-item>
                     <v-img
@@ -77,24 +81,23 @@
                     v-if="type == 'admin'"
                     align-with-title
                 >
-                    
-                        <v-tab style="text-decoration : none;" to="/home"
-                            >Dashboard</v-tab
-                        >
-                        <v-tab style="text-decoration : none;" to="/admin/labs"
-                            >Our Labs</v-tab
-                        >
-                        <v-tab style="text-decoration : none;" to="/admin/enrolls"
-                            >Manage Enrollment</v-tab
-                        >
-                        <v-tab style="text-decoration : none;" to="/admin/user"
-                            >Manage User</v-tab
-                        >
-                        <v-tab style="text-decoration : none;" to="/about"
-                            >About</v-tab
-                        >
-                        <v-tabs-slider color="white"></v-tabs-slider>
-                    </v-tabs>
+                    <v-tab style="text-decoration : none;" to="/home"
+                        >Dashboard</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/admin/labs"
+                        >Our Labs</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/admin/enrolls"
+                        >Manage Enrollment</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/admin/user"
+                        >Manage User</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/about"
+                        >About</v-tab
+                    >
+                    <v-tabs-slider color="white"></v-tabs-slider>
+                </v-tabs>
 
                 <v-tabs
                     background-color="transparent"
@@ -102,29 +105,25 @@
                     v-if="type == 'professor'"
                     align-with-title
                 >
-                        <v-tab style="text-decoration : none;" to="/home"
-                            >Dashboard</v-tab
-                        >
-                        <v-tab
-                            style="text-decoration : none;"
-                            to="/professor/labs"
-                            >Our Labs</v-tab
-                        >
-                        <v-tab
-                            style="text-decoration : none;"
-                            to="/professor/enrolls"
-                            >Manage Enrollment</v-tab
-                        >
-                        <v-tab
-                            style="text-decoration : none;"
-                            to="/professor/users"
-                            >Manage User</v-tab
-                        >
-                        <v-tab style="text-decoration : none;" to="/about"
-                            >About</v-tab
-                        >
-                        <v-tabs-slider color="white"></v-tabs-slider>
-                    </v-tabs>
+                    <v-tab style="text-decoration : none;" to="/home"
+                        >Dashboard</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/professor/labs"
+                        >Our Labs</v-tab
+                    >
+                    <v-tab
+                        style="text-decoration : none;"
+                        to="/professor/enrolls"
+                        >Manage Enrollment</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/professor/users"
+                        >Manage User</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/about"
+                        >About</v-tab
+                    >
+                    <v-tabs-slider color="white"></v-tabs-slider>
+                </v-tabs>
 
                 <v-tabs
                     background-color="transparent"
@@ -132,22 +131,20 @@
                     v-if="type == 'ta'"
                     align-with-title
                 >
-                        <v-tab style="text-decoration : none;" to="/home"
-                            >Dashboard</v-tab
-                        >
-                        <v-tab style="text-decoration : none;" to="/ta/labs"
-                            >Our Labs</v-tab
-                        >
-                        <v-tab
-                            style="text-decoration : none;"
-                            to="/ta/enrolls"
-                            >Manage Enrollment</v-tab
-                        >
-                        <v-tab style="text-decoration : none;" to="/about"
-                            >About</v-tab
-                        >
-                        <v-tabs-slider color="white"></v-tabs-slider>
-                    </v-tabs>
+                    <v-tab style="text-decoration : none;" to="/home"
+                        >Dashboard</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/ta/labs"
+                        >Our Labs</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/ta/enrolls"
+                        >Manage Enrollment</v-tab
+                    >
+                    <v-tab style="text-decoration : none;" to="/about"
+                        >About</v-tab
+                    >
+                    <v-tabs-slider color="white"></v-tabs-slider>
+                </v-tabs>
 
                 <v-tabs
                     background-color="transparent"

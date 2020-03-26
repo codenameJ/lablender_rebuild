@@ -8,13 +8,16 @@ import Vuetify from 'vuetify';
 import Vuex from 'vuex';
 import router from './router';
 import StoreData from './store';
+import VuetifyNumberInput from '@jzolago/vuetify-number-input'
+
+
 
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
 
 Vue.use(Vuetify);
 Vue.use(Vuex);
-
+Vue.use(VuetifyNumberInput);
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('homelayout', require('./components/homelayout.vue').default);
