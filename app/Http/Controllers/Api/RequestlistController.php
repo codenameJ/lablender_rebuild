@@ -105,6 +105,15 @@ class RequestlistController extends Controller
         $request_list = Request_list::find($id);
         $request_list->status = $request->get('status');
         $request_list->update();
+
+        if($request->cmd == 'return'){
+            $data = $request->json()->all();
+            foreach ($data['selectedDetails'] as $detail) {
+                $request_detail = Request_detail::find($detail['id']);
+                $request_detail->status = $detail['status'];
+                $request_detail->update();
+            }
+        }
         
         return response(['message' => 'request list Update', 'request list' => $request_list]);
     }

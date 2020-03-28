@@ -464,7 +464,7 @@
                         </v-list-item-content>
                     </v-list-item>
 
-                    <v-list-item
+                    <!-- <v-list-item
                         class="menuhref"
                         :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
                         link
@@ -475,7 +475,7 @@
                         <v-list-item-content>
                             <v-list-item-title>บำรุงรักษา</v-list-item-title>
                         </v-list-item-content>
-                    </v-list-item>
+                    </v-list-item> -->
 
                     <v-list-item class="menuhref" href="/labs" link>
                         <v-list-item-action>

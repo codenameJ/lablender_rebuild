@@ -22,6 +22,7 @@ import Maintenance from './pages/lab/Maintenance';
 //student lab page
 import StudentEquipment from './pages/lab/StudentEquipment'
 import StudentRequest from './pages/lab/StudentRequest';
+import StudentHistory from './pages/lab/StudentHistory';
 
 Vue.component('Home', Home);
 Vue.component('Adminlabs', Adminlabs);
@@ -44,6 +45,7 @@ Vue.component('Maintenance', Maintenance);
 //student lab page
 Vue.component('StudentEquipment', StudentEquipment);
 Vue.component('StudentRequest', StudentRequest);
+Vue.component('StudentHistory', StudentHistory);
 
 Vue.use(VueRouter);
 
@@ -85,7 +87,7 @@ export default new VueRouter({
             path: '/student/lab/:course_id/history',
             props: true,
             name: 'student_history',
-            component: History,
+            component: StudentHistory,
         },
         {
             path: '/student/lab/:course_id/maintenance',

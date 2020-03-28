@@ -2,254 +2,218 @@
     <v-content>
         <v-container class="my-5">
             <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <v-toolbar>
-                        <v-text-field
-                            v-model="search"
-                            append-icon="search"
-                            label="Search"
-                            single-line
-                            hide-details
-                        ></v-text-field>
-                    </v-toolbar>
-                </div>
-                <div class="col-md-12">
-                    <v-data-table
-                        :headers="headers"
-                        :items="filterEquipments"
-                        class="elevation-1"
-                    >
-                        <template v-slot:top>
-                            <v-toolbar flat color="white">
-                                <v-toolbar-title>History</v-toolbar-title>
-                                <v-divider
-                                    class="mx-4"
-                                    inset
-                                    vertical
-                                ></v-divider>
-                                <v-spacer></v-spacer>
-                                <v-dialog v-model="dialog" max-width="500px">
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            color="primary"
+                <div class="col-12">
+                    <v-row dense>
+                        <v-col cols="12">
+                            <v-toolbar>
+                                <v-text-field
+                                    v-model="search"
+                                    append-icon="search"
+                                    label="Search by student id..."
+                                    single-line
+                                    hide-details
+                                ></v-text-field>
+                            </v-toolbar>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="12">
+                            <div v-for="(item, i) in filterReturn" :key="i">
+                                <v-card class="mb-5">
+                                    <v-row>
+                                        <v-card-title
+                                            class="ml-4"
+                                            v-text="'Request No. ' + item.id"
+                                        ></v-card-title>
+                                        <v-spacer></v-spacer>
+                                        <v-card-actions class=" mr-5">
+                                            <v-btn
+                                                v-if="item.status == 'wait'"
+                                                color="error"
+                                                fab
+                                                x-small
+                                                dark
+                                                outlined
+                                                class="elevation-4 no-underline"
+                                                @click="deleteItem(item)"
+                                            >
+                                                <v-icon>delete_outline</v-icon>
+                                            </v-btn>
+                                        </v-card-actions>
+                                    </v-row>
+
+                                    <!-- --------------------------------------------------------------------- -->
+                                    <v-row>
+                                        <v-card-subtitle
+                                            class="ml-4"
+                                            v-text="
+                                                'Lending date : ' +
+                                                    item.created_at
+                                            "
+                                        ></v-card-subtitle>
+                                    </v-row>
+
+                                    <v-row>
+                                        <v-card-subtitle
+                                            class="ml-4"
+                                            v-text="
+                                                'Lend by : ' +
+                                                    getstudent(item.student_id)
+                                            "
+                                        ></v-card-subtitle>
+                                    </v-row>
+
+                                    <v-row>
+                                        <v-card-subtitle
+                                            class="ml-4"
+                                            v-text="'Status : '"
+                                        ></v-card-subtitle>
+                                        <v-chip
+                                            :color="getColor(item.status)"
                                             dark
-                                            class="mb-2"
-                                            v-on="on"
-                                            >Add Equipment</v-btn
+                                            >{{ item.status }}</v-chip
                                         >
-                                    </template>
-                                    <v-spacer></v-spacer>
-                                    <v-card>
-                                        <v-card-title>
-                                            <span class="headline">{{
-                                                formTitle
-                                            }}</span>
-                                        </v-card-title>
-
-                                        <v-card-text>
-                                            <v-container>
-                                                <v-row>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.equip_id
-                                                            "
-                                                            label="ID"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.equip_name
-                                                            "
-                                                            label="Name"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.equip_qty
-                                                            "
-                                                            label="QTY"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-card-text>
-
-                                        <v-card-actions>
+                                    </v-row>
+                                    <div class="col-12">
+                                        <v-data-table
+                                            class="mt-2"
+                                            :headers="detail_headers"
+                                            :items="item.request_detail"
+                                            hide-default-footer
+                                        >
+                                            <template
+                                                #item.equipment_name="{item}"
+                                                >{{
+                                                    getEquipName(
+                                                        item.equipment_id
+                                                    )
+                                                }}</template
+                                            >
+                                        </v-data-table>
+                                        <!-- <v-card-actions>
                                             <v-spacer></v-spacer>
                                             <v-btn
+                                                outlined
                                                 color="blue darken-1"
-                                                text
-                                                @click="close"
-                                                >Cancel</v-btn
+                                                >Return</v-btn
                                             >
-                                            <v-btn
-                                                color="blue darken-1"
-                                                text
-                                                @click="save"
-                                                >Save</v-btn
-                                            >
-                                        </v-card-actions>
-                                    </v-card>
-                                </v-dialog>
-                            </v-toolbar>
-                        </template>
-                        <template v-slot:item.action="{ item }">
-                            <v-icon small class="mr-2" @click="editItem(item)">
-                                edit
-                            </v-icon>
-                            <v-icon small @click="deleteItem(item)">
-                                delete
-                            </v-icon>
-                        </template>
-                    </v-data-table>
+                                        </v-card-actions> -->
+                                    </div>
+                                </v-card>
+                            </div>
+                        </v-col>
+                    </v-row>
                 </div>
             </div>
-        </v-container></v-content
-    >
+        </v-container>
+    </v-content>
 </template>
 
 <script>
 export default {
     mounted() {
-        this.$store.dispatch("loadEquipments");
-        this.seteditlab();
-        this.setdefaultlab();
+        this.$store.dispatch("loadRequest_lists");
     },
     data: () => ({
-        dialog: false,
+        currentComp: "brokenlist",
         search: "",
-        headers: [
-            // { text: "ID", value: "id" },
-            { text: "Equip ID", value: "equip_id" },
-            {
-                text: "Equip Name",
-                align: "left",
-                sortable: false,
-                value: "equip_name"
-            },
-            { text: "Qty", value: "equip_qty" },
-            { text: "Lab", value: "lab_id" },
-            { text: "Actions", value: "action", sortable: false }
+        ReqStatus: [
+            { value: 1, text: "wait" },
+            { value: 2, text: "ready" },
+            { value: 3, text: "recieve" }
+        ],
+        detail_headers: [
+            { text: "Detail ID", value: "id" },
+            { text: "Equipment ID", value: "equipment_id" },
+            { text: "Equipment Name", value: "equipment_name" },
+            { text: "Len Qty", value: "len_qty" },
+            { text: "Status", value: "status" }
         ],
         editedIndex: -1,
         editedItem: {
-            equip_id: "",
-            equip_name: "",
-            equip_qty: 0,
-            lab_id: ""
+            status: ""
         },
         defaultItem: {
-            equip_id: "",
-            equip_name: "",
-            equip_qty: 0,
-            lab_id: ""
+            status: ""
         }
     }),
     created() {},
     methods: {
-        seteditlab() {
-            this.editedItem.lab_id = this.curlab.id;
-            return this.editedItem.lab_id;
+        getColor(status) {
+            if (status == "wait") return "blue-grey";
+            else if (status == "ready") return "green";
+            else if (status == "broken") return "red";
+            else if (status == "missing") return "orange accent-2";
+            else if (status == "returned") return "#1a73e8";
+            else return "#CE93D8";
         },
-        setdefaultlab() {
-            this.defaultItem.lab_id = this.curlab.id;
-            return this.defaultItem.lab_id;
+        getstudent(stdid) {
+            let thisuser =
+                this.users.find(user => {
+                    return user.student;
+                }) || {};
+            return thisuser.name;
         },
-        editItem(item) {
-            this.editedIndex = this.equipments.indexOf(item);
-            this.editedItem = Object.assign({}, item);
-            this.dialog = true;
-            this.$store.dispatch("loadEquipments");
+        getEquipName(equipId) {
+            let equipname =
+                this.equipments.find(equip => equip.id == equipId) || {};
+            return equipname.equip_name;
         },
         deleteItem(item) {
-            const index = this.equipments.indexOf(item);
-            if (
-                confirm("Are you sure you want to delete this item?") &&
-                this.equipments.splice(index, 1)
-            ) {
-                axios
-                    .delete("/api/equipment/" + item.id)
-                    .then(response => console.log(response.data));
+            const index = this.request_lists.indexOf(item);
+            confirm("Are you sure you want to delete this item?") &&
+                this.request_lists.splice(index, 1);
 
-                this.$store.dispatch("loadEquipments");
-            }
+            axios
+                .delete("/api/requestlist/" + item.id)
+                .then(response => console.log(response.data));
+
+            this.$store.dispatch("loadRequest_lists");
         },
-
-        close() {
-            this.dialog = false;
-            setTimeout(() => {
-                this.editedItem = Object.assign({}, this.defaultItem);
-                this.editedIndex = -1;
-            }, 300);
+        save(item) {
+            axios
+                .put("/api/requestlist/" + item.id, {
+                    status: this.status
+                })
+                .then(response => console.log(response.data));
+            this.$store.dispatch("loadRequest_lists");
         },
-
-        save() {
-            if (this.editedIndex > -1) {
-                Object.assign(
-                    this.equipments[this.editedIndex],
-                    this.editedItem
-                );
-                axios
-                    .put(
-                        "/api/equipment/" + this.editedItem.id,
-                        this.editedItem
-                    )
-                    .then(response => console.log(response.data));
-            } else {
-                this.equipments.push(this.editedItem);
-                axios
-                    .post("/api/equipment/", this.editedItem)
-                    .then(response => console.log(response.data));
-            }
-            this.close();
-            this.$store.dispatch("loadEquipments");
+        // show(arrayData) {
+        //     return arrayData.filter(data => data.status == "return") || {};
+        // },
+        setcomp(compname) {
+            this.currentComp = compname;
         }
     },
     computed: {
         equipments() {
             return this.$store.state.equipments;
         },
+        users() {
+            return this.$store.state.users;
+        },
+        request_lists() {
+            return this.$store.state.request_lists;
+        },
         curlab() {
             return this.$store.state.selectedLab;
         },
-        equipmentsinlab() {
-            let selequips =
-                this.equipments.filter(
-                    equipment => equipment.lab_id == this.curlab.id
+        Requestlistsinlab() {
+            let selrequestlist =
+                this.request_lists.filter(
+                    request_list => request_list.lab_id == this.curlab.id
                 ) || {};
-            return selequips;
+            return selrequestlist;
         },
-        filterEquipments: function() {
-            return this.equipmentsinlab.filter(equip => {
-                return equip.equip_name
-                    .toLowerCase()
-                    .includes(this.search.toLowerCase());
-            });
-        },
-        formTitle() {
-            return this.editedIndex === -1 ? "New Equipment" : "Edit Equipment";
+        filterReturn() {
+            let returnlist =
+                this.Requestlistsinlab.filter(
+                    list => list.status == "return"
+                ) || {};
+            return returnlist;
         }
     },
-    watch: {
-        dialog(val) {
-            val || this.close();
-        }
-    }
+    watch: {}
 };
 </script>
 
