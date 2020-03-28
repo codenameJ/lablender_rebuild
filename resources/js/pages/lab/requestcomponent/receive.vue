@@ -1,8 +1,11 @@
-<template
-    ><v-row>
+<template>
+    <v-row>
         <v-col cols="12">
             <div v-for="(item, i) in filterReceive" :key="i">
-                <v-card class="mb-5">
+                <v-card
+                    class="mb-5"
+                    v-if="show(item.request_detail).length != 0"
+                >
                     <v-row>
                         <v-card-title
                             class="ml-4"
@@ -62,11 +65,58 @@
                         </v-data-table>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-btn
-                                outlined
-                                color="blue darken-1"
-                                >Return</v-btn
-                            >
+                            <v-dialog v-model="returndialog" max-width="500px">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        outlined
+                                        color="blue darken-1"
+                                        v-on="on"
+                                        @click="setDetail(item)"
+                                        >Return</v-btn
+                                    >
+                                </template>
+                                <v-card
+                                    ><v-card-title>
+                                        <span class="headline"
+                                            >Return Item</span
+                                        >
+                                    </v-card-title>
+                                    <v-card-text>
+                                        <v-container
+                                            ><v-data-table
+                                                class="mt-2"
+                                                :headers="vcard_detail_header"
+                                                :items="selectedDetails"
+                                                hide-default-footer
+                                            >
+                                                <template
+                                                    #item.equipment_name="{item}"
+                                                    >{{
+                                                        getEquipName(
+                                                            item.equipment_id
+                                                        )
+                                                    }}</template
+                                                >
+                                                <template #item.status="{item}"
+                                                    ><v-select
+                                                        v-model="item.status"
+                                                        :items="ckecklist"
+                                                    >
+                                                    </v-select>
+                                                </template>
+                                            </v-data-table>
+                                            <v-card-actions
+                                                ><v-btn
+                                                    outlined
+                                                    color="blue darken-1"
+                                                    @click="save(getrequestid)"
+                                                    >Save</v-btn
+                                                ></v-card-actions
+                                            ></v-container
+                                        ></v-card-text
+                                    >
+                                </v-card>
+                            </v-dialog>
                         </v-card-actions>
                     </div>
                 </v-card>
@@ -81,13 +131,29 @@ export default {
         this.$store.dispatch("loadRequest_lists");
     },
     data: () => ({
+        returndialog: false,
+        checkselect: null,
+        ckecklist: [
+            { value: 2, text: "return" },
+            { value: 3, text: "broken" },
+            { value: 4, text: "missing" }
+        ],
         detail_headers: [
             { text: "Detail ID", value: "id" },
             { text: "Equipment ID", value: "equipment_id" },
             { text: "Equipment Name", value: "equipment_name" },
             { text: "Len Qty", value: "len_qty" }
         ],
+        vcard_detail_header: [
+            { text: "Detail ID", value: "id" },
+            { text: "Equipment ID", value: "equipment_id" },
+            { text: "Equipment Name", value: "equipment_name" },
+            { text: "Len Qty", value: "len_qty" },
+            { text: "status", value: "status" }
+        ],
         editedIndex: -1,
+        selectedDetails: [],
+        getrequestid: null,
         status: "return"
     }),
     created() {},
@@ -123,14 +189,23 @@ export default {
 
             this.$store.dispatch("loadRequest_lists");
         },
-        save(item) {
+        save(request_list_id) {
+            console.log(request_list_id);
             axios
-                .put("/api/requestlist/" + item.id, {
-                    status: this.status
+                .put("/api/requestlist/" + request_list_id, {
+                    status: this.status,
+                    cmd: "return",
+                    selectedDetails: this.selectedDetails
                 })
                 .then(response => console.log(response.data));
+            this.returndialog = false;
             this.$store.dispatch("loadRequest_lists");
         },
+        setDetail(item) {
+            this.getrequestid = item.id;
+            this.selectedDetails = item.request_detail;
+            console.log(this.getrequestid);
+        }
     },
     computed: {
         equipments() {
