@@ -70,10 +70,13 @@
                                                                 sm="6"
                                                                 md="4"
                                                             >
-                                                                <v-input-number 
-                                                                v-model="quantity" 
-                                                                label="QTY"
-                                                                :min=1>
+                                                                <v-input-number
+                                                                v-model="quantity"
+                                                                :rules="[rules.lower]"
+                                                                :min=1
+                                                                :max='editedItem.equip_qty'
+                                                                inline 
+                                                                controls>
                                                                 </v-input-number>
                                                             </v-col>
                                                         </v-row>
@@ -101,13 +104,28 @@
                                     </v-toolbar>
                                 </template>
                                 <template v-slot:item.action="{ item }">
-                                    <v-btn
+                                     <v-btn
+                                        v-if="item.equip_qty > 0"
                                         small
                                         rounded
                                         outlined
                                         class="elevation-2"
                                         color="#1a73e8"
                                         @click="editItem(item)"
+                                    >
+                                        <v-icon small class="mr-2" left
+                                            >add_circle_outline</v-icon
+                                        >
+                                        Lend
+                                    </v-btn>
+                                    <v-btn
+                                        v-if="item.equip_qty <= 0"
+                                        disabled
+                                        small
+                                        rounded
+                                        outlined
+                                        class="elevation-2"
+                                        color="#1a73e8"
                                     >
                                         <v-icon small class="mr-2" left
                                             >add_circle_outline</v-icon
@@ -132,6 +150,9 @@ export default {
         this.setdefaultlab();
     },
     data: () => ({
+        rules: {
+          lower: value => value >= 1 || 'Must lend more than 1 pc.',
+        },
         dialog: false,
         dialogcart: false,
         search: "",
