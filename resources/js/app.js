@@ -10,8 +10,6 @@ import router from './router';
 import StoreData from './store';
 import VuetifyNumberInput from '@jzolago/vuetify-number-input'
 
-
-
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
 

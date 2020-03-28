@@ -64,7 +64,7 @@
                             <v-spacer></v-spacer>
                             <v-btn
                                 outlined
-                                color="blue darken-1"
+                                color="success"
                                 @click="save(item)"
                                 >Ready</v-btn
                             >

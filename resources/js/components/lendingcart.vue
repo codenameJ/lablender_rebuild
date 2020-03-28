@@ -86,6 +86,35 @@
                 </v-card-actions>
             </v-card>
         </v-dialog>
+
+        <v-dialog v-model="dialogcart_success" max-width="500px">
+            <v-card>
+                <v-container class="justify-center">
+                    <v-row>
+                        <div class="check_mark">
+                            <div class="sa-icon sa-success animate">
+                                <span
+                                    class="sa-line sa-tip animateSuccessTip"
+                                ></span>
+                                <span
+                                    class="sa-line sa-long animateSuccessLong"
+                                ></span>
+                                <div class="sa-placeholder"></div>
+                                <div class="sa-fix"></div>
+                            </div>
+                        </div>
+                    </v-row>
+                    <div>
+                        <h2 align="center" class="green--text font-weight-bold">
+                            Lending Success!
+                        </h2>
+                        <h5 align="center">
+                            You can see your requests in request page.
+                        </h5>
+                    </div>
+                </v-container>
+            </v-card>
+        </v-dialog>
     </div>
 </template>
 
@@ -94,6 +123,7 @@ export default {
     mounted() {},
     data: () => ({
         dialogcart: false,
+        dialogcart_success: false,
         badge: 0,
         getcart: null,
         storestatus: false
@@ -144,6 +174,11 @@ export default {
                         lab_id: this.curlab.id
                     })
                     .then(response => console.log(response.data));
+                this.dialogcart_success = true;
+                var self = this;
+                setTimeout(function() {
+                    self.dialogcart_success = false;
+                }, 3000);
                 this.$store.dispatch("loadEquipments");
                 this.$store.dispatch("clearCartItems");
                 this.closecart();

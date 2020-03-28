@@ -63,14 +63,14 @@
                         <v-card-actions>
                             <v-btn
                                 outlined
-                                color="blue darken-1"
+                                color="blue-grey"
                                 @click="wait(item)"
                                 >wait</v-btn
                             >
                             <v-spacer></v-spacer>
                             <v-btn
                                 outlined
-                                color="blue darken-1"
+                                color="purple lighten-2"
                                 @click="receive(item)"
                                 >receive</v-btn
                             >
