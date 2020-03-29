@@ -64,14 +64,14 @@
                                 outlined
                                 color="blue-grey"
                                 @click="wait(item)"
-                                >wait</v-btn
+                                ><v-icon class="mr-2">arrow_back</v-icon>wait</v-btn
                             >
                             <v-spacer></v-spacer>
                             <v-btn
                                 outlined
                                 color="purple lighten-2"
                                 @click="receive(item)"
-                                >receive</v-btn
+                                >receive<v-icon class="ml-1">arrow_forward</v-icon></v-btn
                             >
                         </v-card-actions>
                     </div>

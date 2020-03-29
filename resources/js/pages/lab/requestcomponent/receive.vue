@@ -70,7 +70,7 @@
                                         color="blue darken-1"
                                         v-on="on"
                                         @click="setDetail(item)"
-                                        >Return</v-btn
+                                        >Return<v-icon class="ml-1">arrow_forward</v-icon></v-btn
                                     >
                                 </template>
                                 <v-card

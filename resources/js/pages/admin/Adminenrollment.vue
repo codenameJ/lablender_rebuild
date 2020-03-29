@@ -9,16 +9,7 @@
                         </v-row>
                     </v-col>
                     <v-row dense>
-                        <v-toolbar
-                            ><v-tabs
-                                background-color="transparent"
-                                v-model="tabs"
-                            >
-                                <v-tab style="text-decoration : none;" to=""
-                                    >All</v-tab
-                                >
-                                <v-tabs-slider color="white"></v-tabs-slider>
-                            </v-tabs>
+                        <v-toolbar>
                             <v-text-field
                                 v-model="search"
                                 append-icon="search"

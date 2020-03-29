@@ -27,6 +27,7 @@
                     :headers="headers"
                     :items="filterType"
                     class="elevation-1"
+                    :sort-by.sync="sortBy"
                 >
                     <template v-slot:top>
                         <v-toolbar flat color="white">
@@ -183,7 +184,7 @@
                                 </v-card>
                             </v-dialog>
                         </v-toolbar>
-                        <v-col cols="3">
+                        <v-col cols="4">
                             <v-select
                                 class="ml-1"
                                 label="User Type"
@@ -222,6 +223,7 @@ export default {
         // this.$store.dispatch("loadLabs");
     },
     data: () => ({
+        sortBy: 'id',
         usertype: null,
         filtertab: null,
         dialog: false,

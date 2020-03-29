@@ -21,16 +21,14 @@
 
                         <v-col cols="12">
                             <div v-for="(item, i) in filterLab" :key="i">
-                                <v-card class="my-2">
-                                    <div
-                                        class="d-flex flex-no-wrap justify-space-between"
-                                    >
-                                        <div>
+                                <v-card class="mt-2 mb-5">
+                                    <v-card-actions>
                                             <v-card-title
                                                 class="headline"
                                                 v-text="item.course_name"
                                             >
                                             </v-card-title>
+                                            <v-spacer></v-spacer>
                                             <v-dialog
                                                 v-model="dialog"
                                                 max-width="500px"
@@ -40,14 +38,14 @@
                                                 >
                                                     <v-btn
                                                         color="primary"
-                                                        dark
-                                                        class="mb-2"
+                                                        outlined
+                                                        class="mb-2 mr-2"
                                                         v-on="on"
                                                         @click="setLab(item)"
-                                                        >Add TA</v-btn
+                                                        ><v-icon class="mr-2">add</v-icon>Add TA</v-btn
                                                     >
                                                 </template>
-                                                <v-spacer></v-spacer>
+                                            
                                                 <v-card>
                                                     <v-card-title>
                                                         <span class="headline"
@@ -77,8 +75,7 @@
                                                     </v-data-table>
                                                 </v-card>
                                             </v-dialog>
-                                        </div>
-                                    </div>
+                                </v-card-actions>
                                     <v-data-table
                                         class="mt-2"
                                         :headers="student_headers"

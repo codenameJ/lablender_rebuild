@@ -87,7 +87,7 @@
     </div>
 
     <div dark class="footer mt-5">
-        <p class="mt-2 roboto">&copy; Copyright CPE CMU 2020</p>
+        <p class="mt-2 roboto">&copy; CPE CMU 2020</p>
     </div>
 
 </body>

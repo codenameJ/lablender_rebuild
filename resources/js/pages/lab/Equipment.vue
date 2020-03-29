@@ -18,6 +18,7 @@
                         :headers="headers"
                         :items="filterEquipments"
                         class="elevation-1"
+                        :sort-by.sync="sortBy"
                     >
                         <template v-slot:top>
                             <v-toolbar flat color="white">
@@ -132,6 +133,7 @@ export default {
     },
     data: () => ({
         dialog: false,
+        sortBy: 'equip_id',
         search: "",
         headers: [
             // { text: "ID", value: "id" },

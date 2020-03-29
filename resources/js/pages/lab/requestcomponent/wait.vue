@@ -65,7 +65,7 @@
                                 outlined
                                 color="success"
                                 @click="save(item)"
-                                >Ready</v-btn
+                                >Ready<v-icon class="ml-1">arrow_forward</v-icon></v-btn
                             >
                         </v-card-actions>
                     </div>

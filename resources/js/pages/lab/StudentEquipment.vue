@@ -9,6 +9,7 @@
                                 :headers="headers"
                                 :items="filterEquipments"
                                 class="elevation-1 txt-title"
+                                :sort-by.sync="sortBy"
                             >
                                 <template v-slot:top>
                                     <v-toolbar flat color="white">
@@ -153,6 +154,7 @@ export default {
         rules: {
           lower: value => value >= 1 || 'Must lend more than 1 pc.',
         },
+        sortBy: 'equip_id',
         dialog: false,
         dialogcart: false,
         search: "",
