@@ -137,7 +137,7 @@
                                                     ></v-text-field> -->
 
                                                 <v-col cols="12" sm="6" md="4">
-                                                    <v-select
+                                                    <!-- <v-select
                                                         v-if="
                                                             editedItem.type ==
                                                                 'ta'
@@ -148,7 +148,7 @@
                                                         :items="labs"
                                                         label="Lab ID"
                                                         item-text="course_id"
-                                                    ></v-select>
+                                                    ></v-select> -->
 
                                                     <v-text-field
                                                         v-if="
@@ -259,7 +259,7 @@ export default {
             phone: "",
             type: "",
             student_id: "",
-            lab_id: ""
+            // lab_id: ""
         },
         defaultItem: {
             name: "",
@@ -268,7 +268,7 @@ export default {
             phone: "",
             type: "",
             student_id: "",
-            lab_id: ""
+            // lab_id: ""
         }
     }),
     created() {},

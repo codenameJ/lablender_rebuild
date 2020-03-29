@@ -90,6 +90,9 @@
                     <v-tab style="text-decoration : none;" to="/admin/enrolls"
                         >Manage Enrollment</v-tab
                     >
+                    <v-tab style="text-decoration : none;" to="/admin/assign"
+                        >Manage Assign</v-tab
+                    >
                     <v-tab style="text-decoration : none;" to="/admin/user"
                         >Manage User</v-tab
                     >
@@ -116,9 +119,14 @@
                         to="/professor/enrolls"
                         >Manage Enrollment</v-tab
                     >
-                    <v-tab style="text-decoration : none;" to="/professor/users"
-                        >Manage User</v-tab
+                    <v-tab
+                        style="text-decoration : none;"
+                        to="/professor/assigns"
+                        >Manage Assign</v-tab
                     >
+                    <!-- <v-tab style="text-decoration : none;" to="/professor/users"
+                        >Manage User</v-tab
+                    > -->
                     <v-tab style="text-decoration : none;" to="/about"
                         >About</v-tab
                     >
