@@ -13,7 +13,6 @@
                         <v-spacer></v-spacer>
                         <v-card-actions class=" mr-5">
                             <v-btn
-                                v-if="item.status == 'wait'"
                                 color="error"
                                 fab
                                 x-small

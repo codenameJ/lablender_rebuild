@@ -6,7 +6,7 @@
                 <!-- <h1 align="center">LAB LENDER</h1> -->
                 <h1 align="center">{{ curlab.course_name }}</h1>
                 <h2 align="center">{{ curlab.course_id }}</h2>
-                <h3 align="center">Welcome, {{ username }}</h3>
+                <h4 align="center">Welcome, username</h4>
                 <br>
                 <v-divider></v-divider>
                 <h5 align="center">
