@@ -93,7 +93,7 @@
                             <v-icon class="ml-2">home</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
@@ -108,7 +108,7 @@
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 ประกาศ
                             </v-list-item-title>
                         </v-list-item-content>
@@ -123,7 +123,7 @@
                             <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>อุปกรณ์</v-list-item-title>
+                            <v-list-item-title style="font-size:16px">อุปกรณ์</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -136,7 +136,7 @@
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 คำขอยืม
                             </v-list-item-title>
                         </v-list-item-content>
@@ -151,7 +151,7 @@
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title> ประวัติ</v-list-item-title>
+                            <v-list-item-title style="font-size:16px"> ประวัติ</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -164,7 +164,7 @@
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>บำรุงรักษา</v-list-item-title>
+                            <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -173,7 +173,7 @@
                             <v-icon class="ml-2">keyboard_backspace</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 กลับสู่หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
@@ -190,7 +190,7 @@
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
@@ -209,7 +209,7 @@
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 ประกาศ
                             </v-list-item-title>
                         </v-list-item-content>
@@ -226,7 +226,7 @@
                             <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 อุปกรณ์
                             </v-list-item-title>
                         </v-list-item-content>
@@ -241,7 +241,7 @@
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 คำขอยืม
                             </v-list-item-title>
                         </v-list-item-content>
@@ -256,7 +256,7 @@
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 ประวัติ
                             </v-list-item-title>
                         </v-list-item-content>
@@ -271,7 +271,7 @@
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>บำรุงรักษา</v-list-item-title>
+                            <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -280,7 +280,7 @@
                             <v-icon class="ml-2">keyboard_backspace</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 กลับสู่หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
@@ -297,7 +297,7 @@
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
@@ -312,7 +312,7 @@
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 ประกาศ
                             </v-list-item-title>
                         </v-list-item-content>
@@ -327,7 +327,7 @@
                             <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 อุปกรณ์
                             </v-list-item-title>
                         </v-list-item-content>
@@ -342,7 +342,7 @@
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 คำขอยืม
                             </v-list-item-title>
                         </v-list-item-content>
@@ -357,7 +357,7 @@
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 ประวัติ
                             </v-list-item-title>
                         </v-list-item-content>
@@ -372,7 +372,7 @@
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>บำรุงรักษา</v-list-item-title>
+                            <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -381,7 +381,7 @@
                             <v-icon class="ml-2">keyboard_backspace</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 กลับสู่หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
@@ -398,7 +398,7 @@
                             <v-icon class="ml-2">mdi-home</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
@@ -415,7 +415,7 @@
                             <v-icon class="ml-2">announcement</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 ประกาศ
                             </v-list-item-title>
                         </v-list-item-content>
@@ -430,7 +430,7 @@
                             <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title> อุปกรณ์</v-list-item-title>
+                            <v-list-item-title style="font-size:16px"> อุปกรณ์</v-list-item-title>
                         </v-list-item-content>
                     </v-list-item>
 
@@ -443,7 +443,7 @@
                             <v-icon class="ml-2">assignment</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 คำขอยืม
                             </v-list-item-title>
                         </v-list-item-content>
@@ -458,7 +458,7 @@
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 ประวัติ
                             </v-list-item-title>
                         </v-list-item-content>
@@ -482,7 +482,7 @@
                             <v-icon class="ml-2">keyboard_backspace</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
                                 กลับสู่หน้าหลัก
                             </v-list-item-title>
                         </v-list-item-content>
