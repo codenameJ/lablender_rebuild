@@ -77,7 +77,7 @@
                         class="mx-4 pt-3 font-weight-bold"
                         style="font-size:1.5em"
                     >
-                        LAB LENDER
+                        {{ curlab.course_name }}
                         {{ curlab.course_id }}
                     </div>
                 </v-list-item>

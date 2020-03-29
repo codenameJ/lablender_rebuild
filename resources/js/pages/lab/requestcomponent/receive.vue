@@ -4,7 +4,6 @@
             <div v-for="(item, i) in filterReceive" :key="i">
                 <v-card
                     class="mb-5"
-                    v-if="show(item.request_detail).length != 0"
                 >
                     <v-row>
                         <v-card-title
@@ -14,7 +13,6 @@
                         <v-spacer></v-spacer>
                         <v-card-actions class=" mr-5">
                             <v-btn
-                                v-if="item.status == 'wait'"
                                 color="error"
                                 fab
                                 x-small

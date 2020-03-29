@@ -11,7 +11,6 @@
                         <v-spacer></v-spacer>
                         <v-card-actions class=" mr-5">
                             <v-btn
-                                v-if="item.status == 'wait'"
                                 color="error"
                                 fab
                                 x-small
@@ -64,7 +63,7 @@
                             <v-spacer></v-spacer>
                             <v-btn
                                 outlined
-                                color="blue darken-1"
+                                color="success"
                                 @click="save(item)"
                                 >Ready</v-btn
                             >
