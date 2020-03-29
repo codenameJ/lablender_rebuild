@@ -10,7 +10,9 @@ import Homecard from './pages/lab/Homecard';
 import Talabs from './pages/ta/Talabs';
 import Professorlabs from './pages/professor/Professorlabs';
 import Professorenrollment from './pages/professor/Professorenrollment';
+import Professorassign from './pages/professor/Professorassign';
 import Adminenrollment from './pages/admin/Adminenrollment';
+import Adminassign from './pages/admin/Adminassign';
 import Taenrollment from './pages/ta/Taenrollment'
 //admin lab page
 import Equipment from './pages/lab/Equipment';
@@ -33,7 +35,9 @@ Vue.component('Homecard', Homecard);
 Vue.component('Talabs', Talabs);
 Vue.component('Professorlabs', Professorlabs);
 Vue.component('Professorenrollment', Professorenrollment);
+Vue.component('Professorassign', Professorassign);
 Vue.component('Adminenrollment', Adminenrollment);
+Vue.component('Adminassign', Adminassign);
 Vue.component('Taenrollment', Taenrollment);
 //admin lab page
 Vue.component('Equipment', Equipment);
@@ -157,6 +161,10 @@ export default new VueRouter({
             component: Professorenrollment,
         },
         {
+            path: '/professor/assigns',
+            component: Professorassign,
+        },
+        {
             path: '/professor/users',
             component: User,
         },
@@ -204,6 +212,10 @@ export default new VueRouter({
         {
             path: '/admin/enrolls',
             component: Adminenrollment,
+        },
+        {
+            path: '/admin/assign',
+            component: Adminassign,
         },
         {
             path: '/admin/user',

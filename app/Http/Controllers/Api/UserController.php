@@ -50,7 +50,7 @@ class UserController extends Controller
             'phone' => 'required',
             'password' => 'required',
             'type' => '',
-            'lab_id' => '',
+            // 'lab_id' => '',
             'student_id' => '',
         ]);
         $user = User::create([
@@ -68,9 +68,9 @@ class UserController extends Controller
                 'user_id' => $user->id,
             ]);
 
-            $lab = Lab::where('course_id', '=', $request->lab_id)->first();
+            // $lab = Lab::where('course_id', '=', $request->lab_id)->first();
 
-            $ta ->Labs()->attach($lab);
+            // $ta ->Labs()->attach($lab);
 
             return response(['message' => 'ta Added', 'ta' => $ta]);
         }

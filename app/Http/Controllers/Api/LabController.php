@@ -16,7 +16,7 @@ class LabController extends Controller
     public function index()
     {
         // $labs = Lab::all();
-        $labs = Lab::with('Student')->get();
+        $labs = Lab::with('Student')->with('Ta')->get();
         return response()->json($labs);
     }
 
