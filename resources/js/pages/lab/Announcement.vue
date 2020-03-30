@@ -78,12 +78,19 @@
                         </v-row>
                     </v-col>
 
+                    
+
                     <v-row dense>
                         <v-col cols="12">
                             <div
                                 v-for="(item, i) in Announcementsinlab"
                                 :key="i"
                             >
+
+                            <v-card v-if="item.length == 0">
+                                <v-card-subtitle> No data eiei </v-card-subtitle>
+                            </v-card>
+
                                 <v-card class="mb-4">
                                     <v-card-actions>
                                             <v-card-text>

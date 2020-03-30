@@ -2,6 +2,11 @@
     ><v-row>
         <v-col cols="12">
             <div v-for="(item, i) in filterWait" :key="i">
+
+                <!-- <v-card v-if="show(item.request_detail).length == 0">
+                                <v-card-subtitle> No data eiei </v-card-subtitle>
+                            </v-card> -->
+
                 <v-card class="mb-5">
                     <v-row>
                         <v-card-title
