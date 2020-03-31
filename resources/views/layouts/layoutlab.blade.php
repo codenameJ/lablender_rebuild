@@ -2,6 +2,7 @@
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -12,7 +13,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    
+
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 
     <!-- Fonts -->
@@ -26,12 +27,19 @@
 
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
 
-    
-    
+
+
+
+
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <style>
+        .v-sheet--offset {
+            top: -24px;
+            position: relative;
+        }
+
         #fixedbutton {
             position: fixed;
             bottom: 550px;
@@ -345,6 +353,12 @@
                 transform: rotate(-405deg);
                 -webkit-transform: rotate(-405deg);
             }
+        }
+
+        /* chart */
+        #chart {
+            max-width: 650px;
+            margin: 35px auto;
         }
     </style>
 
