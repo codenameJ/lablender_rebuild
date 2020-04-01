@@ -78,73 +78,91 @@
                         </v-row>
                     </v-col>
 
-                    
-
                     <v-row dense>
                         <v-col cols="12">
-                            <div
-                                v-for="(item, i) in Announcementsinlab"
-                                :key="i"
-                            >
-
-                            <v-card v-if="item.length == 0">
-                                <v-card-subtitle> No data eiei </v-card-subtitle>
-                            </v-card>
-
+                            <div v-if="Announcementsinlab.length == 0">
                                 <v-card class="mb-4">
-                                    <v-card-actions>
+                                    <v-card-subtitle>
+                                        No data eiei
+                                    </v-card-subtitle>
+                                </v-card>
+                            </div>
+                            <div v-else>
+                                <div
+                                    v-for="(item, i) in Announcementsinlab"
+                                    :key="i"
+                                >
+                                    <v-card class="mb-4">
+                                        <v-card-actions>
                                             <v-card-text>
-                                                <v-card-title class="headline black--text mb-2">
+                                                <v-card-title
+                                                    class="headline black--text mb-2"
+                                                >
                                                     {{ item.announcement_name }}
-                                                
-                                                <v-spacer />
-                                        <template
-                                            v-if="usernow.type != 'student'"
-                                        >
-                                            <v-btn
-                                                color="primary"
-                                                fab
-                                                x-small
-                                                dark
-                                                outlined
-                                                class="ma-2 elevation-4 no-underline"
-                                                @click="editItem(item)"
-                                                ><v-icon
-                                                    >mdi-pencil</v-icon
-                                                ></v-btn
-                                            >
-                                            <v-btn
-                                                color="error"
-                                                fab
-                                                x-small
-                                                dark
-                                                outlined
-                                                class="ma-2 elevation-4 no-underline"
-                                                @click="deleteItem(item)"
-                                                ><v-icon
-                                                    >delete_outline</v-icon
-                                                ></v-btn
-                                            ></template
-                                        > </v-card-title>
-                                                <v-card-subtitle style="font-size:17px; color:#424242;">
+
+                                                    <v-spacer />
+                                                    <template
+                                                        v-if="
+                                                            usernow.type !=
+                                                                'student'
+                                                        "
+                                                    >
+                                                        <v-btn
+                                                            color="primary"
+                                                            fab
+                                                            x-small
+                                                            dark
+                                                            outlined
+                                                            class="ma-2 elevation-4 no-underline"
+                                                            @click="
+                                                                editItem(item)
+                                                            "
+                                                            ><v-icon
+                                                                >mdi-pencil</v-icon
+                                                            ></v-btn
+                                                        >
+                                                        <v-btn
+                                                            color="error"
+                                                            fab
+                                                            x-small
+                                                            dark
+                                                            outlined
+                                                            class="ma-2 elevation-4 no-underline"
+                                                            @click="
+                                                                deleteItem(item)
+                                                            "
+                                                            ><v-icon
+                                                                >delete_outline</v-icon
+                                                            ></v-btn
+                                                        ></template
+                                                    >
+                                                </v-card-title>
+                                                <v-card-subtitle
+                                                    style="font-size:17px; color:#424242;"
+                                                >
                                                     {{ item.describe }}
                                                 </v-card-subtitle>
                                             </v-card-text>
                                         </v-card-actions>
                                         <v-divider> </v-divider>
-                                    <v-row
-                                        ><v-card-subtitle
-                                            class="ml-9 mb-4"
-                                            style="font-size:15px; color: #9E9E9E;"
-                                            ><b>{{
-                                                "Posted by : " +
-                                                    getAnnounceBy(item.user_id)
-                                            }}</b
-                                            ><br />
-                                            {{ item.created_at }}</v-card-subtitle
-                                        >
-                                    </v-row>
-                                </v-card>
+                                        <v-row
+                                            ><v-card-subtitle
+                                                class="ml-9 mb-4"
+                                                style="font-size:15px; color: #9E9E9E;"
+                                                ><b>{{
+                                                    "Posted by : " +
+                                                        getAnnounceBy(
+                                                            item.user_id
+                                                        )
+                                                }}</b
+                                                ><br />
+                                                {{
+                                                    item.created_at
+                                                }}</v-card-subtitle
+                                            >
+                                        </v-row>
+                                    </v-card>
+                                </div>
                             </div>
                         </v-col>
                     </v-row>

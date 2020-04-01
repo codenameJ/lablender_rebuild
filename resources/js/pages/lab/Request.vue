@@ -3,19 +3,6 @@
         <v-container class="my-5">
             <div class="row justify-content-center">
                 <div class="col-12">
-                    <v-row dense>
-                        <v-col cols="12">
-                            <v-toolbar>
-                                <v-text-field
-                                    v-model="search"
-                                    append-icon="search"
-                                    label="Search by student id..."
-                                    single-line
-                                    hide-details
-                                ></v-text-field>
-                            </v-toolbar>
-                        </v-col>
-                    </v-row>
 
                     <template>
                         <v-tabs

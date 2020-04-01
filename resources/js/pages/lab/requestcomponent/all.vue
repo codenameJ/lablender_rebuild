@@ -1,7 +1,20 @@
 <template
     ><v-row>
         <v-col cols="12">
-            <div v-for="(item, i) in Requestlistsinlab" :key="i">
+            <v-row dense>
+                <v-col cols="12">
+                    <v-toolbar>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Search by student id..."
+                            single-line
+                            hide-details
+                        ></v-text-field>
+                    </v-toolbar>
+                </v-col>
+            </v-row>
+            <div v-for="(item, i) in filterStudent" :key="i">
                 <v-card class="mb-5">
                     <v-row>
                         <v-card-title
@@ -81,6 +94,7 @@ export default {
         this.$store.dispatch("loadRequest_lists");
     },
     data: () => ({
+        search: "",
         detail_headers: [
             { text: "Detail ID", value: "id" },
             { text: "Equipment ID", value: "equipment_id" },
@@ -101,9 +115,13 @@ export default {
             else return "#CE93D8";
         },
         getstudent(stdid) {
+            let getstudent =
+                this.students.find(std => {
+                    return std.id == stdid;
+                }) || {};
             let thisuser =
                 this.users.find(user => {
-                    return user.student;
+                    return user.id == getstudent.user_id;
                 }) || {};
             return thisuser.name;
         },
@@ -130,11 +148,14 @@ export default {
                 })
                 .then(response => console.log(response.data));
             this.$store.dispatch("loadRequest_lists");
-        },
+        }
     },
     computed: {
         equipments() {
             return this.$store.state.equipments;
+        },
+        students() {
+            return this.$store.state.students;
         },
         users() {
             return this.$store.state.users;
@@ -148,10 +169,17 @@ export default {
         Requestlistsinlab() {
             let selrequestlist =
                 this.request_lists.filter(
-                    request_list => request_list.lab_id == this.curlab.id
+                    request_list => request_list.lab_id == this.curlab.id && request_list.status != 'return'
                 ) || {};
             return selrequestlist;
         },
+        filterStudent: function() {
+            return this.Requestlistsinlab.filter(req => {
+                return this.getstudent(req.student_id)
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
+        }
     },
     watch: {}
 };

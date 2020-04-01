@@ -99,7 +99,9 @@
                                                 >
                                                 <template #item.status="{item}"
                                                     ><v-select
-                                                        v-model="item.status"
+                                                        v-model="
+                                                            item.status
+                                                        "
                                                         :items="ckecklist"
                                                     >
                                                     </v-select>
@@ -152,6 +154,13 @@ export default {
             { text: "status", value: "status" }
         ],
         editedIndex: -1,
+        editedItem: {
+            id:"",
+            equipment_id: "",
+            len_qty:"",
+            request_list_id:"",
+            status: null
+        },
         selectedDetails: [],
         getrequestid: null,
         status: "return"
