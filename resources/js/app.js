@@ -9,6 +9,7 @@ import Vuex from 'vuex';
 import router from './router';
 import StoreData from './store';
 import VuetifyNumberInput from '@jzolago/vuetify-number-input'
+import VueApexCharts from 'vue-apexcharts'
 
 import '@mdi/font/css/materialdesignicons.css';
 import 'vuetify/dist/vuetify.min.css';
@@ -17,6 +18,7 @@ Vue.use(Vuetify);
 Vue.use(Vuex);
 Vue.use(VuetifyNumberInput);
 
+Vue.component('apexchart', VueApexCharts)
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('homelayout', require('./components/homelayout.vue').default);
 Vue.component('applayout', require('./components/applayout.vue').default);
