@@ -1,6 +1,17 @@
 <template>
     <v-row>
         <v-col cols="12">
+            <div v-if="filterReceive.length == 0">
+                                <v-row>
+                                    <v-img class="mx-auto my-4" style="max-width: 13%;height: auto;" src="/img/happy.png"></v-img>
+                                </v-row>
+                                <v-row>
+                                    <span class="mx-auto mb-1 title">No missing equipments found.</span>
+                                </v-row>
+                                <v-row>
+                                <span class="mx-auto subheading grey--text">Nice! There's no missing equipments in your lab.</span>
+                                </v-row>
+            </div>
             <div v-for="(item, i) in filterReceive" :key="i">
                 <v-card
                     class="mb-5"

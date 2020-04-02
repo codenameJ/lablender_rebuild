@@ -14,6 +14,17 @@
                     </v-toolbar>
                 </v-col>
             </v-row>
+             <div v-if="filterStudent.length == 0">
+                                <v-row>
+                                    <v-img class="mx-auto my-4" style="max-width: 33%;height: auto;" src="/img/noreq.png"></v-img>
+                                </v-row>
+                                <v-row>
+                                    <span class="mx-auto mb-1 title">No requests.</span>
+                                </v-row>
+                                <v-row>
+                                <span class="mx-auto subheading grey--text">There's no request sent from students in your lab.</span>
+                                </v-row>
+            </div>
             <div v-for="(item, i) in filterStudent" :key="i">
                 <v-card class="mb-5">
                     <v-row>
