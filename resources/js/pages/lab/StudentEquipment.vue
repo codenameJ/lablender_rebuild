@@ -28,7 +28,7 @@
 
                                         <v-dialog
                                             v-model="dialog"
-                                            max-width="500px"
+                                            max-width="800px"
                                         >
                                             <v-card>
                                                 <v-card-title>
@@ -39,7 +39,23 @@
 
                                                 <v-card-text>
                                                     <v-container>
-                                                        <v-row>
+                                                        <v-row
+                                                            class="justify-content-center"
+                                                        >
+                                                            <img
+                                                                v-if="
+                                                                    editedItem.picture_path
+                                                                "
+                                                                :src="
+                                                                    '/storage/app/public/' +
+                                                                        editedItem.picture_path
+                                                                "
+                                                                height="200px"
+                                                            />
+                                                        </v-row>
+                                                        <v-row
+                                                            class="justify-content-center"
+                                                        >
                                                             <v-col
                                                                 cols="12"
                                                                 sm="6"
@@ -66,18 +82,47 @@
                                                                     readonly
                                                                 ></v-text-field>
                                                             </v-col>
+                                                        </v-row>
+                                                        <v-row
+                                                            class="justify-content-center"
+                                                        >
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="6"
+                                                                md="4"
+                                                            >
+                                                                <v-textarea
+                                                                    v-model="
+                                                                        editedItem.description
+                                                                    "
+                                                                    label="Description"
+                                                                    readonly
+                                                                    rows="2"
+                                                                ></v-textarea>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row
+                                                            class="justify-content-center"
+                                                        >
                                                             <v-col
                                                                 cols="12"
                                                                 sm="6"
                                                                 md="4"
                                                             >
                                                                 <v-input-number
-                                                                v-model="quantity"
-                                                                :rules="[rules.lower]"
-                                                                :min=1
-                                                                :max='editedItem.equip_qty'
-                                                                inline 
-                                                                controls>
+                                                                    v-model="
+                                                                        quantity
+                                                                    "
+                                                                    :rules="[
+                                                                        rules.lower
+                                                                    ]"
+                                                                    :min="1"
+                                                                    :max="
+                                                                        editedItem.equip_qty
+                                                                    "
+                                                                    inline
+                                                                    controls
+                                                                >
                                                                 </v-input-number>
                                                             </v-col>
                                                         </v-row>
@@ -105,7 +150,7 @@
                                     </v-toolbar>
                                 </template>
                                 <template v-slot:item.action="{ item }">
-                                     <v-btn
+                                    <v-btn
                                         v-if="item.equip_qty > 0"
                                         small
                                         rounded
@@ -152,9 +197,9 @@ export default {
     },
     data: () => ({
         rules: {
-          lower: value => value >= 1 || 'Must lend more than 1 pc.',
+            lower: value => value >= 1 || "Must lend more than 1 pc."
         },
-        sortBy: 'equip_id',
+        sortBy: "equip_id",
         dialog: false,
         dialogcart: false,
         search: "",
@@ -175,12 +220,14 @@ export default {
             equip_name: "",
             equip_qty: 0,
             lab_id: "",
+            description: ""
         },
         defaultItem: {
             equip_id: "",
             equip_name: "",
             equip_qty: 0,
             lab_id: "",
+            description: ""
         },
         cartadd: {
             equip_id: 0,
