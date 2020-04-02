@@ -81,11 +81,15 @@
                     <v-row dense>
                         <v-col cols="12">
                             <div v-if="Announcementsinlab.length == 0">
-                                <v-card class="mb-4">
-                                    <v-card-subtitle>
-                                        No data eiei
-                                    </v-card-subtitle>
-                                </v-card>
+                                <v-row>
+                                    <v-img class="mx-auto mb-4" style="max-width: 35%;height: auto;" src="/img/nodata.png"></v-img>
+                                </v-row>
+                                <v-row>
+                                    <span class="mx-auto mb-1 title">No announcement posted.</span>
+                                </v-row>
+                                <v-row>
+                                <span class="mx-auto subheading grey--text">Stay tuned for future announcements!</span>
+                                </v-row>
                             </div>
                             <div v-else>
                                 <div

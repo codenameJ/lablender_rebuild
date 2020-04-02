@@ -18,6 +18,17 @@
                     </v-row>
                     <v-row>
                         <v-col cols="12">
+                            <div v-if="filterReturn.length == 0">
+                                <v-row>
+                                    <v-img class="mx-auto my-4" style="max-width: 33%;height: auto;" src="/img/noreq.png"></v-img>
+                                </v-row>
+                                <v-row>
+                                    <span class="mx-auto mb-1 title">No history.</span>
+                                </v-row>
+                                <v-row>
+                                <span class="mx-auto subheading grey--text">Requests will be displayed here if the equipment is returned to lab.</span>
+                                </v-row>
+                            </div>
                             <div v-for="(item, i) in filterReturn" :key="i">
                                 <v-card class="mb-5">
                                     <v-row>

@@ -6,9 +6,9 @@ import Adminlabs from './pages/admin/Adminlabs';
 import User from './pages/admin/User';
 import Studentlabs from './pages/student/Studentlabs';
 import About from './pages/mainhome/About';
-import Homecard from './pages/lab/Homecard';
+import StudentHomecard from './pages/lab/StudentHomecard';
 import Talabs from './pages/ta/Talabs';
-import ProfessorHomecard from './pages/lab/ProfessorHomecard';
+import Homecard from './pages/lab/Homecard';
 import Professorlabs from './pages/professor/Professorlabs';
 import Professorenrollment from './pages/professor/Professorenrollment';
 import Professorassign from './pages/professor/Professorassign';
@@ -32,9 +32,9 @@ Vue.component('Adminlabs', Adminlabs);
 Vue.component('Studentlabs', Studentlabs);
 Vue.component('About', About);
 Vue.component('User', User);
-Vue.component('Homecard', Homecard);
+Vue.component('StudentHomecard', Homecard);
 Vue.component('Talabs', Talabs);
-Vue.component('ProfessorHomecard', ProfessorHomecard);
+Vue.component('Homecard', Homecard);
 Vue.component('Professorlabs', Professorlabs);
 Vue.component('Professorenrollment', Professorenrollment);
 Vue.component('Professorassign', Professorassign);
@@ -75,7 +75,7 @@ export default new VueRouter({
         {
             path: '/student/lab/:course_id/home',
             props: true,
-            component: Homecard,
+            component: StudentHomecard,
         },
         {
             path: '/student/lab/:course_id/equipment',
@@ -174,7 +174,7 @@ export default new VueRouter({
         {
             path: '/professor/lab/:course_id/home',
             props: true,
-            component: ProfessorHomecard,
+            component: Homecard,
         },
         {
             path: '/professor/lab/:course_id/equipment',
