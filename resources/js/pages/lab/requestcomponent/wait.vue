@@ -1,7 +1,20 @@
 <template
     ><v-row>
         <v-col cols="12">
-            <div v-for="(item, i) in filterWait" :key="i">
+            <v-row dense>
+                <v-col cols="12">
+                    <v-toolbar>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Search by student id..."
+                            single-line
+                            hide-details
+                        ></v-text-field>
+                    </v-toolbar>
+                </v-col>
+            </v-row>
+            <div v-for="(item, i) in filterStudent" :key="i">
 
                 <!-- <v-card v-if="show(item.request_detail).length == 0">
                                 <v-card-subtitle> No data eiei </v-card-subtitle>
@@ -86,6 +99,7 @@ export default {
         this.$store.dispatch("loadRequest_lists");
     },
     data: () => ({
+        search: "",
         detail_headers: [
             { text: "Detail ID", value: "id" },
             { text: "Equipment ID", value: "equipment_id" },
@@ -106,9 +120,13 @@ export default {
             else return "#CE93D8";
         },
         getstudent(stdid) {
+            let getstudent =
+                this.students.find(std => {
+                    return std.id == stdid;
+                }) || {};
             let thisuser =
                 this.users.find(user => {
-                    return user.student;
+                    return user.id == getstudent.user_id;
                 }) || {};
             return thisuser.name;
         },
@@ -141,6 +159,9 @@ export default {
         equipments() {
             return this.$store.state.equipments;
         },
+        students() {
+            return this.$store.state.students;
+        },
         users() {
             return this.$store.state.users;
         },
@@ -163,6 +184,13 @@ export default {
                     list => list.status == "wait"
                 ) || {};
             return waitlist;
+        },
+        filterStudent: function() {
+            return this.filterWait.filter(req => {
+                return this.getstudent(req.student_id)
+                    .toLowerCase()
+                    .includes(this.search.toLowerCase());
+            });
         }
     },
     watch: {}

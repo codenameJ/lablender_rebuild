@@ -36,7 +36,8 @@
                                             color="primary"
                                             outlined
                                             v-on="on"
-                                            ><v-icon class="mr-2">add</v-icon>Add Equipment</v-btn
+                                            ><v-icon class="mr-2">add</v-icon
+                                            >Add Equipment</v-btn
                                         >
                                     </template>
                                     <v-spacer></v-spacer>
@@ -133,7 +134,7 @@ export default {
     },
     data: () => ({
         dialog: false,
-        sortBy: 'equip_id',
+        sortBy: "equip_id",
         search: "",
         headers: [
             // { text: "ID", value: "id" },

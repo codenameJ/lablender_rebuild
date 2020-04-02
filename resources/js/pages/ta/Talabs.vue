@@ -73,14 +73,16 @@
 export default {
     mounted() {
         this.$store.dispatch("loadTas");
+        console.log(this.getlab)
     },
     data: () => ({
-        labs: [],
         tabs: null,
-        search: ""
+        search: "",
+        talab:null
     }),
     created() {},
-    methods: {},
+    methods: {
+    },
     computed: {
         tas() {
             return this.$store.state.tas;
@@ -93,9 +95,9 @@ export default {
                 this.tas.filter(ta => ta.id == this.currentuser.ta.id) || {};
             return talab;
         },
-        filterLab: function() {
-            return this.getta.labs.filter(lab => {
-                return lab.course_name
+        filterLabs: function() {
+            return this.getta.filter(ta => {
+                return this.getLab(ta.id)
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
             });
