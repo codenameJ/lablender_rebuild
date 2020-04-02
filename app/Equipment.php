@@ -9,7 +9,7 @@ class Equipment extends Model
     protected $primaryKey = 'id';
 
     protected $fillable = [
-        'equip_id', 'equip_name', 'equip_qty', 'lab_id',
+        'equip_id', 'equip_name', 'equip_qty', 'lab_id','description','picture_path'
     ];
     public function Labs()
     {

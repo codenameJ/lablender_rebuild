@@ -50,6 +50,36 @@
 
                                         <v-card-text>
                                             <v-container>
+                                                <v-row class="mr-5 ml-5">
+                                                    <v-col cols="auto">
+                                                        <img
+                                                            v-if="
+                                                                editedItem.picture_path
+                                                            "
+                                                            :src="
+                                                                '/storage/app/public/' +
+                                                                    editedItem.picture_path
+                                                            "
+                                                            height="200px"
+                                                        />
+                                                    </v-col>
+                                                    <input
+                                                        class="ml-5 mt-5 mr-5"
+                                                        id="uploadImage"
+                                                        type="file"
+                                                        @change="onImageChange"
+                                                    />
+                                                </v-row>
+                                                <center>
+                                                    <img
+                                                        :src="editedItem.image"
+                                                        v-if="editedItem.image"
+                                                        class="img-responsive"
+                                                        height="100px"
+                                                    />
+                                                </center>
+                                                <v-row class="mr-5 ml-5 mt-5">
+                                                </v-row>
                                                 <v-row>
                                                     <v-col
                                                         cols="12"
@@ -86,6 +116,16 @@
                                                             "
                                                             label="QTY"
                                                         ></v-text-field>
+                                                    </v-col>
+                                                </v-row>
+                                                <v-row>
+                                                    <v-col cols="12">
+                                                        <v-textarea
+                                                            v-model="
+                                                                editedItem.description
+                                                            "
+                                                            label="Description"
+                                                        ></v-textarea>
                                                     </v-col>
                                                 </v-row>
                                             </v-container>
@@ -136,6 +176,7 @@ export default {
         dialog: false,
         sortBy: "equip_id",
         search: "",
+        today: new Date(),
         headers: [
             // { text: "ID", value: "id" },
             { text: "Equip ID", value: "equip_id" },
@@ -154,13 +195,19 @@ export default {
             equip_id: "",
             equip_name: "",
             equip_qty: 0,
-            lab_id: ""
+            lab_id: "",
+            description: "",
+            picture_path: null,
+            image: null
         },
         defaultItem: {
             equip_id: "",
             equip_name: "",
             equip_qty: 0,
-            lab_id: ""
+            lab_id: "",
+            description: "",
+            picture_path: null,
+            image: null
         }
     }),
     created() {},
@@ -221,6 +268,27 @@ export default {
             }
             this.close();
             this.$store.dispatch("loadEquipments");
+        },
+        onImageChange(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            this.noUpload = false;
+            reader.onloadend = e => {
+                this.editedItem.image = reader.result;
+                var date =
+                    this.today.getFullYear() +
+                    "-" +
+                    (this.today.getMonth() + 1) +
+                    "-" +
+                    this.today.getDate();
+                var time =
+                    this.today.getHours() + "-" + this.today.getMinutes();
+                var x = Math.floor(Math.random() * 100);
+                var dateTime = date + "_" + time;
+                const file_name = "image_" + dateTime + "_" + x + ".png";
+                this.editedItem.picture_path = file_name;
+            };
+            reader.readAsDataURL(file);
         }
     },
     computed: {
