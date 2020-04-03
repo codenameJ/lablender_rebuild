@@ -1,21 +1,29 @@
 <template>
     <v-row>
         <v-col cols="12">
-            <div v-if="filterReceive.length == 0">
-                                <v-row>
-                                    <v-img class="mx-auto my-4" style="max-width: 13%;height: auto;" src="/img/happy.png"></v-img>
-                                </v-row>
-                                <v-row>
-                                    <span class="mx-auto mb-1 title">No missing equipments found.</span>
-                                </v-row>
-                                <v-row>
-                                <span class="mx-auto subheading grey--text">Nice! There's no missing equipments in your lab.</span>
-                                </v-row>
+            <div v-if="filterDetails.length == 0">
+                <v-row>
+                    <v-img
+                        class="mx-auto my-4"
+                        style="max-width: 13%;height: auto;"
+                        src="/img/happy.png"
+                    ></v-img>
+                </v-row>
+                <v-row>
+                    <span class="mx-auto mb-1 title"
+                        >No missing equipments found.</span
+                    >
+                </v-row>
+                <v-row>
+                    <span class="mx-auto subheading grey--text"
+                        >Nice! There's no missing equipments in your lab.</span
+                    >
+                </v-row>
             </div>
             <div v-for="(item, i) in filterReceive" :key="i">
                 <v-card
                     class="mb-5"
-                    v-if="show(item.request_detail).length != 0"
+                    v-if="item.request_detail.length != 0"
                 >
                     <v-row>
                         <v-card-title
@@ -67,7 +75,7 @@
                         <v-data-table
                             class="mt-2"
                             :headers="detail_headers"
-                            :items="show(item.request_detail)"
+                            :items="item.request_detail"
                             hide-default-footer
                         >
                             <template #item.equipment_name="{item}">{{
@@ -76,7 +84,11 @@
                         </v-data-table>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-dialog v-model="returndialog" max-width="500px">
+                            <v-dialog
+                                v-model="returndialog"
+                                max-width="500px"
+                                :retain-focus="false"
+                            >
                                 <template v-slot:activator="{ on }">
                                     <v-btn
                                         outlined
@@ -110,9 +122,7 @@
                                                 >
                                                 <template #item.status="{item}"
                                                     ><v-select
-                                                        v-model="
-                                                            item.status
-                                                        "
+                                                        v-model="item.status"
                                                         :items="ckecklist"
                                                     >
                                                     </v-select>
@@ -141,7 +151,8 @@
 <script>
 export default {
     mounted() {
-        this.$store.dispatch("loadRequest_lists");
+        this.$store.dispatch("loadMissing_lists");
+        this.$store.dispatch("loadRequest_details");
     },
     data: () => ({
         returndialog: false,
@@ -165,13 +176,7 @@ export default {
             { text: "status", value: "status" }
         ],
         editedIndex: -1,
-        editedItem: {
-            id:"",
-            equipment_id: "",
-            len_qty:"",
-            request_list_id:"",
-            status: null
-        },
+        editedItem: [],
         selectedDetails: [],
         getrequestid: null,
         status: "return"
@@ -199,38 +204,38 @@ export default {
             return equipname.equip_name;
         },
         deleteItem(item) {
-            const index = this.request_lists.indexOf(item);
+            const index = this.missing_lists.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
-                this.request_lists.splice(index, 1);
+                this.missing_lists.splice(index, 1);
 
             axios
                 .delete("/api/requestlist/" + item.id)
                 .then(response => console.log(response.data));
 
-            this.$store.dispatch("loadRequest_lists");
+            this.$store.dispatch("loadMissing_lists");
+            this.$store.dispatch("loadRequest_details");
         },
-        save(request_list_id) {
-            console.log(request_list_id);
+        save(missing_list_id) {
+            console.log(missing_list_id);
             axios
-                .put("/api/requestlist/" + request_list_id, {
+                .put("/api/requestlist/" + missing_list_id, {
                     status: this.status,
                     cmd: "return",
                     selectedDetails: this.selectedDetails
                 })
                 .then(response => console.log(response.data));
             this.returndialog = false;
-            this.$store.dispatch("loadRequest_lists");
+            this.$store.dispatch("loadMissing_lists");
+            this.$store.dispatch("loadRequest_details");
         },
         setDetail(item) {
             this.getrequestid = item.id;
-            this.selectedDetails =
-                item.request_detail.filter(data => data.status == "missing") ||
-                {};
-            console.log(this.getrequestid);
+            this.selectedDetails = item.request_detail
+            console.log(this.selectedDetails);
         },
-        show(arrayData) {
-            return arrayData.filter(data => data.status == "missing");
-        }
+        // show(arrayData) {
+        //     return arrayData.filter(data => data.status == "missing");
+        // }
     },
     computed: {
         equipments() {
@@ -239,16 +244,19 @@ export default {
         users() {
             return this.$store.state.users;
         },
-        request_lists() {
-            return this.$store.state.request_lists;
+        missing_lists() {
+            return this.$store.state.missing_lists;
+        },
+        request_details(){
+            return this.$store.state.request_details;
         },
         curlab() {
             return this.$store.state.selectedLab;
         },
         Requestlistsinlab() {
             let selrequestlist =
-                this.request_lists.filter(
-                    request_list => request_list.lab_id == this.curlab.id
+                this.missing_lists.filter(
+                    missing_list => missing_list.lab_id == this.curlab.id
                 ) || {};
             return selrequestlist;
         },
@@ -258,6 +266,13 @@ export default {
                     list => list.status == "return"
                 ) || {};
             return readylist;
+        },
+        filterDetails() {
+            let detail =
+                this.request_details.filter(
+                    item => item.status == "missing"
+                ) || {};
+            return detail;
         }
     },
     watch: {}
