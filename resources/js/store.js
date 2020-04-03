@@ -8,6 +8,9 @@ export default {
         labs: [],
         equipments: [],
         request_lists: [],
+        missing_lists: [],
+        broken_lists: [],
+        request_details: [],
         announcements: [],
         selectedLab: {},
         selectedUser: {},
@@ -27,6 +30,15 @@ export default {
         },
         SetRequest_lists(state, request_lists){
             state.request_lists=request_lists;
+        },
+        SetMissing_lists(state, missing_lists){
+            state.missing_lists=missing_lists;
+        },
+        SetBroken_lists(state, broken_lists){
+            state.broken_lists=broken_lists;
+        },
+        SetRequest_details(state, request_details){
+            state.request_details=request_details;
         },
         SetAnnouncements(state, announcements){
             state.announcements=announcements;
@@ -109,6 +121,33 @@ export default {
                 request_list.tempStatus =  data.data.status
             });
             commit('SetRequest_lists', request_lists)
+        })
+        },
+        loadMissing_lists({commit}){
+            axios.get("/api/missinglist").then(data => {
+                console.log(data.data)
+            let missing_lists = data.data
+            missing_lists.forEach(missing_list => {
+                missing_list.tempStatus =  data.data.status
+            });
+            commit('SetMissing_lists', missing_lists)
+        })
+        },
+        loadBroken_lists({commit}){
+            axios.get("/api/brokenlist").then(data => {
+                console.log(data.data)
+            let broken_lists = data.data
+            broken_lists.forEach(broken_list => {
+                broken_list.tempStatus =  data.data.status
+            });
+            commit('SetBroken_lists', broken_lists)
+        })
+        },
+        loadRequest_details({commit}){
+            axios.get("/api/requestdetail").then(data => {
+                console.log(data.data)
+            let request_details = data.data
+            commit('SetRequest_details', request_details)
         })
         },
         loadTas({commit}){
