@@ -11,7 +11,6 @@ export default {
         announcements: [],
         selectedLab: {},
         selectedUser: {},
-
         cart:[],
     },
     plugins: [createPersistedState()],
@@ -106,6 +105,9 @@ export default {
             axios.get("/api/requestlist").then(data => {
                 // console.log(data.data)
             let request_lists = data.data
+            request_lists.forEach(request_list => {
+                request_list.tempStatus =  data.data.status
+            });
             commit('SetRequest_lists', request_lists)
         })
         },

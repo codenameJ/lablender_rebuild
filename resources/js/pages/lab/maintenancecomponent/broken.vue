@@ -2,18 +2,29 @@
     <v-row>
         <v-col cols="12">
             <div v-if="filterReceive.length == 0">
-                                <v-row>
-                                    <v-img class="mx-auto my-4" style="max-width: 13%;height: auto;" src="/img/happy.png"></v-img>
-                                </v-row>
-                                <v-row>
-                                    <span class="mx-auto mb-1 title">No broken equipments found.</span>
-                                </v-row>
-                                <v-row>
-                                <span class="mx-auto subheading grey--text">Nice! There's no broken equipments in your lab.</span>
-                                </v-row>
-                            </div>
+                <v-row>
+                    <v-img
+                        class="mx-auto my-4"
+                        style="max-width: 13%;height: auto;"
+                        src="/img/happy.png"
+                    ></v-img>
+                </v-row>
+                <v-row>
+                    <span class="mx-auto mb-1 title"
+                        >No broken equipments found.</span
+                    >
+                </v-row>
+                <v-row>
+                    <span class="mx-auto subheading grey--text"
+                        >Nice! There's no broken equipments in your lab.</span
+                    >
+                </v-row>
+            </div>
             <div v-for="(item, i) in filterReceive" :key="i">
-                <v-card class="mb-5" v-if="show(item.request_detail).length != 0">
+                <v-card
+                    class="mb-5"
+                    v-if="show(item.request_detail).length != 0"
+                >
                     <v-row>
                         <v-card-title
                             class="ml-4"
@@ -107,8 +118,15 @@
                                                 >
                                                 <template #item.status="{item}"
                                                     ><v-select
-                                                        v-model="item.status"
+                                                        v-model="
+                                                            item.tempStatus
+                                                        "
                                                         :items="ckecklist"
+                                                        @change="
+                                                            setStatus(
+                                                                item.tempStatus
+                                                            )
+                                                        "
                                                     >
                                                     </v-select>
                                                 </template>
@@ -117,7 +135,12 @@
                                                 ><v-btn
                                                     outlined
                                                     color="blue darken-1"
-                                                    @click="save(getrequestid)"
+                                                    @click="
+                                                        save(
+                                                            getrequestid,
+                                                            selectedDetails
+                                                        )
+                                                    "
                                                     >Save</v-btn
                                                 ></v-card-actions
                                             ></v-container
@@ -162,7 +185,8 @@ export default {
         editedIndex: -1,
         selectedDetails: [],
         getrequestid: null,
-        status: "return"
+        status: "return",
+        detailStatus: null
     }),
     created() {},
     methods: {
@@ -173,6 +197,9 @@ export default {
             else if (status == "missing") return "orange accent-2";
             else if (status == "returned") return "#1a73e8";
             else return "#CE93D8";
+        },
+        setStatus(value) {
+            this.detailStatus = value;
         },
         getstudent(stdid) {
             let thisuser =
@@ -198,7 +225,7 @@ export default {
             this.$store.dispatch("loadRequest_lists");
         },
         save(request_list_id) {
-            console.log(request_list_id);
+            console.log(this.selectedDetails);
             axios
                 .put("/api/requestlist/" + request_list_id, {
                     status: this.status,
@@ -211,7 +238,9 @@ export default {
         },
         setDetail(item) {
             this.getrequestid = item.id;
-            this.selectedDetails = item.request_detail.filter(data => data.status == "broken") || {};
+            this.selectedDetails =
+                item.request_detail.filter(data => data.status == "broken") ||
+                {};
             console.log(this.getrequestid);
         },
         show(arrayData) {
