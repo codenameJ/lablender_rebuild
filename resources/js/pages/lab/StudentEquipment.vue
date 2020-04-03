@@ -39,20 +39,22 @@
 
                                                 <v-card-text>
                                                     <v-container>
-                                                        <v-row
-                                                            class="justify-content-center"
-                                                        >
-                                                            <img
-                                                                v-if="
+                                                        <v-row class="mr-5 ml-5">
+                                                        <img
+                                                            class="mx-auto my-4"
+                                                            style="width: 30%;
+                                                                        max-width: 240px;
+                                                                        height: auto;"
+                                                            v-if="
+                                                                editedItem.picture_path
+                                                            "
+                                                            :src="
+                                                            ('/storage/') +
                                                                     editedItem.picture_path
-                                                                "
-                                                                :src="
-                                                                    '/storage/app/public/' +
-                                                                        editedItem.picture_path
-                                                                "
-                                                                height="200px"
-                                                            />
-                                                        </v-row>
+                                                            "
+                                                            height="200px"
+                                                        />
+                                                    </v-row>
                                                         <v-row
                                                             class="justify-content-center"
                                                         >
@@ -220,14 +222,18 @@ export default {
             equip_name: "",
             equip_qty: 0,
             lab_id: "",
-            description: ""
+            description: "",
+            picture_path: null,
+            image: null
         },
         defaultItem: {
             equip_id: "",
             equip_name: "",
             equip_qty: 0,
             lab_id: "",
-            description: ""
+            description: "",
+            picture_path: null,
+            image: null
         },
         cartadd: {
             equip_id: 0,

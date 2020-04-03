@@ -29,7 +29,7 @@
                                     vertical
                                 ></v-divider>
                                 <v-spacer></v-spacer>
-                                <v-dialog v-model="dialog" max-width="500px">
+                                <v-dialog v-model="dialog" max-width="800px">
                                     <template v-slot:activator="{ on }">
                                         <v-btn
                                             class="white--text"
@@ -51,25 +51,28 @@
                                         <v-card-text>
                                             <v-container>
                                                 <v-row class="mr-5 ml-5">
-                                                    <v-col cols="auto">
-                                                        <img
+                                                        <v-img
+                                                            class="mx-auto"
+                                                            style="width: 30%;
+                                                                        max-width: 240px;
+                                                                        height: auto;"
                                                             v-if="
                                                                 editedItem.picture_path
                                                             "
                                                             :src="
-                                                                '/storage/app/public/' +
+                                                            ('/storage/') +
                                                                     editedItem.picture_path
                                                             "
-                                                            height="200px"
                                                         />
-                                                    </v-col>
+                                                    </v-row>
+                                                    <v-row>
                                                     <input
-                                                        class="ml-5 mt-5 mr-5"
+                                                        class="my-4 mx-auto"
                                                         id="uploadImage"
                                                         type="file"
                                                         @change="onImageChange"
                                                     />
-                                                </v-row>
+                                                
                                                 <center>
                                                     <img
                                                         :src="editedItem.image"
@@ -77,9 +80,7 @@
                                                         class="img-responsive"
                                                         height="100px"
                                                     />
-                                                </center>
-                                                <v-row class="mr-5 ml-5 mt-5">
-                                                </v-row>
+                                                </center></v-row>
                                                 <v-row>
                                                     <v-col
                                                         cols="12"
