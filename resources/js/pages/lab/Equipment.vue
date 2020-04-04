@@ -1,169 +1,101 @@
 <template>
-    <v-content>
-        <v-container class="my-5">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <v-toolbar>
-                        <v-text-field
-                            v-model="search"
-                            append-icon="search"
-                            label="Search"
-                            single-line
-                            hide-details
-                        ></v-text-field>
-                    </v-toolbar>
-                </div>
-                <div class="col-md-12">
-                    <v-data-table
-                        :headers="headers"
-                        :items="filterEquipments"
-                        class="elevation-1"
-                        :sort-by.sync="sortBy"
-                    >
-                        <template v-slot:top>
-                            <v-toolbar flat color="white">
-                                <v-toolbar-title>Equipment</v-toolbar-title>
-                                <v-divider
-                                    class="mx-4"
-                                    inset
-                                    vertical
-                                ></v-divider>
+<v-content>
+    <v-container class="my-5">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <v-toolbar>
+                    <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+                </v-toolbar>
+            </div>
+            <div class="col-md-12">
+                <v-data-table :headers="headers" :items="filterEquipments" class="elevation-1" :sort-by.sync="sortBy">
+                    <template v-slot:top>
+                        <v-toolbar flat color="white">
+                            <v-toolbar-title>Equipment</v-toolbar-title>
+                            <v-divider class="mx-4" inset vertical></v-divider>
+                            <v-spacer></v-spacer>
+                            <v-dialog v-model="dialog" max-width="800px">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn class="white--text" color="primary" outlined v-on="on">
+                                        <v-icon class="mr-2">add</v-icon>Add Equipment
+                                    </v-btn>
+                                </template>
                                 <v-spacer></v-spacer>
-                                <v-dialog v-model="dialog" max-width="800px">
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            class="white--text"
-                                            color="primary"
-                                            outlined
-                                            v-on="on"
-                                            ><v-icon class="mr-2">add</v-icon
-                                            >Add Equipment</v-btn
-                                        >
-                                    </template>
-                                    <v-spacer></v-spacer>
-                                    <v-card>
-                                        <v-card-title>
-                                            <span class="headline">{{
+                                <v-card>
+                                    <v-card-title>
+                                        <span class="headline">{{
                                                 formTitle
                                             }}</span>
-                                        </v-card-title>
+                                    </v-card-title>
 
-                                        <v-card-text>
-                                            <v-container>
-                                                <v-row class="mr-5 ml-5">
-                                                        <v-img
-                                                            class="mx-auto"
-                                                            style="width: 30%;
+                                    <v-card-text>
+                                        <v-container>
+                                            <v-row class="mr-5 ml-5">
+                                                <v-img class="mx-auto" style="width: 30%;
                                                                         max-width: 240px;
-                                                                        height: auto;"
-                                                            v-if="
+                                                                        height: auto;" v-if="
                                                                 editedItem.picture_path
-                                                            "
-                                                            :src="
+                                                            " :src="
                                                             ('/storage/') +
                                                                     editedItem.picture_path
-                                                            "
-                                                        />
-                                                    </v-row>
-                                                    <v-row>
-                                                    <input
-                                                        class="my-4 mx-auto"
-                                                        id="uploadImage"
-                                                        type="file"
-                                                        @change="onImageChange"
-                                                    />
-                                                
-                                                <center>
-                                                    <img
-                                                        :src="editedItem.image"
-                                                        v-if="editedItem.image"
-                                                        class="img-responsive"
-                                                        height="100px"
-                                                    />
-                                                </center></v-row>
-                                                <v-row>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.equip_id
-                                                            "
-                                                            label="ID"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.equip_name
-                                                            "
-                                                            label="Name"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                    <v-col
-                                                        cols="12"
-                                                        sm="6"
-                                                        md="4"
-                                                    >
-                                                        <v-text-field
-                                                            v-model="
-                                                                editedItem.equip_qty
-                                                            "
-                                                            label="QTY"
-                                                        ></v-text-field>
-                                                    </v-col>
-                                                </v-row>
-                                                <v-row>
-                                                    <v-col cols="12">
-                                                        <v-textarea
-                                                            v-model="
-                                                                editedItem.description
-                                                            "
-                                                            label="Description"
-                                                        ></v-textarea>
-                                                    </v-col>
-                                                </v-row>
-                                            </v-container>
-                                        </v-card-text>
+                                                            " />
+                                            </v-row>
+                                            <v-row>
+                                                <input class="my-4 mx-auto" id="uploadImage" type="file" @change="onImageChange" />
 
-                                        <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <v-btn
-                                                color="blue darken-1"
-                                                text
-                                                @click="close"
-                                                >Cancel</v-btn
-                                            >
-                                            <v-btn
-                                                color="blue darken-1"
-                                                text
-                                                @click="save"
-                                                >Save</v-btn
-                                            >
-                                        </v-card-actions>
-                                    </v-card>
-                                </v-dialog>
-                            </v-toolbar>
-                        </template>
-                        <template v-slot:item.action="{ item }">
-                            <v-icon small class="mr-2" @click="editItem(item)">
-                                edit
-                            </v-icon>
-                            <v-icon small @click="deleteItem(item)">
-                                delete
-                            </v-icon>
-                        </template>
-                    </v-data-table>
-                </div>
+                                                <center>
+                                                    <img :src="editedItem.image" v-if="editedItem.image" class="img-responsive" height="100px" />
+                                                </center>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="
+                                                                editedItem.equip_id
+                                                            " label="ID"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="
+                                                                editedItem.equip_name
+                                                            " label="Name"></v-text-field>
+                                                </v-col>
+                                                <v-col cols="12" sm="6" md="4">
+                                                    <v-text-field v-model="
+                                                                editedItem.equip_qty
+                                                            " label="QTY"></v-text-field>
+                                                </v-col>
+                                            </v-row>
+                                            <v-row>
+                                                <v-col cols="12">
+                                                    <v-textarea v-model="
+                                                                editedItem.description
+                                                            " label="Description"></v-textarea>
+                                                </v-col>
+                                            </v-row>
+                                        </v-container>
+                                    </v-card-text>
+
+                                    <v-card-actions>
+                                        <v-spacer></v-spacer>
+                                        <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                                        <v-btn color="blue darken-1" text @click="save">Save</v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                        </v-toolbar>
+                    </template>
+                    <template v-slot:item.action="{ item }">
+                        <v-icon small class="mr-2" @click="editItem(item)">
+                            edit
+                        </v-icon>
+                        <v-icon small @click="deleteItem(item)">
+                            delete
+                        </v-icon>
+                    </template>
+                </v-data-table>
             </div>
-        </v-container>
-    </v-content>
+        </div>
+    </v-container>
+</v-content>
 </template>
 
 <script>
@@ -180,16 +112,29 @@ export default {
         today: new Date(),
         headers: [
             // { text: "ID", value: "id" },
-            { text: "Equip ID", value: "equip_id" },
+            {
+                text: "Equip ID",
+                value: "equip_id"
+            },
             {
                 text: "Equip Name",
                 align: "left",
                 sortable: false,
                 value: "equip_name"
             },
-            { text: "Qty", value: "equip_qty" },
-            { text: "Lab", value: "lab_id" },
-            { text: "Actions", value: "action", sortable: false }
+            {
+                text: "Qty",
+                value: "equip_qty"
+            },
+            {
+                text: "Lab",
+                value: "lab_id"
+            },
+            {
+                text: "Actions",
+                value: "action",
+                sortable: false
+            }
         ],
         editedIndex: -1,
         editedItem: {
@@ -306,7 +251,7 @@ export default {
                 ) || {};
             return selequips;
         },
-        filterEquipments: function() {
+        filterEquipments: function () {
             return this.equipmentsinlab.filter(equip => {
                 return equip.equip_name
                     .toLowerCase()

@@ -89,7 +89,7 @@
                                     <span class="mx-auto mb-1 title">No announcement posted.</span>
                                 </v-row>
                                 <v-row>
-                                <span class="mx-auto subheading grey--text">Stay tuned for future announcements!</span>
+                                <span style="font-family:Prompt;" class="mx-auto subheading grey--text">ยังไม่มีประกาศในห้องปฎิบัติการนี้</span>
                                 </v-row>
                             </div>
                             <div v-else>

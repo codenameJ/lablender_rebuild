@@ -4,12 +4,31 @@
             <div class="mx-auto mt-1 mb-2" max-width="1500">
                 <!-- <h1 align="center">{{ $route.params.course_id }}</h1> -->
                 <!-- <h1 align="center">LAB LENDER</h1> -->
-                <h1 align="center">{{ curlab.course_name }}</h1>
-                <h2 align="center">{{ curlab.course_id }}</h2>
-                <h4 align="center">Welcome, username</h4>
+                <v-row>
+                    <v-col class="ml-12">
+                        <h1 align="right">{{ curlab.course_name }}</h1>
+                        <h2 align="right">{{ curlab.course_id }}</h2>
+                        <h4 align="right">Welcome, username</h4>
+                    </v-col>
+                    <v-col>
+                    <img align="left" 
+                            class="ml-4"
+                            src="/img/ta.png" 
+                            style="width: auto;
+                            height: 100%;" />
+                    <div class="studentpic">
+                        <img 
+                            align="left" 
+                            src="/img/student.png" 
+                            class="ml-4"
+                            style="width: auto;
+                            height: 100%;" />
+                    </div>
+                    </v-col>
+                </v-row>
                 <br>
                 <v-divider></v-divider>
-                <h5 align="center">
+                <h5 align="center" class="mt-10">
                     Easy steps to lend any equipments in the lab!
                 </h5>
                 <br />
@@ -132,6 +151,16 @@ div.flex-container {
 @media screen and (max-width: 1350px) {
     div.flex-container {
         flex-direction: column;
+    }
+}
+
+div.studentpic {
+    display: block;
+}
+
+@media screen and (max-width: 415px) {
+    div.studentpic {
+        display: none;
     }
 }
 </style>
