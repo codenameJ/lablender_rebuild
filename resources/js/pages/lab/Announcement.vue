@@ -10,6 +10,7 @@
                                 class="mx-auto"
                                 max-width="800"
                                 v-model="dialog"
+                                :retain-focus="false"
                             >
                                 <template v-slot:activator="{ on }">
                                     <v-btn

@@ -20,7 +20,7 @@
                     <template>
                         <v-tabs
                             fixed-tabs
-                            color="#1a73e8"
+                            color="error"
                             background-color="white"
                             class="mt-3 mb-1"
                         >

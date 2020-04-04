@@ -29,6 +29,7 @@
                                         <v-dialog
                                             v-model="dialog"
                                             max-width="800px"
+                                            :retain-focus="false"
                                         >
                                             <v-card>
                                                 <v-card-title>
@@ -89,9 +90,11 @@
                                                             class="justify-content-center"
                                                         >
                                                             <v-col
-                                                                cols="12"
-                                                                sm="6"
-                                                                md="4"
+                                                                xl="8"
+                                                                lg="8"
+                                                                md="12"
+                                                                sm="12"
+                                                                xs="12"
                                                             >
                                                                 <v-textarea
                                                                     v-model="
@@ -111,7 +114,7 @@
                                                                 sm="6"
                                                                 md="4"
                                                             >
-                                                                <v-input-number
+                                                                <!-- <v-input-number
                                                                     v-model="
                                                                         quantity
                                                                     "
@@ -125,7 +128,16 @@
                                                                     inline
                                                                     controls
                                                                 >
-                                                                </v-input-number>
+                                                                </v-input-number> -->
+                                                                <number-input 
+                                                                v-model="quantity" 
+                                                                :min="1" 
+                                                                :max="editedItem.equip_qty" 
+                                                                :inputtable="false" 
+                                                                inline
+                                                                controls
+                                                                center>
+                                                                </number-input>
                                                             </v-col>
                                                         </v-row>
                                                     </v-container>
