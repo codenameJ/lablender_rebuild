@@ -1,7 +1,7 @@
 <template>
     <v-row>
         <v-col cols="12">
-            <div v-if="filterReceive.length == 0">
+            <div v-if="filterDetails.length == 0">
                 <v-row>
                     <v-img
                         class="mx-auto my-4"
@@ -21,10 +21,7 @@
                 </v-row>
             </div>
             <div v-for="(item, i) in filterReceive" :key="i">
-                <v-card
-                    class="mb-5"
-                    v-if="show(item.request_detail).length != 0"
-                >
+                <v-card class="mb-5" v-if="item.request_detail.length != 0">
                     <v-row>
                         <v-card-title
                             class="ml-4"
@@ -75,7 +72,7 @@
                         <v-data-table
                             class="mt-2"
                             :headers="detail_headers"
-                            :items="show(item.request_detail)"
+                            :items="item.request_detail"
                             hide-default-footer
                         >
                             <template #item.equipment_name="{item}">{{
@@ -118,15 +115,8 @@
                                                 >
                                                 <template #item.status="{item}"
                                                     ><v-select
-                                                        v-model="
-                                                            item.tempStatus
-                                                        "
+                                                        v-model="item.status"
                                                         :items="ckecklist"
-                                                        @change="
-                                                            setStatus(
-                                                                item.tempStatus
-                                                            )
-                                                        "
                                                     >
                                                     </v-select>
                                                 </template>
@@ -135,12 +125,7 @@
                                                 ><v-btn
                                                     outlined
                                                     color="blue darken-1"
-                                                    @click="
-                                                        save(
-                                                            getrequestid,
-                                                            selectedDetails
-                                                        )
-                                                    "
+                                                    @click="save(getrequestid)"
                                                     >Save</v-btn
                                                 ></v-card-actions
                                             ></v-container
@@ -159,7 +144,9 @@
 <script>
 export default {
     mounted() {
-        this.$store.dispatch("loadRequest_lists");
+        this.$store.dispatch("loadBroken_lists");
+        this.$store.dispatch("loadRequest_details");
+        console.log(this.filterReceive.length)
     },
     data: () => ({
         returndialog: false,
@@ -214,38 +201,38 @@ export default {
             return equipname.equip_name;
         },
         deleteItem(item) {
-            const index = this.request_lists.indexOf(item);
+            const index = this.broken_lists.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
-                this.request_lists.splice(index, 1);
+                this.broken_lists.splice(index, 1);
 
             axios
                 .delete("/api/requestlist/" + item.id)
                 .then(response => console.log(response.data));
 
-            this.$store.dispatch("loadRequest_lists");
+            this.$store.dispatch("loadBroken_lists");
+            this.$store.dispatch("loadRequest_details");
         },
-        save(request_list_id) {
-            console.log(this.selectedDetails);
+        save(broken_list_id) {
+            console.log(broken_list_id);
             axios
-                .put("/api/requestlist/" + request_list_id, {
+                .put("/api/requestlist/" + broken_list_id, {
                     status: this.status,
                     cmd: "return",
                     selectedDetails: this.selectedDetails
                 })
                 .then(response => console.log(response.data));
             this.returndialog = false;
-            this.$store.dispatch("loadRequest_lists");
+            this.$store.dispatch("loadBroken_lists");
+            this.$store.dispatch("loadRequest_details");
         },
         setDetail(item) {
             this.getrequestid = item.id;
-            this.selectedDetails =
-                item.request_detail.filter(data => data.status == "broken") ||
-                {};
-            console.log(this.getrequestid);
-        },
-        show(arrayData) {
-            return arrayData.filter(data => data.status == "broken") || {};
+            this.selectedDetails = item.request_detail;
+            console.log(this.selectedDetails);
         }
+        // show(arrayData) {
+        //     return arrayData.filter(data => data.status == "broken") || {};
+        // }
     },
     computed: {
         equipments() {
@@ -254,16 +241,19 @@ export default {
         users() {
             return this.$store.state.users;
         },
-        request_lists() {
-            return this.$store.state.request_lists;
+        broken_lists() {
+            return this.$store.state.broken_lists;
+        },
+        request_details(){
+            return this.$store.state.request_details;
         },
         curlab() {
             return this.$store.state.selectedLab;
         },
         Requestlistsinlab() {
             let selrequestlist =
-                this.request_lists.filter(
-                    request_list => request_list.lab_id == this.curlab.id
+                this.broken_lists.filter(
+                    broken_list => broken_list.lab_id == this.curlab.id
                 ) || {};
             return selrequestlist;
         },
@@ -273,6 +263,13 @@ export default {
                     list => list.status == "return"
                 ) || {};
             return readylist;
+        },
+        filterDetails() {
+            let detail =
+                this.request_details.filter(
+                    item => item.status == "broken"
+                ) || {};
+            return detail;
         }
     },
     watch: {}

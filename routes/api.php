@@ -27,3 +27,6 @@ Route::resource('ta','Api\TaController');
 Route::resource('student','Api\StudentController');
 Route::resource('enroll','Api\EnrollController');
 Route::resource('assign','Api\AssignController');
+Route::resource('missinglist','Api\MissingController');
+Route::resource('brokenlist','Api\BrokenController');
+Route::resource('requestdetail','Api\RequestdetailController');

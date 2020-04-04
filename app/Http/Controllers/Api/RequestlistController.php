@@ -19,6 +19,11 @@ class RequestlistController extends Controller
     {
         // $request_lists = Request_list::all();
         $request_lists = Request_list::with('Request_detail')->get();
+
+        // $request_lists = Request_list::with(['Request_detail' => function ($query) {
+        //     $query->where('status', 'missing');
+        // }])->get();
+
         return response()->json($request_lists);
     }
 
