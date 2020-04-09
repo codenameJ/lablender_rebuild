@@ -5,6 +5,7 @@ namespace App\Notifications;
 use App\Request_list;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
@@ -30,7 +31,7 @@ class LendingRequest extends Notification
      */
     public function via($notifiable)
     {
-        return ['database'];
+        return ['database', 'broadcast'];
     }
 
     /**
@@ -42,9 +43,9 @@ class LendingRequest extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+            ->line('The introduction to the notification.')
+            ->action('Notification Action', url('/'))
+            ->line('Thank you for using our application!');
     }
 
     /**
@@ -56,8 +57,21 @@ class LendingRequest extends Notification
     public function toArray($notifiable)
     {
         return [
-            'NewLendingRequest'=>$this->request_list,
-            'student'=> $notifiable
+            'NewLendingRequest' => $this->request_list,
+            'student' => $notifiable
         ];
+    }
+
+    /**
+     * Get the broadcastable representation of the notification.
+     *
+     * @param  mixed  $notifiable
+     * @return BroadcastMessage
+     */
+    public function toBroadcast($notifiable)
+    {
+        return new BroadcastMessage([
+            'notification'=> $notifiable->notifications()->latest()->first()
+        ]);
     }
 }

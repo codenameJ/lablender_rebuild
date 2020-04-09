@@ -42,7 +42,7 @@
                         <v-btn @click="markAsRead" icon v-on="on">
                             <v-badge overlap>
                                 <span slot="badge">{{
-                                    unreadnotification.length
+                                    unreadNotifications.length
                                 }}</span>
                                 <v-icon>notifications</v-icon>
                             </v-badge>
@@ -51,7 +51,7 @@
 
                     <v-list>
                         <v-list-item
-                            v-for="(notification, i) in notifications"
+                            v-for="(notification, i) in allNotifications"
                             :key="i"
                         >
                             <v-list-item-content>
@@ -65,6 +65,16 @@
                                     }}</v-list-item-title
                                 >
                             </v-list-item-content>
+                            <v-list-item-icon>
+                                <v-icon
+                                    small
+                                    v-if="!notification.read_at"
+                                    color="
+                                    blue
+                                    "
+                                    >lens</v-icon
+                                >
+                            </v-list-item-icon>
                         </v-list-item>
                     </v-list>
                 </v-menu>
@@ -221,27 +231,55 @@ export default {
 
     mounted() {
         this.$store.dispatch("loadUsers");
+        this.$store.dispatch("loadNotifications", this.notifications);
         // this.$store.dispatch("currentUser");
-        console.log(this.username);
-        console.log(this.notifications);
+        // console.log(this.username);
+        console.log(this.allNotifications);
     },
 
     data: () => ({
         fab: false,
         hidden: false,
-        tabs: null
+        tabs: null,
+        unreadNotifications: []
     }),
-    created() {},
+    created() {
+        // -------------pusher realtime---------------
+        // Echo.private("App.User." + this.curuser.id).notification(notification => {
+        //     console.log(notification, 'new notification on realtime');
+
+        //     this.allNotifications.push(notification.notification)
+        // });
+
+        this.unreadNotifications = this.allNotifications.filter(
+            notification => {
+                return notification.read_at == null;
+            }
+        );
+    },
     methods: {
+        getColor(notification) {
+            if (notification.read_at == "null") return "blue-grey";
+            else return "#green";
+        },
         markAsRead() {
-            axios.get("/mark-all-read/" + this.curuser.id).then(Response => {});
+            axios.get("/mark-all-read/" + this.curuser.id).then(Response => {
+                this.unreadNotifications = [];
+            });
         }
     },
+    watch: {
+        // allNotifications(val) {
+        //     this.unreadNotifications = this.allNotifications.filter(
+        //         notification => {
+        //             return notification.read_at == null;
+        //         }
+        //     );
+        // }
+    },
     computed: {
-        unreadnotification() {
-            return this.notifications.filter(notification => {
-                return notification.read_at == null;
-            });
+        allNotifications() {
+            return this.$store.state.notifications;
         },
         users() {
             return this.$store.state.users;

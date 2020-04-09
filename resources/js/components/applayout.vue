@@ -8,9 +8,53 @@
                 <v-toolbar-title>Lab Lender</v-toolbar-title>
                 <v-spacer></v-spacer>
                 <lendingcart />
-                <v-btn icon>
-                    <v-icon>notifications</v-icon>
-                </v-btn>
+                <v-menu
+                    offset-y
+                    origin="center center"
+                    class="elelvation-1"
+                    :nudge-bottom="14"
+                    transition="scale-transition"
+                >
+                    <template v-slot:activator="{ on }">
+                        <v-btn @click="markAsRead" icon v-on="on">
+                            <v-badge overlap>
+                                <span slot="badge">{{
+                                    unreadNotifications.length
+                                }}</span>
+                                <v-icon>notifications</v-icon>
+                            </v-badge>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item
+                            v-for="(notification, i) in allNotifications"
+                            :key="i"
+                        >
+                            <v-list-item-content>
+                                <v-list-item-title
+                                    >Request No.
+                                    {{ notification.data.NewLendingRequest.id }}
+                                    is
+                                    {{
+                                        notification.data.NewLendingRequest
+                                            .status
+                                    }}</v-list-item-title
+                                >
+                            </v-list-item-content>
+                            <v-list-item-icon>
+                                <v-icon
+                                    small
+                                    v-if="!notification.read_at"
+                                    color="
+                                    blue
+                                    "
+                                    >lens</v-icon
+                                >
+                            </v-list-item-icon>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
 
                 <v-menu bottom left>
                     <template v-slot:activator="{ on }">
@@ -123,7 +167,9 @@
                             <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title style="font-size:16px">อุปกรณ์</v-list-item-title>
+                            <v-list-item-title style="font-size:16px"
+                                >อุปกรณ์</v-list-item-title
+                            >
                         </v-list-item-content>
                     </v-list-item>
 
@@ -151,7 +197,9 @@
                             <v-icon class="ml-2">history</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title style="font-size:16px"> ประวัติ</v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
+                                ประวัติ</v-list-item-title
+                            >
                         </v-list-item-content>
                     </v-list-item>
 
@@ -164,7 +212,9 @@
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
+                            <v-list-item-title style="font-size:16px"
+                                >บำรุงรักษา</v-list-item-title
+                            >
                         </v-list-item-content>
                     </v-list-item>
 
@@ -271,7 +321,9 @@
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
+                            <v-list-item-title style="font-size:16px"
+                                >บำรุงรักษา</v-list-item-title
+                            >
                         </v-list-item-content>
                     </v-list-item>
 
@@ -372,7 +424,9 @@
                             <v-icon class="ml-2">build</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
+                            <v-list-item-title style="font-size:16px"
+                                >บำรุงรักษา</v-list-item-title
+                            >
                         </v-list-item-content>
                     </v-list-item>
 
@@ -430,7 +484,9 @@
                             <v-icon class="ml-2">store</v-icon>
                         </v-list-item-action>
                         <v-list-item-content>
-                            <v-list-item-title style="font-size:16px"> อุปกรณ์</v-list-item-title>
+                            <v-list-item-title style="font-size:16px">
+                                อุปกรณ์</v-list-item-title
+                            >
                         </v-list-item-content>
                     </v-list-item>
 
@@ -495,7 +551,7 @@
 
 <script>
 export default {
-    props: ["username", "type"],
+    props: ["username", "type", "notifications"],
 
     created() {},
     mounted() {
@@ -503,6 +559,7 @@ export default {
         this.$store.dispatch("clearCartItems");
         this.$store.dispatch("loadLabs");
         this.$store.dispatch("loadUsers");
+        this.$store.dispatch("loadNotifications", this.notifications);
         // this.$store.dispatch("currentLab");
         console.log(this.username);
     },
@@ -514,10 +571,23 @@ export default {
         appName: process.env.APP_NAME,
         fixed: false,
         dialog: false,
-        drawer: true
+        drawer: true,
+        unreadNotifications: []
     }),
 
+    created() {
+
+        this.unreadNotifications = this.allNotifications.filter(
+            notification => {
+                return notification.read_at == null;
+            }
+        );
+    },
+
     computed: {
+        allNotifications() {
+            return this.$store.state.notifications;
+        },
         viewCart() {
             return this.$store.state.cart;
         },
@@ -553,9 +623,14 @@ export default {
     },
 
     methods: {
+        markAsRead() {
+            axios.get("/mark-all-read/" + this.curuser.id).then(Response => {
+                this.unreadNotifications = [];
+            });
+        },
         sidebarToggle() {
             this.drawer = !this.drawer;
-        },
+        }
     }
 };
 </script>
