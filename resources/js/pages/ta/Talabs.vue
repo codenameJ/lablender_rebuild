@@ -73,7 +73,6 @@
 export default {
     mounted() {
         this.$store.dispatch("loadTas");
-        console.log(this.getlab)
     },
     data: () => ({
         tabs: null,

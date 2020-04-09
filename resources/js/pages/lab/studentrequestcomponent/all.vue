@@ -152,7 +152,7 @@ export default {
         Requestlistsinlab() {
             let selrequestlist =
                 this.request_lists.filter(
-                    request_list => request_list.lab_id == this.curlab.id
+                    request_list => request_list.lab_id == this.curlab.id && request_list.status != 'return'
                 ) || {};
             return selrequestlist;
         },

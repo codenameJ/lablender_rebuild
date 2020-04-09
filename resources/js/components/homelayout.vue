@@ -31,7 +31,44 @@
 
             <v-spacer></v-spacer>
             <v-toolbar-title>
-                <v-menu bottom left>
+                <v-menu
+                    offset-y
+                    origin="center center"
+                    class="elelvation-1"
+                    :nudge-bottom="14"
+                    transition="scale-transition"
+                >
+                    <template v-slot:activator="{ on }">
+                        <v-btn @click="markAsRead" icon v-on="on">
+                            <v-badge overlap>
+                                <span slot="badge">{{
+                                    unreadnotification.length
+                                }}</span>
+                                <v-icon>notifications</v-icon>
+                            </v-badge>
+                        </v-btn>
+                    </template>
+
+                    <v-list>
+                        <v-list-item
+                            v-for="(notification, i) in notifications"
+                            :key="i"
+                        >
+                            <v-list-item-content>
+                                <v-list-item-title
+                                    >Request No.
+                                    {{ notification.data.NewLendingRequest.id }}
+                                    is
+                                    {{
+                                        notification.data.NewLendingRequest
+                                            .status
+                                    }}</v-list-item-title
+                                >
+                            </v-list-item-content>
+                        </v-list-item>
+                    </v-list>
+                </v-menu>
+                <v-menu offset-y :nudge-bottom="14">
                     <template v-slot:activator="{ on }">
                         <v-btn icon color="white" v-on="on">
                             <v-icon>mdi-account</v-icon>
@@ -180,12 +217,13 @@
 
 <script>
 export default {
-    props: ["username", "type"],
+    props: ["username", "type", "notifications"],
 
     mounted() {
         this.$store.dispatch("loadUsers");
         // this.$store.dispatch("currentUser");
         console.log(this.username);
+        console.log(this.notifications);
     },
 
     data: () => ({
@@ -193,8 +231,18 @@ export default {
         hidden: false,
         tabs: null
     }),
-
+    created() {},
+    methods: {
+        markAsRead() {
+            axios.get("/mark-all-read/" + this.curuser.id).then(Response => {});
+        }
+    },
     computed: {
+        unreadnotification() {
+            return this.notifications.filter(notification => {
+                return notification.read_at == null;
+            });
+        },
         users() {
             return this.$store.state.users;
         },

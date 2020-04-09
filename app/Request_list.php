@@ -2,7 +2,9 @@
 
 namespace App;
 
+use App\Notifications\LendingRequest;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Notification;
 
 class Request_list extends Model
 {
