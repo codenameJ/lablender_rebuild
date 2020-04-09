@@ -369,7 +369,7 @@
 
     <div id="app">
         <v-app>
-            <applayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}"></applayout>
+            <applayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}" :notifications="{{ Auth::User()->notifications}}"></applayout>
             <v-col class="md-9">
                 @yield('content')
             </v-col>

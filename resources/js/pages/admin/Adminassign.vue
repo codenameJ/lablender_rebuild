@@ -32,6 +32,7 @@
                                             <v-dialog
                                                 v-model="dialog"
                                                 max-width="500px"
+                                                :retain-focus="false"
                                             >
                                                 <template
                                                     v-slot:activator="{ on }"

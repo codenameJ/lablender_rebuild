@@ -19,95 +19,106 @@
                             ></v-text-field>
                         </v-toolbar>
                         <v-col cols="12">
-                            <div v-for="(item, i) in filterLab" :key="i">
-                                <v-card class="my-2">
-                                    <div
-                                        class="d-flex flex-no-wrap justify-space-between"
-                                    >
-                                        <div>
-                                            <v-card-title
-                                                class="headline"
-                                                v-text="item.course_name"
-                                            ></v-card-title>
+                            <div v-for="(item, i) in getta" :key="i">
+                                <div v-for="(lab, i) in item.labs" :key="i">
+                                    <v-card class="my-2">
+                                        <div
+                                            class="d-flex flex-no-wrap justify-space-between"
+                                        >
+                                            <div>
+                                                <v-card-title
+                                                    class="headline"
+                                                    v-text="lab.course_name"
+                                                ></v-card-title>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <v-data-table
-                                        class="mt-2"
-                                        :headers="student_headers"
-                                        :items="item.student"
-                                        hide-default-footer
-                                    >
-                                        <template #item.student_name="{item}">{{
-                                            getstudentname(item.user_id)
-                                        }}</template>
-                                        <template #item.status="{item}">{{
-                                            item.pivot.status
-                                        }}</template>
-                                        <template #item.action="{item}">
+                                        <v-data-table
+                                            class="mt-2"
+                                            :headers="student_headers"
+                                            :items="getstudents(lab)"
+                                            hide-default-footer
+                                        >
                                             <template
-                                                v-if="
-                                                    item.pivot.status ==
-                                                        'pending'
-                                                "
+                                                #item.student_name="{item}"
+                                                >{{
+                                                    getstudentname(item.user_id)
+                                                }}</template
                                             >
-                                                <v-btn
-                                                    small
-                                                    outlined
-                                                    rounded
-                                                    class="elevation-2 mr-2"
-                                                    color="success"
-                                                    @click="acceptenroll(item)"
-                                                >
-                                                    <v-icon
-                                                        small
-                                                        class="mr-2"
-                                                        left
-                                                        >add_circle_outline</v-icon
-                                                    >
-                                                    Accept
-                                                </v-btn>
-                                                <v-btn
-                                                    small
-                                                    outlined
-                                                    rounded
-                                                    class="elevation-2"
-                                                    color="error"
-                                                    @click="
-                                                        canceledenrolled(item)
+                                            <template #item.status="{item}">{{
+                                                item.pivot.status
+                                            }}</template>
+                                            <template #item.action="{item}">
+                                                <template
+                                                    v-if="
+                                                        item.pivot.status ==
+                                                            'pending'
                                                     "
                                                 >
-                                                    <v-icon
+                                                    <v-btn
                                                         small
-                                                        class="mr-2"
-                                                        left
-                                                        >remove_circle_outline</v-icon
+                                                        outlined
+                                                        rounded
+                                                        class="elevation-2 mr-2"
+                                                        color="success"
+                                                        @click="
+                                                            acceptenroll(item)
+                                                        "
                                                     >
-                                                    Decline
-                                                </v-btn>
-                                            </template>
-                                            <template v-else>
-                                                <v-btn
-                                                    small
-                                                    outlined
-                                                    rounded
-                                                    class="elevation-2"
-                                                    color="error"
-                                                    @click="
-                                                        canceledenrolled(item)
-                                                    "
-                                                >
-                                                    <v-icon
+                                                        <v-icon
+                                                            small
+                                                            class="mr-2"
+                                                            left
+                                                            >add_circle_outline</v-icon
+                                                        >
+                                                        Accept
+                                                    </v-btn>
+                                                    <v-btn
                                                         small
-                                                        class="mr-2"
-                                                        left
-                                                        >remove_circle_outline</v-icon
+                                                        outlined
+                                                        rounded
+                                                        class="elevation-2"
+                                                        color="error"
+                                                        @click="
+                                                            canceledenrolled(
+                                                                item
+                                                            )
+                                                        "
                                                     >
-                                                    Remove
-                                                </v-btn>
+                                                        <v-icon
+                                                            small
+                                                            class="mr-2"
+                                                            left
+                                                            >remove_circle_outline</v-icon
+                                                        >
+                                                        Decline
+                                                    </v-btn>
+                                                </template>
+                                                <template v-else>
+                                                    <v-btn
+                                                        small
+                                                        outlined
+                                                        rounded
+                                                        class="elevation-2"
+                                                        color="error"
+                                                        @click="
+                                                            canceledenrolled(
+                                                                item
+                                                            )
+                                                        "
+                                                    >
+                                                        <v-icon
+                                                            small
+                                                            class="mr-2"
+                                                            left
+                                                            >remove_circle_outline</v-icon
+                                                        >
+                                                        Remove
+                                                    </v-btn>
+                                                </template>
                                             </template>
-                                        </template>
-                                    </v-data-table>
-                                </v-card>
+                                        </v-data-table>
+                                    </v-card>
+                                </div>
                             </div>
                         </v-col>
                     </v-row>
@@ -125,6 +136,7 @@ export default {
     data: () => ({
         search: "",
         tabs: null,
+        getlab: [],
         student_headers: [
             { text: "Student ID", value: "student_id" },
             { text: "Student Name", value: "student_name", sortable: false },
@@ -173,6 +185,10 @@ export default {
                     .then(response => console.log(response.data));
                 this.$store.dispatch("loadLabs");
             }
+        },
+        getstudents(inputlab) {
+            let curlab = this.labs.find(lab => lab.id == inputlab.id) || {};
+            return curlab.student;
         }
     },
     computed: {
@@ -189,9 +205,9 @@ export default {
             return this.$store.state.selectedUser;
         },
         getta() {
-            let talab =
+            let ta =
                 this.tas.filter(ta => ta.id == this.currentuser.ta.id) || {};
-            return talab;
+            return ta;
         },
         activeFab() {
             switch (this.tabs) {
@@ -200,12 +216,12 @@ export default {
             }
         },
         filterLab: function() {
-            return this.labs.filter(lab => {
-                return lab.course_name
+            return this.getta.filter(lab => {
+                return getlabname(lab)
                     .toLowerCase()
                     .includes(this.search.toLowerCase());
             });
-        }
+        },
     },
     watch: {}
 };
