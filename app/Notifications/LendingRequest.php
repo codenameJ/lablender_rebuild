@@ -31,7 +31,8 @@ class LendingRequest extends Notification
      */
     public function via($notifiable)
     {
-        return ['database', 'broadcast'];
+        // return ['database', 'broadcast'];
+        return ['database'];
     }
 
     /**
@@ -62,16 +63,16 @@ class LendingRequest extends Notification
         ];
     }
 
-    /**
-     * Get the broadcastable representation of the notification.
-     *
-     * @param  mixed  $notifiable
-     * @return BroadcastMessage
-     */
-    public function toBroadcast($notifiable)
-    {
-        return new BroadcastMessage([
-            'notification'=> $notifiable->notifications()->latest()->first()
-        ]);
-    }
+    // /**
+    //  * Get the broadcastable representation of the notification.
+    //  *
+    //  * @param  mixed  $notifiable
+    //  * @return BroadcastMessage
+    //  */
+    // public function toBroadcast($notifiable)
+    // {
+    //     return new BroadcastMessage([
+    //         'notification'=> $notifiable->notifications()->latest()->first()
+    //     ]);
+    // }
 }

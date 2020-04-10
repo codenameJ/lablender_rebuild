@@ -1,58 +1,122 @@
 <template>
-<div id="app">
-    <v-content>
-        <v-container class="my-5">
-            <div class="row justify-content-center">
-                <div class="col-md-12">
-                    <v-card>
-                        <v-data-table :headers="headers" :items="filterEquipments" class="elevation-1 txt-title" :sort-by.sync="sortBy">
-                            <template v-slot:top>
-                                <v-toolbar flat color="white">
-                                    <v-toolbar-title>Equipments</v-toolbar-title>
-                                    <v-spacer></v-spacer>
+    <div id="app">
+        <v-content>
+            <v-container class="my-5">
+                <div class="row justify-content-center">
+                    <div class="col-md-12">
+                        <v-card>
+                            <v-data-table
+                                :headers="headers"
+                                :items="filterEquipments"
+                                class="elevation-1 txt-title"
+                                :sort-by.sync="sortBy"
+                            >
+                                <template v-slot:top>
+                                    <v-toolbar flat color="white">
+                                        <v-toolbar-title
+                                            >Equipments</v-toolbar-title
+                                        >
+                                        <v-spacer></v-spacer>
 
-                                    <v-text-field v-model="search" append-icon="search" label="Search" single-line hide-details></v-text-field>
+                                        <v-text-field
+                                            v-model="search"
+                                            append-icon="search"
+                                            label="Search"
+                                            single-line
+                                            hide-details
+                                        ></v-text-field>
 
-                                    <v-dialog v-model="dialog" max-width="800px" :retain-focus="false">
-                                        <v-card>
-                                            <v-card-title>
-                                                <span class="headline">Lend</span>
-                                            </v-card-title>
+                                        <v-dialog
+                                            v-model="dialog"
+                                            max-width="800px"
+                                            :retain-focus="false"
+                                        >
+                                            <v-card>
+                                                <v-card-title>
+                                                    <span class="headline"
+                                                        >Lend</span
+                                                    >
+                                                </v-card-title>
 
-                                            <v-card-text>
-                                                <v-container>
-                                                    <v-row class="mr-5 ml-5">
-                                                        <img class="mx-auto my-4" style="width: 30%;
+                                                <v-card-text>
+                                                    <v-container>
+                                                        <v-row
+                                                            class="mr-5 ml-5"
+                                                        >
+                                                            <img
+                                                                class="mx-auto my-4"
+                                                                style="width: 30%;
                                                                         max-width: 240px;
-                                                                        height: auto;" v-if="
-                                                                editedItem.picture_path
-                                                            " :src="
-                                                            ('/storage/') +
+                                                                        height: auto;"
+                                                                v-if="
                                                                     editedItem.picture_path
-                                                            " height="200px" />
-                                                    </v-row>
-                                                    <v-row class="justify-content-center">
-                                                        <v-col cols="12" sm="6" md="4">
-                                                            <v-text-field :value="
+                                                                "
+                                                                :src="
+                                                                    '/storage/' +
+                                                                        editedItem.picture_path
+                                                                "
+                                                                height="200px"
+                                                            />
+                                                        </v-row>
+                                                        <v-row
+                                                            class="justify-content-center"
+                                                        >
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="6"
+                                                                md="4"
+                                                            >
+                                                                <v-text-field
+                                                                    :value="
                                                                         editedItem.equip_id
-                                                                    " label="Equipment ID" readonly></v-text-field>
-                                                        </v-col>
-                                                        <v-col cols="12" sm="6" md="4">
-                                                            <v-text-field :value="
+                                                                    "
+                                                                    label="Equipment ID"
+                                                                    readonly
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="6"
+                                                                md="4"
+                                                            >
+                                                                <v-text-field
+                                                                    :value="
                                                                         editedItem.equip_name
-                                                                    " label="Equipment Name" readonly></v-text-field>
-                                                        </v-col>
-                                                    </v-row>
-                                                    <v-row class="justify-content-center">
-                                                        <v-col xl="8" lg="8" md="12" sm="12" xs="12">
-                                                            <v-textarea v-model="
+                                                                    "
+                                                                    label="Equipment Name"
+                                                                    readonly
+                                                                ></v-text-field>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row
+                                                            class="justify-content-center"
+                                                        >
+                                                            <v-col
+                                                                xl="8"
+                                                                lg="8"
+                                                                md="12"
+                                                                sm="12"
+                                                                xs="12"
+                                                            >
+                                                                <v-textarea
+                                                                    v-model="
                                                                         editedItem.description
-                                                                    " label="Description" readonly rows="2"></v-textarea>
-                                                        </v-col>
-                                                    </v-row>
-                                                    <v-row class="justify-content-center">
-                                                        <v-col cols="12" sm="6" md="4">
-                                                            <!-- <v-input-number
+                                                                    "
+                                                                    label="Description"
+                                                                    readonly
+                                                                    rows="2"
+                                                                ></v-textarea>
+                                                            </v-col>
+                                                        </v-row>
+                                                        <v-row
+                                                            class="justify-content-center"
+                                                        >
+                                                            <v-col
+                                                                cols="12"
+                                                                sm="6"
+                                                                md="4"
+                                                            >
+                                                                <!-- <v-input-number
                                                                     v-model="
                                                                         quantity
                                                                     "
@@ -61,46 +125,97 @@
                                                                     ]"
                                                                     :min="1"
                                                                     :max="
-                                                                        editedItem.equip_qty
+                                                                        parseInt(
+                                                                            editedItem.equip_qty
+                                                                        )
                                                                     "
                                                                     inline
                                                                     controls
                                                                 >
                                                                 </v-input-number> -->
-                                                            <number-input v-model="quantity" :min="1" :max="editedItem.equip_qty" :inputtable="false" inline controls center>
-                                                            </number-input>
-                                                        </v-col>
-                                                    </v-row>
-                                                </v-container>
-                                            </v-card-text>
-                                            <v-card-actions>
-                                                <v-spacer></v-spacer>
-                                                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                                                <v-btn color="blue darken-1" text @click="
+                                                                <number-input
+                                                                    v-model="
+                                                                        quantity
+                                                                    "
+                                                                    :min="1"
+                                                                    :max="
+                                                                        editedItem.equip_qty
+                                                                    "
+                                                                    :inputtable="
+                                                                        false
+                                                                    "
+                                                                    inline
+                                                                    controls
+                                                                    center
+                                                                >
+                                                                </number-input>
+                                                            </v-col>
+                                                        </v-row>
+                                                    </v-container>
+                                                </v-card-text>
+                                                <v-card-actions>
+                                                    <v-spacer></v-spacer>
+                                                    <v-btn
+                                                        color="blue darken-1"
+                                                        text
+                                                        @click="close"
+                                                        >Cancel</v-btn
+                                                    >
+                                                    <v-btn
+                                                        color="blue darken-1"
+                                                        text
+                                                        @click="
                                                             addCart(editedItem)
-                                                        ">Lend</v-btn>
-                                            </v-card-actions>
-                                        </v-card>
-                                    </v-dialog>
-                                </v-toolbar>
-                            </template>
-                            <template v-slot:item.action="{ item }">
-                                <v-btn v-if="item.equip_qty > 0" small rounded outlined class="elevation-2" color="#1a73e8" @click="editItem(item)">
-                                    <v-icon small class="mr-2" left>add_circle_outline</v-icon>
-                                    Lend
-                                </v-btn>
-                                <v-btn v-if="item.equip_qty <= 0" disabled small rounded outlined class="elevation-2" color="#1a73e8">
-                                    <v-icon small class="mr-2" left>add_circle_outline</v-icon>
-                                    Lend
-                                </v-btn>
-                            </template>
-                        </v-data-table>
-                    </v-card>
+                                                        "
+                                                        :disabled="
+                                                            quantity >
+                                                                editedItem.equip_qty ||
+                                                                quantity < 1
+                                                        "
+                                                        >Lend</v-btn
+                                                    >
+                                                </v-card-actions>
+                                            </v-card>
+                                        </v-dialog>
+                                    </v-toolbar>
+                                </template>
+                                <template v-slot:item.action="{ item }">
+                                    <v-btn
+                                        v-if="item.equip_qty > 0"
+                                        small
+                                        rounded
+                                        outlined
+                                        class="elevation-2"
+                                        color="#1a73e8"
+                                        @click="editItem(item)"
+                                    >
+                                        <v-icon small class="mr-2" left
+                                            >add_circle_outline</v-icon
+                                        >
+                                        Lend
+                                    </v-btn>
+                                    <v-btn
+                                        v-if="item.equip_qty <= 0"
+                                        disabled
+                                        small
+                                        rounded
+                                        outlined
+                                        class="elevation-2"
+                                        color="#1a73e8"
+                                    >
+                                        <v-icon small class="mr-2" left
+                                            >add_circle_outline</v-icon
+                                        >
+                                        Lend
+                                    </v-btn>
+                                </template>
+                            </v-data-table>
+                        </v-card>
+                    </div>
                 </div>
-            </div>
-        </v-container>
-    </v-content>
-</div>
+            </v-container>
+        </v-content>
+    </div>
 </template>
 
 <script>
@@ -118,7 +233,8 @@ export default {
         dialog: false,
         dialogcart: false,
         search: "",
-        headers: [{
+        headers: [
+            {
                 text: "Equip ID",
                 value: "equip_id"
             },
@@ -160,7 +276,8 @@ export default {
         cartadd: {
             equip_id: 0,
             equip_name: "",
-            amount: 0
+            amount: 0,
+            equip_qty: 0
         },
         badge: 0,
         quantity: 1
@@ -190,7 +307,7 @@ export default {
                 ) || {};
             return selequips;
         },
-        filterEquipments: function () {
+        filterEquipments: function() {
             return this.equipmentsinlab.filter(equip => {
                 return equip.equip_name
                     .toLowerCase()
@@ -220,6 +337,7 @@ export default {
             this.cartadd.id = equipment.id;
             this.cartadd.equip_id = equipment.equip_id;
             this.cartadd.equip_name = equipment.equip_name;
+            this.cartadd.equip_qty = equipment.equip_qty;
             this.cartadd.amount = this.quantity;
             this.$store.commit("addToCart", this.cartadd);
             this.cartadd = {};
@@ -247,6 +365,7 @@ export default {
         },
 
         close() {
+            this.quantity = 1;
             this.dialog = false;
         },
         closecart() {
