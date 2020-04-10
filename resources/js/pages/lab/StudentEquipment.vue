@@ -29,6 +29,7 @@
                                         <v-dialog
                                             v-model="dialog"
                                             max-width="800px"
+                                            :retain-focus="false"
                                         >
                                             <v-card>
                                                 <v-card-title>
@@ -39,22 +40,24 @@
 
                                                 <v-card-text>
                                                     <v-container>
-                                                        <v-row class="mr-5 ml-5">
-                                                        <img
-                                                            class="mx-auto my-4"
-                                                            style="width: 30%;
+                                                        <v-row
+                                                            class="mr-5 ml-5"
+                                                        >
+                                                            <img
+                                                                class="mx-auto my-4"
+                                                                style="width: 30%;
                                                                         max-width: 240px;
                                                                         height: auto;"
-                                                            v-if="
-                                                                editedItem.picture_path
-                                                            "
-                                                            :src="
-                                                            ('/storage/') +
+                                                                v-if="
                                                                     editedItem.picture_path
-                                                            "
-                                                            height="200px"
-                                                        />
-                                                    </v-row>
+                                                                "
+                                                                :src="
+                                                                    '/storage/' +
+                                                                        editedItem.picture_path
+                                                                "
+                                                                height="200px"
+                                                            />
+                                                        </v-row>
                                                         <v-row
                                                             class="justify-content-center"
                                                         >
@@ -120,7 +123,9 @@
                                                                     ]"
                                                                     :min="1"
                                                                     :max="
-                                                                        editedItem.equip_qty
+                                                                        parseInt(
+                                                                            editedItem.equip_qty
+                                                                        )
                                                                     "
                                                                     inline
                                                                     controls
@@ -143,6 +148,11 @@
                                                         text
                                                         @click="
                                                             addCart(editedItem)
+                                                        "
+                                                        :disabled="
+                                                            quantity >
+                                                                editedItem.equip_qty ||
+                                                                quantity < 1
                                                         "
                                                         >Lend</v-btn
                                                     >
@@ -238,7 +248,8 @@ export default {
         cartadd: {
             equip_id: 0,
             equip_name: "",
-            amount: 0
+            amount: 0,
+            equip_qty: 0
         },
         badge: 0,
         quantity: 1
@@ -298,6 +309,7 @@ export default {
             this.cartadd.id = equipment.id;
             this.cartadd.equip_id = equipment.equip_id;
             this.cartadd.equip_name = equipment.equip_name;
+            this.cartadd.equip_qty = equipment.equip_qty;
             this.cartadd.amount = this.quantity;
             this.$store.commit("addToCart", this.cartadd);
             this.cartadd = {};
@@ -325,6 +337,7 @@ export default {
         },
 
         close() {
+            this.quantity = 1;
             this.dialog = false;
         },
         closecart() {

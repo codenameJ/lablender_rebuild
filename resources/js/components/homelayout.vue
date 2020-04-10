@@ -51,8 +51,9 @@
 
                     <v-list>
                         <v-list-item
-                            v-for="(notification, i) in allNotifications"
+                            v-for="(notification, i) in allNotifications.slice(0, 10)"
                             :key="i"
+                            :class="{'green': notification.read_at==null}"
                         >
                             <v-list-item-content>
                                 <v-list-item-title
@@ -231,17 +232,18 @@ export default {
 
     mounted() {
         this.$store.dispatch("loadUsers");
-        this.$store.dispatch("loadNotifications", this.notifications);
+        // this.$store.dispatch("loadNotifications", this.notifications);
         // this.$store.dispatch("currentUser");
         // console.log(this.username);
-        console.log(this.allNotifications);
+        // console.log(this.allNotifications);
     },
 
     data: () => ({
         fab: false,
         hidden: false,
         tabs: null,
-        unreadNotifications: []
+        unreadNotifications: [],
+        allNotifications: [],
     }),
     created() {
         // -------------pusher realtime---------------
@@ -250,6 +252,7 @@ export default {
 
         //     this.allNotifications.push(notification.notification)
         // });
+        this.allNotifications = this.notifications;
 
         this.unreadNotifications = this.allNotifications.filter(
             notification => {
@@ -269,18 +272,15 @@ export default {
         }
     },
     watch: {
-        // allNotifications(val) {
-        //     this.unreadNotifications = this.allNotifications.filter(
-        //         notification => {
-        //             return notification.read_at == null;
-        //         }
-        //     );
-        // }
+        allNotifications(val) {
+            this.unreadNotifications = this.allNotifications.filter(
+                notification => {
+                    return notification.read_at == null;
+                }
+            );
+        }
     },
     computed: {
-        allNotifications() {
-            return this.$store.state.notifications;
-        },
         users() {
             return this.$store.state.users;
         },

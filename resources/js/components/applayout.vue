@@ -559,7 +559,6 @@ export default {
         this.$store.dispatch("clearCartItems");
         this.$store.dispatch("loadLabs");
         this.$store.dispatch("loadUsers");
-        this.$store.dispatch("loadNotifications", this.notifications);
         // this.$store.dispatch("currentLab");
         console.log(this.username);
     },
@@ -572,10 +571,12 @@ export default {
         fixed: false,
         dialog: false,
         drawer: true,
-        unreadNotifications: []
+        unreadNotifications: [],
+        allNotifications: []
     }),
 
     created() {
+        this.allNotifications = this.notifications;
 
         this.unreadNotifications = this.allNotifications.filter(
             notification => {
@@ -585,9 +586,6 @@ export default {
     },
 
     computed: {
-        allNotifications() {
-            return this.$store.state.notifications;
-        },
         viewCart() {
             return this.$store.state.cart;
         },
@@ -617,6 +615,13 @@ export default {
     },
 
     watch: {
+        allNotifications(val) {
+            this.unreadNotifications = this.allNotifications.filter(
+                notification => {
+                    return notification.read_at == null;
+                }
+            );
+        },
         dialog(val) {
             val || this.close();
         }

@@ -58,6 +58,9 @@ export default {
                 var oldamount = parseInt(found.amount);
                 var inamount = parseInt(item.amount);
                 var total = oldamount + inamount;
+                if(total > item.equip_qty){
+                    total = item.equip_qty;
+                }
                 found.amount = total;
             }else{
             state.cart.push(item);

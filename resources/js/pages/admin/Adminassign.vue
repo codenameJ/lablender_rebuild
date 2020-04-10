@@ -23,60 +23,65 @@
                             <div v-for="(item, i) in filterLab" :key="i">
                                 <v-card class="mt-2 mb-5">
                                     <v-card-actions>
-                                            <v-card-title
-                                                class="headline"
-                                                v-text="item.course_name"
-                                            >
-                                            </v-card-title>
-                                            <v-spacer></v-spacer>
-                                            <v-dialog
-                                                v-model="dialog"
-                                                max-width="500px"
-                                                :retain-focus="false"
-                                            >
-                                                <template
-                                                    v-slot:activator="{ on }"
+                                        <v-card-title
+                                            class="headline"
+                                            v-text="item.course_name"
+                                        >
+                                        </v-card-title>
+                                        <v-spacer></v-spacer>
+                                        <v-dialog
+                                            v-model="dialog"
+                                            max-width="500px"
+                                            :retain-focus="false"
+                                        >
+                                            <template v-slot:activator="{ on }">
+                                                <v-btn
+                                                    color="primary"
+                                                    outlined
+                                                    class="mb-2 mr-2"
+                                                    v-on="on"
+                                                    @click="setLab(item)"
+                                                    ><v-icon class="mr-2"
+                                                        >add</v-icon
+                                                    >Add TA</v-btn
                                                 >
-                                                    <v-btn
-                                                        color="primary"
-                                                        outlined
-                                                        class="mb-2 mr-2"
-                                                        v-on="on"
-                                                        @click="setLab(item)"
-                                                        ><v-icon class="mr-2">add</v-icon>Add TA</v-btn
+                                            </template>
+
+                                            <v-card>
+                                                <v-card-title>
+                                                    <span class="headline"
+                                                        >Add TA</span
                                                     >
-                                                </template>
-                                            
-                                                <v-card>
-                                                    <v-card-title>
-                                                        <span class="headline"
-                                                            >Add TA</span
-                                                        >
-                                                    </v-card-title>
-                                                    <v-data-table
-                                                        class="mt-2"
-                                                        :headers="user_headers"
-                                                        :items="unassign"
-                                                        hide-default-footer
+                                                </v-card-title>
+                                                <v-data-table
+                                                    class="mt-2"
+                                                    :headers="user_headers"
+                                                    :items="unassign"
+                                                    hide-default-footer
+                                                >
+                                                    <template
+                                                        v-slot:item.action="{
+                                                            item
+                                                        }"
                                                     >
-                                                        <template
-                                                            v-slot:item.action="{
-                                                                item
-                                                            }"
+                                                        <v-btn
+                                                            color="blue darken-1"
+                                                            text
+                                                            @click="
+                                                                assign(item)
+                                                            "
+                                                            :disabled="
+                                                                alradyadd.includes(
+                                                                    item.ta.id
+                                                                )
+                                                            "
+                                                            >ADD</v-btn
                                                         >
-                                                            <v-btn
-                                                                color="blue darken-1"
-                                                                text
-                                                                @click="
-                                                                    assign(item)
-                                                                "
-                                                                >ADD</v-btn
-                                                            >
-                                                        </template>
-                                                    </v-data-table>
-                                                </v-card>
-                                            </v-dialog>
-                                </v-card-actions>
+                                                    </template>
+                                                </v-data-table>
+                                            </v-card>
+                                        </v-dialog>
+                                    </v-card-actions>
                                     <v-data-table
                                         class="mt-2"
                                         :headers="student_headers"
@@ -124,7 +129,7 @@ export default {
         dialog: false,
         search: "",
         tabs: null,
-        alradyadd: null,
+        alradyadd: [],
         student_headers: [
             { text: "TA Name", value: "ta_name", sortable: false },
             { text: "Action", value: "action", sortable: false }
@@ -162,6 +167,7 @@ export default {
                     })
                     .then(response => console.log(response.data));
                 this.$store.dispatch("loadLabs");
+                this.alradyadd = [];
             }
         },
         assign(item) {
@@ -176,9 +182,10 @@ export default {
                     })
                     .then(response => console.log(response.data));
                 this.$store.dispatch("loadLabs");
+                this.unassign.splice(index, 1);
+                this.alradyadd.push(item.ta.id);
             }
             console.log(this.unassign);
-            this.unassign.splice(index, 1);
         },
         comparer(otherArray) {
             return function(current) {
@@ -191,6 +198,9 @@ export default {
                     }).length == 0
                 );
             };
+        },
+        setunas(un) {
+            un = this.unassign;
         }
     },
     computed: {
@@ -228,8 +238,7 @@ export default {
             return this.filterTa.filter(this.comparer(this.tainlab));
         }
     },
-    watch: {
-    }
+    watch: {}
 };
 </script>
 

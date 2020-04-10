@@ -81,7 +81,7 @@
                         </v-data-table>
                         <v-card-actions>
                             <v-spacer></v-spacer>
-                            <v-dialog v-model="returndialog" max-width="500px">
+                            <v-dialog v-model="returndialog" max-width="500px" :retain-focus="false">
                                 <template v-slot:activator="{ on }">
                                     <v-btn
                                         outlined
