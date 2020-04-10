@@ -146,7 +146,7 @@ export default {
     mounted() {
         this.$store.dispatch("loadBroken_lists");
         this.$store.dispatch("loadRequest_details");
-        console.log(this.filterReceive.length)
+        // console.log(this.filterReceive.length)
     },
     data: () => ({
         returndialog: false,

@@ -151,6 +151,7 @@ export default {
             console.log(this.tainlab);
         },
         close() {
+            this.alradyadd = [],
             this.dialog = false;
         },
         gettaname(userid) {
@@ -199,9 +200,6 @@ export default {
                 );
             };
         },
-        setunas(un) {
-            un = this.unassign;
-        }
     },
     computed: {
         users() {
@@ -235,6 +233,7 @@ export default {
             });
         },
         unassign: function() {
+            this.alradyadd = [];
             return this.filterTa.filter(this.comparer(this.tainlab));
         }
     },
