@@ -44,21 +44,36 @@
                         <template #item.equipment_name="{item}">{{
                                 getEquipName(item.equipment_id)
                             }}</template>
-                    </v-data-table>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-dialog v-model="returndialog" max-width="500px">
-                            <template v-slot:activator="{ on }">
-                                <v-btn outlined color="blue darken-1" v-on="on" @click="setDetail(item)">Return</v-btn>
-                            </template>
-                            <v-card>
-                                <v-card-title>
-                                    <span class="headline">Return Item</span>
-                                </v-card-title>
-                                <v-card-text>
-                                    <v-container>
-                                        <v-data-table class="mt-2" :headers="vcard_detail_header" :items="selectedDetails" hide-default-footer>
-                                            <template #item.equipment_name="{item}">{{
+                        </v-data-table>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-dialog v-model="returndialog" max-width="500px" :retain-focus="false">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        outlined
+                                        color="blue darken-1"
+                                        v-on="on"
+                                        @click="setDetail(item)"
+                                        >Return</v-btn
+                                    >
+                                </template>
+                                <v-card
+                                    ><v-card-title>
+                                        <span class="headline"
+                                            >Return Item</span
+                                        >
+                                    </v-card-title>
+                                    <v-card-text>
+                                        <v-container
+                                            ><v-data-table
+                                                class="mt-2"
+                                                :headers="vcard_detail_header"
+                                                :items="selectedDetails"
+                                                hide-default-footer
+                                            >
+                                                <template
+                                                    #item.equipment_name="{item}"
+                                                    >{{
                                                         getEquipName(
                                                             item.equipment_id
                                                         )
@@ -88,7 +103,7 @@ export default {
     mounted() {
         this.$store.dispatch("loadBroken_lists");
         this.$store.dispatch("loadRequest_details");
-        console.log(this.filterReceive.length)
+        // console.log(this.filterReceive.length)
     },
     data: () => ({
         returndialog: false,

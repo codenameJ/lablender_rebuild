@@ -206,7 +206,7 @@ export default {
         setDetail(item) {
             this.getrequestid = item.id;
             this.selectedDetails = item.request_detail;
-            console.log(this.getrequestid);
+            console.log(this.selectedDetails);
         }
     },
     computed: {

@@ -120,17 +120,25 @@ class RequestlistController extends Controller
         $student = User::find($curstd->user_id);
         Notification::send($student, new LendingRequest($request_list));
 
-        
 
-        if($request->cmd == 'return'){
+
+        if ($request->cmd == 'return') {
             $data = $request->json()->all();
             foreach ($data['selectedDetails'] as $detail) {
                 $request_detail = Request_detail::find($detail['id']);
                 $request_detail->status = $detail['status'];
+                if ($detail['status'] == 2) {
+                    $equipment = Equipment::where('id', '=', $detail['equipment_id'])->first();
+                    $oldqty = $equipment->equip_qty;
+                    $newqty = $oldqty + (int) $detail['len_qty'];
+                    $equipment->update([
+                        'equip_qty' => $newqty,
+                    ]);
+                }
                 $request_detail->update();
             }
         }
-        
+
         return response(['message' => 'request list Update', 'request list' => $request_list]);
     }
 
@@ -142,6 +150,16 @@ class RequestlistController extends Controller
      */
     public function destroy($id)
     {
+        $request_detail = Request_detail::where('request_list_id', '=', $id)->get();
+        foreach ($request_detail as $detail) {
+            $equipment = Equipment::where('id', '=', $detail->equipment_id)->first();
+            $oldqty = $equipment->equip_qty;
+            $newqty = $oldqty + (int)$detail->len_qty;
+            $equipment->update([
+                'equip_qty' => $newqty,
+            ]);
+        }
+
         return Request_list::destroy($id);
     }
 }

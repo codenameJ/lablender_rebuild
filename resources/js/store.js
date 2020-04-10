@@ -58,6 +58,9 @@ export default {
                 var oldamount = parseInt(found.amount);
                 var inamount = parseInt(item.amount);
                 var total = oldamount + inamount;
+                if(total > item.equip_qty){
+                    total = item.equip_qty;
+                }
                 found.amount = total;
             }else{
             state.cart.push(item);
@@ -130,7 +133,7 @@ export default {
         },
         loadMissing_lists({commit}){
             axios.get("/api/missinglist").then(data => {
-                console.log(data.data)
+                // console.log(data.data)
             let missing_lists = data.data
             missing_lists.forEach(missing_list => {
                 missing_list.tempStatus =  data.data.status
@@ -140,7 +143,7 @@ export default {
         },
         loadBroken_lists({commit}){
             axios.get("/api/brokenlist").then(data => {
-                console.log(data.data)
+                // console.log(data.data)
             let broken_lists = data.data
             broken_lists.forEach(broken_list => {
                 broken_list.tempStatus =  data.data.status
@@ -150,7 +153,7 @@ export default {
         },
         loadRequest_details({commit}){
             axios.get("/api/requestdetail").then(data => {
-                console.log(data.data)
+                // console.log(data.data)
             let request_details = data.data
             commit('SetRequest_details', request_details)
         })
