@@ -18,9 +18,7 @@
                     <v-card-title class="ml-4" v-text="'Request No. ' + item.id"></v-card-title>
                     <v-spacer></v-spacer>
                     <v-card-actions class=" mr-5">
-                        <v-btn v-if="item.status == 'wait'" color="error" fab x-small dark outlined class="elevation-4 no-underline" @click="deleteItem(item)">
-                            <v-icon>delete_outline</v-icon>
-                        </v-btn>
+                        
                     </v-card-actions>
                 </v-row>
 

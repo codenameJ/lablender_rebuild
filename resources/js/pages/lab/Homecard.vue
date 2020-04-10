@@ -31,7 +31,7 @@
                                         <v-spacer></v-spacer>
                                         <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
                                     </v-row>
-                                    <apexchart type="donut" height="350" width="650" :options="chartOptions_donut" :series="series_donut"></apexchart>
+                                    <apexchart type="donut" height="363" width="650" :options="chartOptions_donut" :series="series_donut"></apexchart>
                                 </v-card>
                             </v-col>
                         </v-row>
@@ -52,7 +52,7 @@
                 </v-row>
             </div> -->
         <div class="flex-container">
-            <v-card class="mt-6 mb-6 mx-auto" max-width="500">
+            <v-card class="mt-6 mb-6 mx-auto" max-width="420">
                 <v-row>
                     <v-icon large color="#7F7DD9" class="ml-6 mx-2">block</v-icon>
                     <v-card-title style="font-family:Prompt;">อุปกรณ์ที่หมดสต็อก</v-card-title>
@@ -69,7 +69,7 @@
                 </v-card-text>
             </v-card>
 
-            <v-card class="mt-6 mb-6 mx-auto" max-width="500">
+            <v-card class="mt-6 mb-6 mx-auto" max-width="420">
                 <v-row>
                     <v-icon large color="orange accent-2" class="ml-6 mx-2">sentiment_dissatisfied</v-icon>
                     <v-card-title style="font-family:Prompt;">อุปกรณ์ที่สูญหาย</v-card-title>
@@ -86,7 +86,7 @@
                 </v-card-text>
             </v-card>
 
-            <v-card class="mt-6 mb-6 mx-auto" max-width="500">
+            <v-card class="mt-6 mb-6 mx-auto" max-width="420">
                 <v-row>
                     <v-icon large color="error" class="ml-6 mx-2">sentiment_dissatisfied</v-icon>
                     <v-card-title style="font-family:Prompt;">อุปกรณ์ที่เสียหาย</v-card-title>
@@ -258,13 +258,13 @@ div.flex-container {
     display: flex;
 }
 
-@media screen and (min-width: 1641px) {
+@media screen and (min-width: 1301px) {
     div.flex-container {
         flex-direction: row;
     }
 }
 
-@media screen and (max-width: 1640px) {
+@media screen and (max-width: 1300px) {
     div.flex-container {
         flex-direction: column;
     }
