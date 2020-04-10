@@ -15,6 +15,7 @@ export default {
         selectedLab: {},
         selectedUser: {},
         cart:[],
+        notifications: [],
     },
     plugins: [createPersistedState()],
     mutations: {
@@ -72,6 +73,10 @@ export default {
         },
         SetNewCart(state, cartlength){
             state.cart.splice(0, cartlength);
+        },
+        //notification
+        SetNotifications(state, notifications){
+            state.notifications=notifications;
         },
         //set current zone
         SetCurrentLab(state, selectedLab){
@@ -167,6 +172,10 @@ export default {
         //cart
         clearCartItems({ commit }) {
             commit('clearCart');
+        },
+        //notification
+        loadNotifications({commit}, notifications){
+            commit('SetNotifications', notifications)
         },
         //load current zone
         currentLab({commit}, curlab){

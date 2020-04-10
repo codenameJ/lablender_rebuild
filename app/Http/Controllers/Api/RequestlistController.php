@@ -4,9 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\Equipment;
 use App\Http\Controllers\Controller;
+use App\Notifications\LendingRequest;
 use App\Request_detail;
 use App\Request_list;
+use App\Student;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Notification;
 
 class RequestlistController extends Controller
 {
@@ -110,6 +114,13 @@ class RequestlistController extends Controller
         $request_list = Request_list::find($id);
         $request_list->status = $request->get('status');
         $request_list->update();
+
+        $curstd = Student::find($request_list->student_id);
+
+        $student = User::find($curstd->user_id);
+        Notification::send($student, new LendingRequest($request_list));
+
+        
 
         if($request->cmd == 'return'){
             $data = $request->json()->all();
