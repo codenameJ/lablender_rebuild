@@ -26,7 +26,7 @@
                             <v-col>
                                 <v-card :elevation="hover ? 16 : 2">
                                     <v-row>
-                                        <v-icon large color="#00A981" class="ml-6 mx-2">pie_chart</v-icon>
+                                        <v-icon large color="#00A981" class="ml-6 mx-2">donut_large</v-icon>
                                         <v-card-title style="font-family:Prompt;">สถานะคำขอยืมทั้งหมด</v-card-title>
                                         <v-spacer></v-spacer>
                                         <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>

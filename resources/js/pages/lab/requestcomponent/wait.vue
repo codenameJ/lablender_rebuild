@@ -30,7 +30,7 @@
                     <v-card-title class="ml-4" v-text="'Request No. ' + item.id"></v-card-title>
                     <v-spacer></v-spacer>
                     <v-card-actions class=" mr-5">
-                        <v-btn color="error" fab x-small dark outlined class="elevation-4 no-underline" @click="deleteItem(item)">
+                        <v-btn v-if="item.status == 'wait'" color="error" fab x-small dark outlined class="elevation-4 no-underline" @click="deleteItem(item)">
                             <v-icon>delete_outline</v-icon>
                         </v-btn>
                     </v-card-actions>
@@ -124,14 +124,16 @@ export default {
         },
         deleteItem(item) {
             const index = this.request_lists.indexOf(item);
-            confirm("Are you sure you want to delete this item?") &&
-                this.request_lists.splice(index, 1);
+            if (
+                confirm("Are you sure you want to delete this item?") &&
+                this.request_lists.splice(index, 1)
+            ) {
+                axios
+                    .delete("/api/requestlist/" + item.id)
+                    .then(response => console.log(response.data));
 
-            axios
-                .delete("/api/requestlist/" + item.id)
-                .then(response => console.log(response.data));
-
-            this.$store.dispatch("loadRequest_lists");
+                this.$store.dispatch("loadRequest_lists");
+            }
         },
         save(item) {
             axios
