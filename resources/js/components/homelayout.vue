@@ -49,7 +49,7 @@
                         </v-btn>
                     </template>
 
-                    <v-list three-line class="custom-list">
+                    <v-list three-line>
                         <v-list-item-title
                             v-if="allNotifications.length != 0"
                             class="ml-4 mt-2 headline"

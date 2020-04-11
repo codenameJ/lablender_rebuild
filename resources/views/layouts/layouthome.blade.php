@@ -74,9 +74,9 @@
     <div id="app">
         <v-app>
             <!-- <applayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}"></applayout> -->
-            <div id="navbar">
+            <!-- <div id="navbar"> -->
                 <homelayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}" :notifications="{{ Auth::User()->notifications}}"></homelayout>
-            </div>
+            <!-- </div> -->
 
             <br><br><br><br><br><br><br><br>
             <v-col class="md-9">
