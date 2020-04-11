@@ -1,394 +1,562 @@
 <template>
-<div id="app" v-if="curlab">
-    <nav>
-        <v-toolbar flat>
-            <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-            <v-toolbar-title>Lab Lender</v-toolbar-title>
-            <v-spacer></v-spacer>
-            <lendingcart />
-            <v-menu offset-y origin="center center" class="elelvation-1" :nudge-bottom="14" transition="scale-transition">
-                <template v-slot:activator="{ on }">
-                    <v-btn @click="markAsRead" icon v-on="on">
-                        <v-badge overlap>
-                            <span slot="badge">{{
+    <div id="app" v-if="curlab">
+        <nav>
+            <v-toolbar flat>
+                <v-app-bar-nav-icon
+                    @click="drawer = !drawer"
+                ></v-app-bar-nav-icon>
+                <v-toolbar-title>Lab Lender</v-toolbar-title>
+                <v-spacer></v-spacer>
+                <lendingcart />
+                <v-menu
+                    offset-y
+                    origin="center center"
+                    class="elelvation-1"
+                    :nudge-bottom="14"
+                    transition="scale-transition"
+                >
+                    <template v-slot:activator="{ on }">
+                        <v-btn @click="markAsRead" icon v-on="on">
+                            <v-badge overlap>
+                                <span slot="badge">{{
                                     unreadNotifications.length
                                 }}</span>
-                            <v-icon>notifications</v-icon>
-                        </v-badge>
-                    </v-btn>
-                </template>
+                                <v-icon>notifications</v-icon>
+                            </v-badge>
+                        </v-btn>
+                    </template>
 
-                <v-list three-line>
-                    <v-list-item-title v-if="allNotifications.length != 0" class="ml-4 mt-2 headline">
-                        Notifications
-                    </v-list-item-title>
-                    <p class="ml-2 mr-2" v-if="allNotifications.length == 0">
-                        No notifications.
-                    </p>
-                    <v-list-item v-for="(notification, i) in allNotifications" :key="i">
-                        <v-list-item-avatar>
-                            <v-icon>{{getIcon(notification.data.NewLendingRequest.status)}}</v-icon>
-                        </v-list-item-avatar>
-
-                        <v-list-item-content>
-                            <v-list-item-title :class="getBoldTitle(notification.read_at)">Request No.
-                                {{ notification.data.NewLendingRequest.id }}
-                                from Lab
-                                {{ notification.data.NewLendingRequest.lab_id}}
-                                : 
-                                {{ notification.data.NewLendingRequest.status }}
-                            </v-list-item-title>
-                            <v-list-item-subtitle :class="getBoldSubtitle(notification.read_at)">12/2/2020 1:14</v-list-item-subtitle>
-                        </v-list-item-content>
-                        <v-list-item-icon>
-                            <v-icon small v-if="!notification.read_at" color="
-                                    blue
-                                    ">lens</v-icon>
-                        </v-list-item-icon>
-                    </v-list-item>
-
-                </v-list>
-            </v-menu>
-
-            <v-menu bottom left>
-                <template v-slot:activator="{ on }">
-                    <v-btn icon v-on="on">
-                        <v-icon>mdi-account</v-icon>
-                    </v-btn>
-                </template>
-
-                <v-card>
-                    <v-list>
-                        <v-list-item>
+                    <v-list three-line style="custom-list">
+                        <v-list-item-title
+                            v-if="allNotifications.length != 0"
+                            class="ml-4 mt-2 headline"
+                        >
+                            Notifications
+                        </v-list-item-title>
+                        <p
+                            class="ml-2 mr-2"
+                            v-if="allNotifications.length == 0"
+                        >
+                            No notifications.
+                        </p>
+                        <v-list-item
+                            v-for="(notification, i) in allNotifications.slice(
+                                0,
+                                10
+                            )"
+                            :key="i"
+                        >
                             <v-list-item-avatar>
-                                <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="John" />
+                                <v-icon>{{
+                                    getIcon(
+                                        notification.data.NewLendingRequest
+                                            .status
+                                    )
+                                }}</v-icon>
                             </v-list-item-avatar>
 
                             <v-list-item-content>
-                                <v-list-item-title>{{
-                                        username
-                                    }}</v-list-item-title>
-                                <v-list-item-subtitle>{{
-                                        type
-                                    }}</v-list-item-subtitle>
+                                <v-list-item-title
+                                    :class="getBoldTitle(notification.read_at)"
+                                    >Request No.
+                                    {{ notification.data.NewLendingRequest.id }}
+                                    from Lab
+                                    {{
+                                        notification.data.NewLendingRequest
+                                            .lab_id
+                                    }}
+                                    :
+                                    {{
+                                        notification.data.NewLendingRequest
+                                            .status
+                                    }}
+                                </v-list-item-title>
+                                <v-list-item-subtitle
+                                    :class="
+                                        getBoldSubtitle(notification.read_at)
+                                    "
+                                    >12/2/2020 1:14</v-list-item-subtitle
+                                >
                             </v-list-item-content>
+                            <v-list-item-icon>
+                                <v-icon
+                                    small
+                                    v-if="!notification.read_at"
+                                    color="
+                                    blue
+                                    "
+                                    >lens</v-icon
+                                >
+                            </v-list-item-icon>
                         </v-list-item>
                     </v-list>
+                </v-menu>
 
-                    <v-divider></v-divider>
+                <v-menu bottom left>
+                    <template v-slot:activator="{ on }">
+                        <v-btn icon v-on="on">
+                            <v-icon>mdi-account</v-icon>
+                        </v-btn>
+                    </template>
 
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
+                    <v-card>
+                        <v-list>
+                            <v-list-item>
+                                <v-list-item-avatar>
+                                    <img
+                                        src="https://cdn.vuetifyjs.com/images/john.jpg"
+                                        alt="John"
+                                    />
+                                </v-list-item-avatar>
 
-                        <v-btn style="text-decoration : none; color : #000000;" href="/logout" text @click="menu = false">Log out</v-btn>
-                    </v-card-actions>
-                </v-card>
-            </v-menu>
-        </v-toolbar>
+                                <v-list-item-content>
+                                    <v-list-item-title>{{
+                                        username
+                                    }}</v-list-item-title>
+                                    <v-list-item-subtitle>{{
+                                        type
+                                    }}</v-list-item-subtitle>
+                                </v-list-item-content>
+                            </v-list-item>
+                        </v-list>
 
-        <v-navigation-drawer app v-model="drawer" class="nav-gradient" overlay-opacity="70" absolute dark>
-            <v-list-item>
-                <v-img class="mt-3" src="/img/icon.png" max-width="50" max-height="50">
-                </v-img>
-                <div class="mx-4 pt-3 font-weight-bold" style="font-size:1.5em">
-                    {{ curlab.course_name }}
-                    {{ curlab.course_id }}
-                </div>
-            </v-list-item>
-            <v-divider></v-divider>
+                        <v-divider></v-divider>
 
-            <v-list nav dense v-if="type == 'admin'">
-                <v-list-item class="menuhref" :to="'/admin/lab/' + curlab.course_id + '/home'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">home</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            หน้าหลัก
-                        </v-list-item-title>
-                    </v-list-item-content>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+
+                            <v-btn
+                                style="text-decoration : none; color : #000000;"
+                                href="/logout"
+                                text
+                                @click="menu = false"
+                                >Log out</v-btn
+                            >
+                        </v-card-actions>
+                    </v-card>
+                </v-menu>
+            </v-toolbar>
+
+            <v-navigation-drawer
+                app
+                v-model="drawer"
+                class="nav-gradient"
+                overlay-opacity="70"
+                absolute
+                dark
+            >
+                <v-list-item>
+                    <v-img
+                        class="mt-3"
+                        src="/img/icon.png"
+                        max-width="50"
+                        max-height="50"
+                    >
+                    </v-img>
+                    <div
+                        class="mx-4 pt-3 font-weight-bold"
+                        style="font-size:1.5em"
+                    >
+                        {{ curlab.course_name }}
+                        {{ curlab.course_id }}
+                    </div>
                 </v-list-item>
+                <v-divider></v-divider>
 
-                <v-list-item class="menuhref" :to="'/admin/lab/' + curlab.course_id + '/announcement'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">announcement</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            ประกาศ
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                <v-list nav dense v-if="type == 'admin'">
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/home'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/admin/lab/' + curlab.course_id + '/equipment'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">store</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">อุปกรณ์</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/announcement'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">announcement</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                ประกาศ
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/admin/lab/' + curlab.course_id + '/request'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">assignment</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            คำขอยืม
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/equipment'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">store</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px"
+                                >อุปกรณ์</v-list-item-title
+                            >
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/admin/lab/' + curlab.course_id + '/history'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">history</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            ประวัติ</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/request'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">assignment</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                คำขอยืม
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/admin/lab/' + curlab.course_id + '/maintenance'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">build</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/history'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">history</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                ประวัติ</v-list-item-title
+                            >
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item href="/admin/labs" class="menuhref" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">keyboard_backspace</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            กลับสู่หน้าหลัก
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">build</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px"
+                                >บำรุงรักษา</v-list-item-title
+                            >
+                        </v-list-item-content>
+                    </v-list-item>
 
-            <v-list nav dense v-if="type == 'professor'">
-                <v-list-item class="menuhref" :to="'/professor/lab/' + curlab.course_id + '/home'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">mdi-home</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            หน้าหลัก
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item href="/admin/labs" class="menuhref" link>
+                        <v-list-item-action>
+                            <v-icon class="ml-2">keyboard_backspace</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                กลับสู่หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
 
-                <v-list-item class="menuhref" :to="
+                <v-list nav dense v-if="type == 'professor'">
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/professor/lab/' + curlab.course_id + '/home'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">mdi-home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+
+                    <v-list-item
+                        class="menuhref"
+                        :to="
                             '/professor/lab/' +
                                 curlab.course_id +
                                 '/announcement'
-                        " link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">announcement</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            ประกาศ
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                        "
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">announcement</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                ประกาศ
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="
+                    <v-list-item
+                        class="menuhref"
+                        :to="
                             '/professor/lab/' + curlab.course_id + '/equipment'
-                        " link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">store</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            อุปกรณ์
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                        "
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">store</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                อุปกรณ์
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/professor/lab/' + curlab.course_id + '/request'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">assignment</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            คำขอยืม
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/professor/lab/' + curlab.course_id + '/request'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">assignment</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                คำขอยืม
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/professor/lab/' + curlab.course_id + '/history'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">history</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            ประวัติ
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/professor/lab/' + curlab.course_id + '/history'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">history</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                ประวัติ
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/admin/lab/' + curlab.course_id + '/maintenance'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">build</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">build</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px"
+                                >บำรุงรักษา</v-list-item-title
+                            >
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item href="/professor/labs" class="menuhref" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">keyboard_backspace</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            กลับสู่หน้าหลัก
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
+                    <v-list-item href="/professor/labs" class="menuhref" link>
+                        <v-list-item-action>
+                            <v-icon class="ml-2">keyboard_backspace</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                กลับสู่หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
 
-            <v-list nav dense v-if="type == 'ta'">
-                <v-list-item class="menuhref" :to="'/ta/lab/' + curlab.course_id + '/home'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">mdi-home</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            หน้าหลัก
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                <v-list nav dense v-if="type == 'ta'">
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/ta/lab/' + curlab.course_id + '/home'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">mdi-home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/ta/lab/' + curlab.course_id + '/announcement'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">announcement</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            ประกาศ
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/ta/lab/' + curlab.course_id + '/announcement'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">announcement</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                ประกาศ
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/ta/lab/' + curlab.course_id + '/equipment'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">store</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            อุปกรณ์
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/ta/lab/' + curlab.course_id + '/equipment'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">store</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                อุปกรณ์
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/ta/lab/' + curlab.course_id + '/request'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">assignment</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            คำขอยืม
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/ta/lab/' + curlab.course_id + '/request'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">assignment</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                คำขอยืม
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/ta/lab/' + curlab.course_id + '/history'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">history</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            ประวัติ
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/ta/lab/' + curlab.course_id + '/history'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">history</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                ประวัติ
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/admin/lab/' + curlab.course_id + '/maintenance'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">build</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">บำรุงรักษา</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">build</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px"
+                                >บำรุงรักษา</v-list-item-title
+                            >
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item href="/ta/labs" class="menuhref" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">keyboard_backspace</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            กลับสู่หน้าหลัก
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
+                    <v-list-item href="/ta/labs" class="menuhref" link>
+                        <v-list-item-action>
+                            <v-icon class="ml-2">keyboard_backspace</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                กลับสู่หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
 
-            <v-list nav dense v-if="type == 'student'">
-                <v-list-item class="menuhref" :to="'/student/lab/' + curlab.course_id + '/home'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">mdi-home</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            หน้าหลัก
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                <v-list nav dense v-if="type == 'student'">
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/student/lab/' + curlab.course_id + '/home'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">mdi-home</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="
+                    <v-list-item
+                        class="menuhref"
+                        :to="
                             '/student/lab/' + curlab.course_id + '/announcement'
-                        " link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">announcement</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            ประกาศ
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                        "
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">announcement</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                ประกาศ
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/student/lab/' + curlab.course_id + '/equipment'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">store</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            อุปกรณ์</v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/student/lab/' + curlab.course_id + '/equipment'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">store</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                อุปกรณ์</v-list-item-title
+                            >
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/student/lab/' + curlab.course_id + '/request'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">assignment</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            คำขอยืม
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/student/lab/' + curlab.course_id + '/request'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">assignment</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                คำขอยืม
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <v-list-item class="menuhref" :to="'/student/lab/' + curlab.course_id + '/history'" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">history</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            ประวัติ
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
+                    <v-list-item
+                        class="menuhref"
+                        :to="'/student/lab/' + curlab.course_id + '/history'"
+                        link
+                    >
+                        <v-list-item-action>
+                            <v-icon class="ml-2">history</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                ประวัติ
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
 
-                <!-- <v-list-item
+                    <!-- <v-list-item
                         class="menuhref"
                         :to="'/admin/lab/' + curlab.course_id + '/maintenance'"
                         link
@@ -401,20 +569,20 @@
                         </v-list-item-content>
                     </v-list-item> -->
 
-                <v-list-item class="menuhref" href="/labs" link>
-                    <v-list-item-action>
-                        <v-icon class="ml-2">keyboard_backspace</v-icon>
-                    </v-list-item-action>
-                    <v-list-item-content>
-                        <v-list-item-title style="font-size:16px">
-                            กลับสู่หน้าหลัก
-                        </v-list-item-title>
-                    </v-list-item-content>
-                </v-list-item>
-            </v-list>
-        </v-navigation-drawer>
-    </nav>
-</div>
+                    <v-list-item class="menuhref" href="/labs" link>
+                        <v-list-item-action>
+                            <v-icon class="ml-2">keyboard_backspace</v-icon>
+                        </v-list-item-action>
+                        <v-list-item-content>
+                            <v-list-item-title style="font-size:16px">
+                                กลับสู่หน้าหลัก
+                            </v-list-item-title>
+                        </v-list-item-content>
+                    </v-list-item>
+                </v-list>
+            </v-navigation-drawer>
+        </nav>
+    </div>
 </template>
 
 <script>
@@ -533,6 +701,11 @@ export default {
 </script>
 
 <style scoped>
+.custom-list {
+    max-height: 500px;
+    overflow: auto;
+}
+
 .userhref {
     text-decoration: none;
     color: #000000;
