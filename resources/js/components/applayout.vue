@@ -22,64 +22,29 @@
                     <v-list-item-title v-if="allNotifications.length != 0" class="ml-4 mt-2 headline">
                         Notifications
                     </v-list-item-title>
-                    <p v-if="allNotifications.length == 0">
-                        <center>
-                            No notifications.
-                        </center>
+                    <p class="ml-2 mr-2" v-if="allNotifications.length == 0">
+                        No notifications.
                     </p>
-                    <!--  <v-list-item
-                            v-for="(notification, i) in allNotifications"
-                            :key="i"
-                        >
-                        <v-row>
-                            <v-list-item-content>
-                                <v-icon small :color="getColor(notification.data.NewLendingRequest.status)">build</v-icon>
-                                <v-list-item-title
-                                    >Request No.
-                                    {{ notification.data.NewLendingRequest.id }}
-                                    is
-                                    {{
-                                        notification.data.NewLendingRequest
-                                            .status
-                                    }}</v-list-item-title>
-                            </v-list-item-content>
-                            <v-list-item-icon>
-                                <v-icon
-                                    small
-                                    v-if="!notification.read_at"
-                                    color="
-                                    blue
-                                    "
-                                    >lens</v-icon
-                                >
-                            </v-list-item-icon>
-                            </v-row>
-                            <v-divider></v-divider>
-                        </v-list-item> -->
                     <v-list-item v-for="(notification, i) in allNotifications" :key="i">
                         <v-list-item-avatar>
-                            <v-icon :color="getColor(notification.data.NewLendingRequest.status)">{{getIcon(notification.data.NewLendingRequest.status)}}</v-icon>
+                            <v-icon>{{getIcon(notification.data.NewLendingRequest.status)}}</v-icon>
                         </v-list-item-avatar>
 
                         <v-list-item-content>
-                            <v-list-item-title>Request No.
+                            <v-list-item-title :class="getBoldTitle(notification.read_at)">Request No.
                                 {{ notification.data.NewLendingRequest.id }}
-                                is
-                                {{
-                                        notification.data.NewLendingRequest.status
-                                    }}</v-list-item-title>
-                            <v-list-item-subtitle>Description</v-list-item-subtitle>
+                                from Lab
+                                {{ notification.data.NewLendingRequest.lab_id}}
+                                : 
+                                {{ notification.data.NewLendingRequest.status }}
+                            </v-list-item-title>
+                            <v-list-item-subtitle :class="getBoldSubtitle(notification.read_at)">12/2/2020 1:14</v-list-item-subtitle>
                         </v-list-item-content>
                         <v-list-item-icon>
-                                <v-icon
-                                    small
-                                    v-if="!notification.read_at"
-                                    color="
+                            <v-icon small v-if="!notification.read_at" color="
                                     blue
-                                    "
-                                    >lens</v-icon
-                                >
-                            </v-list-item-icon>
+                                    ">lens</v-icon>
+                        </v-list-item-icon>
                     </v-list-item>
 
                 </v-list>
@@ -533,6 +498,7 @@ export default {
     methods: {
         getIcon(status) {
             if (status == "ready") return "assignment_turned_in";
+            else if (status == "wait") return "hourglass_full";
             else if (status == "broken") return "report";
             else if (status == "missing") return "report";
             else if (status == "return") return "archive";
@@ -545,6 +511,14 @@ export default {
             else if (status == "missing") return "orange accent-2";
             else if (status == "return") return "#1a73e8";
             else return "#CE93D8";
+        },
+        getBoldTitle(notification) {
+            if (notification) return "font-weight-regular";
+            else return "font-weight-bold indigo--text";
+        },
+        getBoldSubtitle(notification) {
+            if (notification) return "font-weight-regular";
+            else return "font-weight-bold";
         },
         markAsRead() {
             axios.get("/mark-all-read/" + this.curuser.id).then(Response => {
