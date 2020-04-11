@@ -51,18 +51,13 @@
 
                     <v-list three-line>
                         <v-list-item-title
-                            v-if="allNotifications.length != 0"
                             class="ml-4 mt-2 headline"
                         >
                             Notifications
                         </v-list-item-title>
-                        <p
-                            class="ml-2 mr-2"
-                            v-if="allNotifications.length == 0"
-                        >
-                            No notifications.
-                        </p>
+                        <div v-if="allNotifications.length != 0">
                         <v-list-item
+                            :class="{'blue lighten-5': notification.read_at!=null}"
                             v-for="(notification, i) in allNotifications.slice(
                                 0,
                                 10
@@ -83,10 +78,12 @@
                                     :class="getBoldTitle(notification.read_at)"
                                     >Request No.
                                     {{ notification.data.NewLendingRequest.id }}
-                                    from Lab
+                                    from
                                     {{
-                                        notification.data.NewLendingRequest
-                                            .lab_id
+                                        getlabname(
+                                            notification.data.NewLendingRequest
+                                                .lab_id
+                                        )
                                     }}
                                     :
                                     {{
@@ -98,7 +95,10 @@
                                     :class="
                                         getBoldSubtitle(notification.read_at)
                                     "
-                                    >12/2/2020 1:14</v-list-item-subtitle
+                                    >{{
+                                        notification.data.NewLendingRequest
+                                            .created_at
+                                    }}</v-list-item-subtitle
                                 >
                             </v-list-item-content>
                             <v-list-item-icon>
@@ -112,6 +112,25 @@
                                 >
                             </v-list-item-icon>
                         </v-list-item>
+                        </div>
+
+                        <div v-else>
+                            <v-list-item
+                        >
+                            <v-list-item-avatar>
+                                <v-icon>clear</v-icon>
+                            </v-list-item-avatar>
+
+                            <v-list-item-content>
+                                <v-list-item-title
+                                    >No Notification
+                                </v-list-item-title>
+                                <v-list-item-subtitle
+                                    >you do not have any notification</v-list-item-subtitle
+                                >
+                            </v-list-item-content>
+                        </v-list-item>
+                        </div>
                     </v-list>
                 </v-menu>
                 <v-menu offset-y :nudge-bottom="14">
@@ -267,6 +286,7 @@ export default {
 
     mounted() {
         this.$store.dispatch("loadUsers");
+        this.$store.dispatch("loadLabs");
         // this.$store.dispatch("loadNotifications", this.notifications);
         // this.$store.dispatch("currentUser");
         // console.log(this.username);
@@ -296,6 +316,10 @@ export default {
         );
     },
     methods: {
+        getlabname(lab_id) {
+            let getlabs = this.labs.find(lab => lab.id == lab_id) || {};
+            return getlabs.course_name;
+        },
         getIcon(status) {
             if (status == "ready") return "assignment_turned_in";
             else if (status == "wait") return "hourglass_full";
@@ -338,6 +362,9 @@ export default {
     computed: {
         users() {
             return this.$store.state.users;
+        },
+        labs() {
+            return this.$store.state.labs;
         },
         curuser() {
             let seluser =
