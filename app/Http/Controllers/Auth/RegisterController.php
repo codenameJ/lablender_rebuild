@@ -54,8 +54,8 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'phone' => ['required','regex:/(0)[0-9]{9}/'],
-            'student_id' => ['required','regex:/[0-9]{9}/'],
+            'phone' => ['required', 'regex:/(0)[0-9]{9}/'],
+            'student_id' => ['required', 'regex:/[0-9]{9}/', 'unique:students'],
         ]);
     }
 
@@ -74,17 +74,20 @@ class RegisterController extends Controller
         //     'phone' => $data['phone'],
         // ]);
 
-        $user = User::create([
+        // $checkstd = Student::find($data['student_id']);
+        // if ($checkstd == null) {
+            $user = User::create([
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => Hash::make($data['password']),
                 'phone' => $data['phone'],
-        ]);
+            ]);
 
-        $student = Student::create([
-            'student_id' => $data['student_id'],
-            'user_id' => $user->id
-        ]);
+            $student = Student::create([
+                'student_id' => $data['student_id'],
+                'user_id' => $user->id
+            ]);
+        // };
 
         return $user;
     }
