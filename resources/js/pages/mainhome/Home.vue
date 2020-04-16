@@ -96,9 +96,7 @@
 
                 <br />
                 <div class="flex-container">
-                    <v-hover v-slot:default="{ hover }" open-delay="200">
                         <v-card
-                            :elevation="hover ? 16 : 2"
                             class="mx-auto mb-5"
                             max-width="344"
                         >
@@ -115,10 +113,7 @@
                                 เลือกแลปที่ต้องการเข้าร่วม
                             </v-card-subtitle>
                         </v-card>
-                    </v-hover>
-                    <v-hover v-slot:default="{ hover }" open-delay="200">
                         <v-card
-                            :elevation="hover ? 16 : 2"
                             class="mx-auto mb-5"
                             max-width="400"
                         >
@@ -135,10 +130,7 @@
                                 กด Request เพื่อขอเข้าร่วมแลป
                             </v-card-subtitle>
                         </v-card>
-                    </v-hover>
-                    <v-hover v-slot:default="{ hover }" open-delay="200">
                         <v-card
-                            :elevation="hover ? 16 : 2"
                             class="mx-auto mb-5"
                             max-width="344"
                         >
@@ -156,7 +148,6 @@
                                 สามารถเริ่มต้นยืมของได้ทันที
                             </v-card-subtitle>
                         </v-card>
-                    </v-hover>
                 </div>
             </div>
         </v-content>

@@ -170,12 +170,13 @@
                 absolute
                 dark
             >
-                <v-list-item>
+                <v-list-item href="/home" style="text-decoration:none">
                     <v-img
                         class="mt-3"
                         src="/img/icon.png"
                         max-width="50"
                         max-height="50"
+                        
                     >
                     </v-img>
                     <div
