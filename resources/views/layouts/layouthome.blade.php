@@ -78,7 +78,7 @@
                 <homelayout username="{{ Auth::User()->name }}" type="{{ Auth::User()->type }}" :notifications="{{ Auth::User()->notifications}}"></homelayout>
             <!-- </div> -->
 
-            <br><br><br><br><br><br><br><br>
+            
             <v-col class="md-9">
                 @yield('content')
             </v-col>

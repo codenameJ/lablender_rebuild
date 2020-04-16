@@ -60,7 +60,7 @@
                     <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
                 </v-row>
                 <v-card-text class="pt-0">
-                    <v-data-table :headers="headers_frequent" :items="items_frequent" :items-per-page="5" class="elevation-1"></v-data-table>
+                    <v-data-table :headers="headers_outstock" :items="items_outstock" :items-per-page="5" class="elevation-1"></v-data-table>
                     <v-divider class="my-2"></v-divider>
                     <v-icon class="mr-2" small>
                         build
@@ -77,7 +77,7 @@
                     <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
                 </v-row>
                 <v-card-text class="pt-0">
-                    <v-data-table :headers="headers" :items="items" :items-per-page="5" class="elevation-1"></v-data-table>
+                    <v-data-table :headers="headers_missing" :items="items_missing" :items-per-page="5" class="elevation-1"></v-data-table>
                     <v-divider class="my-2"></v-divider>
                     <v-icon class="mr-2" small>
                         build
@@ -94,7 +94,7 @@
                     <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
                 </v-row>
                 <v-card-text class="pt-0">
-                    <v-data-table :headers="headers" :items="items" :items-per-page="5" class="elevation-1"></v-data-table>
+                    <v-data-table :headers="headers_broken" :items="items_broken" :items-per-page="5" class="elevation-1"></v-data-table>
                     <v-divider class="my-2"></v-divider>
                     <v-icon class="mr-2" small>
                         build
@@ -111,7 +111,28 @@
 export default {
     // props: ["course_id"],
     data: () => ({
-        headers: [{
+        headers_outstock: [{
+                text: "Equipment ID",
+                align: "start",
+                value: "equip_id"
+            },
+            {
+                text: "Equipment Name",
+                value: "equip_name"
+            }
+        ],
+
+        items_outstock: [{
+                equip_id: "10001",
+                equip_name: "ตัวต้านทาน 500k ohm"
+            },
+            {
+                equip_id: "10002",
+                equip_name: "AC Adapter 9V"
+            }
+        ],
+
+        headers_broken: [{
                 text: "Equipment ID",
                 align: "start",
                 value: "equip_id"
@@ -126,19 +147,19 @@ export default {
             }
         ],
 
-        items: [{
-                equip_id: "10001",
-                equip_name: "Pork Belly",
+        items_broken: [{
+                equip_id: "10005",
+                equip_name: "Servo motor",
                 equip_qty: "1"
             },
             {
-                equip_id: "10002",
-                equip_name: "Jarikka Belly",
+                equip_id: "10012",
+                equip_name: "16x2 LCD Display",
                 equip_qty: "1"
             }
         ],
 
-        headers_frequent: [{
+        headers_missing: [{
                 text: "Equipment ID",
                 align: "start",
                 value: "equip_id"
@@ -146,42 +167,30 @@ export default {
             {
                 text: "Equipment Name",
                 value: "equip_name"
+            },
+            {
+                text: "QTY",
+                value: "equip_qty"
             }
         ],
 
-        items_frequent: [{
-                equip_id: "10001",
-                equip_name: "Pork Belly",
-                equip_counts: "17"
+        items_missing: [{
+                equip_id: "10014",
+                equip_name: "LED ไฟสีแดง",
+                equip_qty: "5"
             },
             {
-                equip_id: "10002",
-                equip_name: "Jarikka Belly",
-                equip_counts: "15"
+                equip_id: "10017",
+                equip_name: "ตัวต้านทานปรับค่าได้",
+                equip_qty: "3"
             }
         ],
-        series: [{
-                name: "PRODUCT A",
-                data: [44, 55, 41, 67, 22, 43]
-            },
-            {
-                name: "PRODUCT B",
-                data: [13, 23, 20, 8, 13, 27]
-            },
-            {
-                name: "PRODUCT C",
-                data: [11, 17, 15, 15, 21, 14]
-            },
-            {
-                name: "PRODUCT D",
-                data: [21, 7, 25, 13, 22, 8]
-            }
-        ],
-        series_donut: [44, 55, 41, 17, 15],
+        series_donut: [44, 55, 41, 37, 17, 15],
         chartOptions_donut: {
             chart: {
               type: 'donut',
             },
+            labels: ['Returned','Recieved','Ready', 'Wait','Broken', 'Missing',],
             responsive: [{
               breakpoint: 480,
               options: {
@@ -192,54 +201,83 @@ export default {
                   position: 'bottom'
                 }
               }
-            }]
-          },
-        chartOptions: {
-            chart: {
-                type: "bar",
-                height: 350,
-                stacked: true,
-                toolbar: {
-                    show: true
-                },
-                zoom: {
-                    enabled: true
-                }
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    legend: {
-                        position: "bottom",
-                        offsetX: -10,
-                        offsetY: 0
-                    }
-                }
             }],
+            colors: ['#018ffb','#785ed0', '#01e396', '#546E7A', '#ff4661', '#feb01a'
+            ],
+          },
+          series: [{
+            data: [25,22,20,18,17,15,13,12,11,10]
+          }],
+          chartOptions: {
+            chart: {
+              type: 'bar',
+              height: 380
+            },
             plotOptions: {
-                bar: {
-                    horizontal: false
-                }
+              bar: {
+                barHeight: '100%',
+                distributed: true,
+                horizontal: true,
+                dataLabels: {
+                  position: 'bottom'
+                },
+              }
+            },
+            colors: ['#33b2df', '#546E7A', '#d4526e', '#13d8aa', '#A5978B', '#2b908f', '#f9a3a4', '#90ee7e',
+              '#f48024', '#69d2e7'
+            ],
+            dataLabels: {
+              enabled: true,
+              textAnchor: 'start',
+              style: {
+                colors: ['#fff']
+              },
+              formatter: function (val, opt) {
+                return opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
+              },
+              offsetX: 0,
+              dropShadow: {
+                enabled: true
+              }
+            },
+            stroke: {
+              width: 1,
+              colors: ['#fff']
             },
             xaxis: {
-                type: "datetime",
-                categories: [
-                    "01/01/2011 GMT",
-                    "01/02/2011 GMT",
-                    "01/03/2011 GMT",
-                    "01/04/2011 GMT",
-                    "01/05/2011 GMT",
-                    "01/06/2011 GMT"
-                ]
+              categories: [
+                  'Transistor 2N3904','Relay','ปุ่ม (กดติดปล่อยดับ)', 'ตัวต้านทาน 1k ohm', 'header female 2 รู', 'ตัวต้านทาน 3.3 ohm','เซนเซอร์อินฟราเรด (IR sensor)','Socket (PIC to PCB)','Servo motor','Power supply 5v'
+              ],
             },
-            legend: {
-                position: "right",
-                offsetY: 40
+            yaxis: {
+              labels: {
+                show: false
+              }
             },
-            fill: {
-                opacity: 1
+            // title: {
+            //     text: 'Custom DataLabels',
+            //     align: 'center',
+            //     floating: true
+            // },
+            // subtitle: {
+            //     text: 'Category Names as DataLabels inside bars',
+            //     align: 'center',
+            // },
+            tooltip: {
+              theme: 'dark',
+              x: {
+                show: false
+              },
+              y: {
+                title: {
+                  formatter: function () {
+                    return ''
+                  }
+                }
+              }
             }
-        }
+          },
+       
     }),
 
     mounted() {
