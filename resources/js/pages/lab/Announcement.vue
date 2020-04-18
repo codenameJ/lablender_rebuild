@@ -23,6 +23,37 @@
                                     >
                                 </template>
                                 <v-card>
+                                    <v-row class="mr-5 ml-5">
+                                        <v-img
+                                            class="mx-auto"
+                                            style="width: 30%;
+                                                    max-width: 240px;
+                                                    height: auto;"
+                                            v-if="editedItem.picture_path"
+                                            :src="
+                                                '/storage/' +
+                                                    editedItem.picture_path
+                                            "
+                                        />
+                                    </v-row>
+                                    <v-row>
+                                        <input
+                                            class="my-4 mx-auto"
+                                            id="uploadImage"
+                                            type="file"
+                                            @change="onImageChange"
+                                        />
+                                    </v-row>
+                                    <v-row>
+                                        <v-img
+                                            class="mx-auto"
+                                            style="width: 30%;
+                                                    max-width: 240px;
+                                                    height: auto;"
+                                            :src="image"
+                                            v-if="image"
+                                        />
+                                    </v-row>
                                     <v-card-text>
                                         <v-container>
                                             <h2 color="#212121" class="my-4">
@@ -83,13 +114,23 @@
                         <v-col cols="12">
                             <div v-if="Announcementsinlab.length == 0">
                                 <v-row>
-                                    <v-img class="mx-auto mb-4" style="max-width: 35%;height: auto;" src="/img/nodata.png"></v-img>
+                                    <v-img
+                                        class="mx-auto mb-4"
+                                        style="max-width: 35%;height: auto;"
+                                        src="/img/nodata.png"
+                                    ></v-img>
                                 </v-row>
                                 <v-row>
-                                    <span class="mx-auto mb-1 title">No announcement posted.</span>
+                                    <span class="mx-auto mb-1 title"
+                                        >No announcement posted.</span
+                                    >
                                 </v-row>
                                 <v-row>
-                                <span style="font-family:Prompt;" class="mx-auto subheading grey--text">ยังไม่มีประกาศในห้องปฎิบัติการนี้</span>
+                                    <span
+                                        style="font-family:Prompt;"
+                                        class="mx-auto subheading grey--text"
+                                        >ยังไม่มีประกาศในห้องปฎิบัติการนี้</span
+                                    >
                                 </v-row>
                             </div>
                             <div v-else>
@@ -146,6 +187,14 @@
                                                     style="font-size:17px; color:#424242;"
                                                 >
                                                     {{ item.describe }}
+                                                    <br />
+                                                    <v-img
+                                                        v-if="item.picture_path"
+                                                        :src="
+                                                            '/storage/' +
+                                                                item.picture_path
+                                                        "
+                                                    />
                                                 </v-card-subtitle>
                                             </v-card-text>
                                         </v-card-actions>
@@ -190,18 +239,23 @@ export default {
         dialog: false,
         search: "",
         tabs: null,
+        today: new Date(),
         editedIndex: -1,
+        picture_path: null,
+        image: null,
         editedItem: {
             announcement_name: "",
             describe: "",
             lab_id: "",
-            user_id: ""
+            user_id: "",
+            picture_path: null
         },
         defaultItem: {
             announcement_name: "",
             describe: "",
             lab_id: "",
-            user_id: ""
+            user_id: "",
+            picture_path: null
         }
     }),
     created() {},
@@ -246,6 +300,8 @@ export default {
         },
 
         close() {
+            this.picture_path = null;
+            this.image = null;
             this.dialog = false;
             setTimeout(() => {
                 this.editedItem = Object.assign({}, this.defaultItem);
@@ -253,26 +309,58 @@ export default {
             }, 300);
         },
 
-        save() {
+        async save() {
             if (this.editedIndex > -1) {
                 Object.assign(
                     this.announcements[this.editedIndex],
                     this.editedItem
                 );
-                axios
-                    .put(
-                        "/api/announcement/" + this.editedItem.id,
-                        this.editedItem
-                    )
+                await axios
+                    .put("/api/announcement/" + this.editedItem.id, {
+                        announcement_name: this.editedItem.announcement_name,
+                        describe: this.editedItem.describe,
+                        lab_id: this.editedItem.lab_id,
+                        user_id: this.editedItem.user_id,
+                        picture_path: this.picture_path,
+                        image: this.image
+                    })
                     .then(response => console.log(response.data));
             } else {
                 this.announcements.push(this.editedItem);
-                axios
-                    .post("/api/announcement/", this.editedItem)
+                await axios
+                    .post("/api/announcement/", {
+                        announcement_name: this.editedItem.announcement_name,
+                        describe: this.editedItem.describe,
+                        lab_id: this.editedItem.lab_id,
+                        user_id: this.editedItem.user_id,
+                        picture_path: this.picture_path,
+                        image: this.image
+                    })
                     .then(response => console.log(response.data));
             }
             this.close();
-            this.$store.dispatch("loadAnnouncements");
+            await this.$store.dispatch("loadAnnouncements");
+        },
+        onImageChange(e) {
+            let file = e.target.files[0];
+            let reader = new FileReader();
+            this.noUpload = false;
+            reader.onloadend = e => {
+                this.image = reader.result;
+                var date =
+                    this.today.getFullYear() +
+                    "-" +
+                    (this.today.getMonth() + 1) +
+                    "-" +
+                    this.today.getDate();
+                var time =
+                    this.today.getHours() + "-" + this.today.getMinutes();
+                var x = Math.floor(Math.random() * 100);
+                var dateTime = date + "_" + time;
+                const file_name = "image_" + dateTime + "_" + x + ".png";
+                this.picture_path = file_name;
+            };
+            reader.readAsDataURL(file);
         }
     },
     computed: {

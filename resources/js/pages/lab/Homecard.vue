@@ -111,6 +111,7 @@
 export default {
     // props: ["course_id"],
     data: () => ({
+        numberdata: [],
         headers: [{
                 text: "Equipment ID",
                 align: "start",
@@ -243,12 +244,22 @@ export default {
     }),
 
     mounted() {
-        // this.getLabData();
+        this.$store.dispatch("loadRequest_details");
     },
     computed: {
         curlab() {
             return this.$store.state.selectedLab;
-        }
+        },
+        request_details() {
+            return this.$store.state.request_details;
+        },
+        // getdata(){
+        //     for(i=0;i<this.request_details.length;i++){
+        //     }
+        // }
+    },
+    methods: {
+
     }
 };
 </script>
