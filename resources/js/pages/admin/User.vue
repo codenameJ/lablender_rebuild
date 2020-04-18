@@ -11,7 +11,10 @@
                         <v-tabs-slider color="white"></v-tabs-slider>
                     </v-tabs> -->
                     <!-- <v-divider class="mx-4" inset vertical></v-divider> -->
-                    <v-spacer />
+                    <v-tabs
+                        background-color="transparent"
+                        v-model="tabs"
+                    ></v-tabs>
                     <v-text-field
                         v-model="search"
                         append-icon="search"
@@ -49,7 +52,8 @@
                                         dark
                                         class="mb-2"
                                         v-on="on"
-                                        ><v-icon class="mr-2">add</v-icon>Add User</v-btn
+                                        ><v-icon class="mr-2">add</v-icon>Add
+                                        User</v-btn
                                     >
                                 </template>
 
@@ -223,7 +227,7 @@ export default {
         // this.$store.dispatch("loadLabs");
     },
     data: () => ({
-        sortBy: 'id',
+        sortBy: "id",
         usertype: null,
         filtertab: null,
         dialog: false,
@@ -241,7 +245,7 @@ export default {
         ],
         selecttype: ["student", "professor", "ta", "admin"],
         headers: [
-            { text: "ID", value: "id" },
+            // { text: "ID", value: "id" },
             { text: "Name", value: "name" },
             {
                 text: "E-mail",
@@ -260,7 +264,7 @@ export default {
             password: "",
             phone: "",
             type: "",
-            student_id: "",
+            student_id: ""
             // lab_id: ""
         },
         defaultItem: {
@@ -269,7 +273,7 @@ export default {
             password: "",
             phone: "",
             type: "",
-            student_id: "",
+            student_id: ""
             // lab_id: ""
         }
     }),

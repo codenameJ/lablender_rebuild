@@ -2,10 +2,16 @@
     <div id="app">
         <v-dialog v-model="dialogcart" max-width="500px">
             <template v-slot:activator="{ on }">
-                <v-badge  v-if="currentuser.type == 'student'" overlap class="mr-4">
-                    <span slot="badge">{{ showBadge }}</span>
-                    <v-icon v-on="on">shopping_cart</v-icon>
-                </v-badge>
+                <v-btn icon v-on="on">
+                    <v-badge
+                        v-if="currentuser.type == 'student'"
+                        overlap
+                        class="mr-4"
+                    >
+                        <span slot="badge">{{ showBadge }}</span>
+                        <v-icon v-on="on">shopping_cart</v-icon>
+                    </v-badge>
+                </v-btn>
             </template>
             <v-card>
                 <v-card-title>

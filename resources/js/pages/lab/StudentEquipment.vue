@@ -142,7 +142,7 @@
                                                                         editedItem.equip_qty
                                                                     "
                                                                     :inputtable="
-                                                                        false
+                                                                        true
                                                                     "
                                                                     inline
                                                                     controls

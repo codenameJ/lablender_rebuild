@@ -10,6 +10,10 @@
                     </v-col>
                     <v-row dense>
                         <v-toolbar>
+                            <v-tabs
+                                background-color="transparent"
+                                v-model="tabs"
+                            ></v-tabs>
                             <v-text-field
                                 v-model="search"
                                 append-icon="search"

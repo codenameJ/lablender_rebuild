@@ -4,6 +4,10 @@
             <div class="row justify-content-center">
                 <div class="col-md-12">
                     <v-toolbar>
+                        <v-tabs
+                            background-color="transparent"
+                            v-model="tabs"
+                        ></v-tabs>
                         <v-text-field
                             v-model="search"
                             append-icon="search"
@@ -200,10 +204,10 @@ export default {
                 text: "Qty",
                 value: "equip_qty"
             },
-            {
-                text: "Lab",
-                value: "lab_id"
-            },
+            // {
+            //     text: "Lab",
+            //     value: "lab_id"
+            // },
             {
                 text: "Actions",
                 value: "action",

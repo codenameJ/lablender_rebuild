@@ -4,12 +4,12 @@
             <div class="col-md-12">
                 <v-row dense>
                     <v-col cols="12">
-                        <v-toolbar class="mb-4"
-                            ><v-tabs
+                        <v-toolbar class="mb-4">
+                            <v-tabs
                                 background-color="transparent"
                                 v-model="tabs"
                             >
-                                <v-tab style="text-decoration : none;" to=""
+                                <!-- <v-tab style="text-decoration : none;" to=""
                                     >All</v-tab
                                 >
                                 <v-tab style="text-decoration : none;" to=""
@@ -20,8 +20,9 @@
                                 >
                                 <v-tabs-slider
                                     color="white"
-                                ></v-tabs-slider> </v-tabs
-                            ><v-text-field
+                                ></v-tabs-slider>  -->
+                            </v-tabs>
+                            <v-text-field
                                 v-model="search"
                                 append-icon="search"
                                 label="Search"
@@ -77,7 +78,8 @@
                                                     item.course_id +
                                                     '/home'
                                             "
-                                            ><v-icon class="mr-2">launch</v-icon>Enter Lab</v-btn
+                                            ><v-icon class="mr-2">launch</v-icon
+                                            >Enter Lab</v-btn
                                         >
                                     </v-card-actions>
                                     <v-card-actions v-else>

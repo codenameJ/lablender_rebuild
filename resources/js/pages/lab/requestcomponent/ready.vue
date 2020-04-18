@@ -46,6 +46,9 @@
                 </v-row>
                 <div class="col-12">
                     <v-data-table class="mt-2" :headers="detail_headers" :items="item.request_detail" hide-default-footer>
+                        <template #item.equip_id="{item}">{{
+                                getEquipCode(item.equipment_id)
+                            }}</template>
                         <template #item.equipment_name="{item}">{{
                                 getEquipName(item.equipment_id)
                             }}</template>
@@ -72,13 +75,14 @@ export default {
     },
     data: () => ({
         search: "",
-        detail_headers: [{
-                text: "Detail ID",
-                value: "id"
-            },
+        detail_headers: [
+            // {
+            //     text: "Detail ID",
+            //     value: "id"
+            // },
             {
                 text: "Equipment ID",
-                value: "equipment_id"
+                value: "equip_id"
             },
             {
                 text: "Equipment Name",
@@ -118,6 +122,11 @@ export default {
             let equipname =
                 this.equipments.find(equip => equip.id == equipId) || {};
             return equipname.equip_name;
+        },
+        getEquipCode(equipId) {
+            let equipname =
+                this.equipments.find(equip => equip.id == equipId) || {};
+            return equipname.equip_id;
         },
         deleteItem(item) {
             const index = this.request_lists.indexOf(item);

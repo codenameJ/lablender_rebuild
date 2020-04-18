@@ -16,17 +16,90 @@
                             </v-toolbar>
                         </v-col>
                     </v-row>
+
+                    <v-dialog
+                        v-model="dialog"
+                        max-width="800px"
+                        :retain-focus="false"
+                    >
+                        <v-card>
+                            <v-card-title>
+                                <span class="headline">Lend</span>
+                            </v-card-title>
+
+                            <v-card-text>
+                                <v-container>
+                                    <v-row class="mr-5 ml-5">
+                                        <img
+                                            class="mx-auto my-4"
+                                            style="width: 30%;
+                                                                        max-width: 240px;
+                                                                        height: auto;"
+                                            v-if="editedItem.picture_path"
+                                            :src="
+                                                '/storage/' +
+                                                    editedItem.picture_path
+                                            "
+                                            height="200px"
+                                        />
+                                    </v-row>
+                                    <v-row class="justify-content-center">
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field
+                                                :value="editedItem.equip_id"
+                                                label="Equipment ID"
+                                                readonly
+                                            ></v-text-field>
+                                        </v-col>
+                                        <v-col cols="12" sm="6" md="4">
+                                            <v-text-field
+                                                :value="editedItem.equip_name"
+                                                label="Equipment Name"
+                                                readonly
+                                            ></v-text-field>
+                                        </v-col>
+                                    </v-row>
+                                    <v-row class="justify-content-center">
+                                        <v-col
+                                            xl="8"
+                                            lg="8"
+                                            md="12"
+                                            sm="12"
+                                            xs="12"
+                                        >
+                                            <v-textarea
+                                                v-model="editedItem.description"
+                                                label="Description"
+                                                readonly
+                                                rows="2"
+                                            ></v-textarea>
+                                        </v-col>
+                                    </v-row>
+                                </v-container>
+                            </v-card-text>
+                        </v-card>
+                    </v-dialog>
+
                     <v-row>
                         <v-col cols="12">
                             <div v-if="filterReturn.length == 0">
                                 <v-row>
-                                    <v-img class="mx-auto my-4" style="max-width: 33%;height: auto;" src="/img/noreq.png"></v-img>
+                                    <v-img
+                                        class="mx-auto my-4"
+                                        style="max-width: 33%;height: auto;"
+                                        src="/img/noreq.png"
+                                    ></v-img>
                                 </v-row>
                                 <v-row>
-                                    <span class="mx-auto mb-1 title">No history.</span>
+                                    <span class="mx-auto mb-1 title"
+                                        >No history.</span
+                                    >
                                 </v-row>
                                 <v-row>
-                                <span class="mx-auto subheading grey--text">Requests will be displayed here if the equipment is returned to lab.</span>
+                                    <span class="mx-auto subheading grey--text"
+                                        >Requests will be displayed here if the
+                                        equipment is returned to lab.</span
+                                    >
                                 </v-row>
                             </div>
                             <div v-for="(item, i) in filterReturn" :key="i">
@@ -92,23 +165,41 @@
                                             :items="item.request_detail"
                                             hide-default-footer
                                         >
+                                            <template #item.equip_id="{item}">{{
+                                                getEquipCode(item.equipment_id)
+                                            }}</template>
                                             <template
-                                                #item.equipment_name="{item}"
-                                                >{{
-                                                    getEquipName(
-                                                        item.equipment_id
-                                                    )
-                                                }}</template
+                                                v-slot:item.equipment_name="{
+                                                    item
+                                                }"
+                                                ><a
+                                                    v-if="
+                                                        item.status ==
+                                                            'missing' ||
+                                                            item.status ==
+                                                                'broken'
+                                                    "
+                                                    @click="
+                                                        editItem(
+                                                            item.equipment_id
+                                                        )
+                                                    "
+                                                >
+                                                    {{
+                                                        getEquipName(
+                                                            item.equipment_id
+                                                        )
+                                                    }}
+                                                </a>
+                                                <span v-else>
+                                                    {{
+                                                        getEquipName(
+                                                            item.equipment_id
+                                                        )
+                                                    }}
+                                                </span></template
                                             >
                                         </v-data-table>
-                                        <!-- <v-card-actions>
-                                            <v-spacer></v-spacer>
-                                            <v-btn
-                                                outlined
-                                                color="blue darken-1"
-                                                >Return</v-btn
-                                            >
-                                        </v-card-actions> -->
                                     </div>
                                 </v-card>
                             </div>
@@ -128,21 +219,27 @@ export default {
     data: () => ({
         currentComp: "brokenlist",
         search: "",
+        dialog: false,
         ReqStatus: [
             { value: 1, text: "wait" },
             { value: 2, text: "ready" },
             { value: 3, text: "recieve" }
         ],
         detail_headers: [
-            { text: "Detail ID", value: "id" },
-            { text: "Equipment ID", value: "equipment_id" },
+            // { text: "Detail ID", value: "id" },
+            { text: "Equipment ID", value: "equip_id" },
             { text: "Equipment Name", value: "equipment_name" },
             { text: "Len Qty", value: "len_qty" },
             { text: "Status", value: "status" }
         ],
         editedIndex: -1,
         editedItem: {
-            status: ""
+            equip_id: "",
+            equip_name: "",
+            equip_qty: 0,
+            lab_id: "",
+            description: "",
+            picture_path: null
         },
         defaultItem: {
             status: ""
@@ -170,6 +267,11 @@ export default {
                 this.equipments.find(equip => equip.id == equipId) || {};
             return equipname.equip_name;
         },
+        getEquipCode(equipId) {
+            let equipname =
+                this.equipments.find(equip => equip.id == equipId) || {};
+            return equipname.equip_id;
+        },
         deleteItem(item) {
             const index = this.request_lists.indexOf(item);
             confirm("Are you sure you want to delete this item?") &&
@@ -189,11 +291,14 @@ export default {
                 .then(response => console.log(response.data));
             this.$store.dispatch("loadRequest_lists");
         },
-        // show(arrayData) {
-        //     return arrayData.filter(data => data.status == "return") || {};
-        // },
         setcomp(compname) {
             this.currentComp = compname;
+        },
+        editItem(equipmentid) {
+            let selequip =
+                this.equipments.find(equip => equip.id == equipmentid) || {};
+            this.editedItem = Object.assign({}, selequip);
+            this.dialog = true;
         }
     },
     computed: {
@@ -228,9 +333,8 @@ export default {
         },
         filterReturn() {
             let returnlist =
-                this.StudentRequest.filter(
-                    list => list.status == "return"
-                ) || {};
+                this.StudentRequest.filter(list => list.status == "return") ||
+                {};
             return returnlist;
         }
     },

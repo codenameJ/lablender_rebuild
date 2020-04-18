@@ -1,54 +1,80 @@
 <template>
-<v-row>
-    <v-col cols="12">
-        <div v-if="filterReady.length == 0">
-            <v-row>
-                <v-img class="mx-auto my-4" style="max-width: 33%;height: auto;" src="/img/noreq.png"></v-img>
-            </v-row>
-            <v-row>
-                <span class="mx-auto mb-1 title">No requests.</span>
-            </v-row>
-            <v-row>
-                <span style="font-family:Prompt;" class="mx-auto subheading grey--text">ไม่มีคำขอยืมที่พร้อมให้นักศึกษาไปรับอุปกรณ์</span>
-            </v-row>
-        </div>
-        <div v-for="(item, i) in filterReady" :key="i">
-            <v-card class="mb-5">
+    <v-row>
+        <v-col cols="12">
+            <div v-if="filterReady.length == 0">
                 <v-row>
-                    <v-card-title class="ml-4" v-text="'Request No. ' + item.id"></v-card-title>
-                    <v-spacer></v-spacer>
-                    <v-card-actions class=" mr-5">
-                        
-                    </v-card-actions>
+                    <v-img
+                        class="mx-auto my-4"
+                        style="max-width: 33%;height: auto;"
+                        src="/img/noreq.png"
+                    ></v-img>
                 </v-row>
-
-                <!-- --------------------------------------------------------------------- -->
-
                 <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Lending date : ' + item.created_at"></v-card-subtitle>
+                    <span class="mx-auto mb-1 title">No requests.</span>
                 </v-row>
-
                 <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Lend by : ' + currentuser.name"></v-card-subtitle>
+                    <span
+                        style="font-family:Prompt;"
+                        class="mx-auto subheading grey--text"
+                        >ไม่มีคำขอยืมที่พร้อมให้นักศึกษาไปรับอุปกรณ์</span
+                    >
                 </v-row>
+            </div>
+            <div v-for="(item, i) in filterReady" :key="i">
+                <v-card class="mb-5">
+                    <v-row>
+                        <v-card-title
+                            class="ml-4"
+                            v-text="'Request No. ' + item.id"
+                        ></v-card-title>
+                        <v-spacer></v-spacer>
+                        <v-card-actions class=" mr-5"> </v-card-actions>
+                    </v-row>
 
-                <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Status : '"></v-card-subtitle>
-                    <v-chip :color="getColor(item.status)" dark>{{
+                    <!-- --------------------------------------------------------------------- -->
+
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Lending date : ' + item.created_at"
+                        ></v-card-subtitle>
+                    </v-row>
+
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Lend by : ' + currentuser.name"
+                        ></v-card-subtitle>
+                    </v-row>
+
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Status : '"
+                        ></v-card-subtitle>
+                        <v-chip :color="getColor(item.status)" dark>{{
                             item.status
                         }}</v-chip>
-                </v-row>
-                <div class="col-12">
-                    <v-data-table class="mt-2" :headers="detail_headers" :items="item.request_detail" hide-default-footer>
-                        <template #item.equipment_name="{item}">{{
+                    </v-row>
+                    <div class="col-12">
+                        <v-data-table
+                            class="mt-2"
+                            :headers="detail_headers"
+                            :items="item.request_detail"
+                            hide-default-footer
+                        >
+                            <template #item.equip_id="{item}">{{
+                                getEquipCode(item.equipment_id)
+                            }}</template>
+                            <template #item.equipment_name="{item}">{{
                                 getEquipName(item.equipment_id)
                             }}</template>
-                    </v-data-table>
-                </div>
-            </v-card>
-        </div>
-    </v-col>
-</v-row>
+                        </v-data-table>
+                    </div>
+                </v-card>
+            </div>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
@@ -59,13 +85,14 @@ export default {
     data: () => ({
         dialog: false,
         search: "",
-        detail_headers: [{
-                text: "Detail ID",
-                value: "id"
-            },
+        detail_headers: [
+            // {
+            //     text: "Detail ID",
+            //     value: "id"
+            // },
             {
                 text: "Equipment ID",
-                value: "equipment_id"
+                value: "equip_id"
             },
             {
                 text: "Equipment Name",
@@ -103,6 +130,11 @@ export default {
             let equipname =
                 this.equipments.find(equip => equip.id == equipId) || {};
             return equipname.equip_name;
+        },
+        getEquipCode(equipId) {
+            let equipname =
+                this.equipments.find(equip => equip.id == equipId) || {};
+            return equipname.equip_id;
         },
         deleteItem(item) {
             const index = this.request_lists.indexOf(item);
@@ -145,7 +177,7 @@ export default {
                 ) || {};
             return studentreqlist;
         },
-        filterRequestlists: function () {
+        filterRequestlists: function() {
             return this.StudentRequest.filter(requestlist => {
                 return requestlist.student_id
                     .toLowerCase()
@@ -154,9 +186,8 @@ export default {
         },
         filterReady() {
             let readylist =
-                this.StudentRequest.filter(
-                    list => list.status == "ready"
-                ) || {};
+                this.StudentRequest.filter(list => list.status == "ready") ||
+                {};
             return readylist;
         }
     },

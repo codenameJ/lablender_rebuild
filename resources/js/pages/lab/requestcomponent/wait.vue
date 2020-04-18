@@ -1,72 +1,117 @@
 <template>
-<v-row>
-    <v-col cols="12">
-        <v-row dense>
-            <v-col cols="12">
-                <v-toolbar>
-                    <v-text-field v-model="search" append-icon="search" label="Search by student id..." single-line hide-details></v-text-field>
-                </v-toolbar>
-            </v-col>
-        </v-row>
-        <div v-if="filterStudent.length == 0">
-            <v-row>
-                <v-img class="mx-auto my-4" style="max-width: 33%;height: auto;" src="/img/noreq.png"></v-img>
+    <v-row>
+        <v-col cols="12">
+            <v-row dense>
+                <v-col cols="12">
+                    <v-toolbar>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Search by student id..."
+                            single-line
+                            hide-details
+                        ></v-text-field>
+                    </v-toolbar>
+                </v-col>
             </v-row>
-            <v-row>
-                <span class="mx-auto mb-1 title">No requests.</span>
-            </v-row>
-            <v-row>
-                <span style="font-family:Prompt;" class="mx-auto subheading grey--text">ไม่พบคำขอยืม</span>
-            </v-row>
-        </div>
-        <div v-for="(item, i) in filterStudent" :key="i">
-
-            <!-- <v-card v-if="show(item.request_detail).length == 0">
+            <div v-if="filterStudent.length == 0">
+                <v-row>
+                    <v-img
+                        class="mx-auto my-4"
+                        style="max-width: 33%;height: auto;"
+                        src="/img/noreq.png"
+                    ></v-img>
+                </v-row>
+                <v-row>
+                    <span class="mx-auto mb-1 title">No requests.</span>
+                </v-row>
+                <v-row>
+                    <span
+                        style="font-family:Prompt;"
+                        class="mx-auto subheading grey--text"
+                        >ไม่พบคำขอยืม</span
+                    >
+                </v-row>
+            </div>
+            <div v-for="(item, i) in filterStudent" :key="i">
+                <!-- <v-card v-if="show(item.request_detail).length == 0">
                                 <v-card-subtitle> No data eiei </v-card-subtitle>
                             </v-card> -->
 
-            <v-card class="mb-5">
-                <v-row>
-                    <v-card-title class="ml-4" v-text="'Request No. ' + item.id"></v-card-title>
-                    <v-spacer></v-spacer>
-                    <v-card-actions class=" mr-5">
-                        <v-btn v-if="item.status == 'wait'" color="error" fab x-small dark outlined class="elevation-4 no-underline" @click="deleteItem(item)">
-                            <v-icon>delete_outline</v-icon>
-                        </v-btn>
-                    </v-card-actions>
-                </v-row>
+                <v-card class="mb-5">
+                    <v-row>
+                        <v-card-title
+                            class="ml-4"
+                            v-text="'Request No. ' + item.id"
+                        ></v-card-title>
+                        <v-spacer></v-spacer>
+                        <v-card-actions class=" mr-5">
+                            <v-btn
+                                v-if="item.status == 'wait'"
+                                color="error"
+                                fab
+                                x-small
+                                dark
+                                outlined
+                                class="elevation-4 no-underline"
+                                @click="deleteItem(item)"
+                            >
+                                <v-icon>delete_outline</v-icon>
+                            </v-btn>
+                        </v-card-actions>
+                    </v-row>
 
-                <!-- --------------------------------------------------------------------- -->
-                <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Lending date : ' + item.created_at"></v-card-subtitle>
-                </v-row>
+                    <!-- --------------------------------------------------------------------- -->
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Lending date : ' + item.created_at"
+                        ></v-card-subtitle>
+                    </v-row>
 
-                <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Lend by : ' + getstudent(item.student_id)"></v-card-subtitle>
-                </v-row>
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Lend by : ' + getstudent(item.student_id)"
+                        ></v-card-subtitle>
+                    </v-row>
 
-                <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Status : '"></v-card-subtitle>
-                    <v-chip :color="getColor(item.status)" dark>{{
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Status : '"
+                        ></v-card-subtitle>
+                        <v-chip :color="getColor(item.status)" dark>{{
                             item.status
                         }}</v-chip>
-                </v-row>
-                <div class="col-12">
-                    <v-data-table class="mt-2" :headers="detail_headers" :items="item.request_detail" hide-default-footer>
-                        <template #item.equipment_name="{item}">{{
+                    </v-row>
+                    <div class="col-12">
+                        <v-data-table
+                            class="mt-2"
+                            :headers="detail_headers"
+                            :items="item.request_detail"
+                            hide-default-footer
+                        >
+                            <template #item.equip_id="{item}">{{
+                                getEquipCode(item.equipment_id)
+                            }}</template>
+                            <template #item.equipment_name="{item}">{{
                                 getEquipName(item.equipment_id)
                             }}</template>
-                    </v-data-table>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-btn outlined color="success" @click="save(item)">Ready<v-icon class="ml-1">arrow_forward</v-icon>
-                        </v-btn>
-                    </v-card-actions>
-                </div>
-            </v-card>
-        </div>
-    </v-col>
-</v-row>
+                        </v-data-table>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-btn outlined color="success" @click="save(item)"
+                                >Ready<v-icon class="ml-1"
+                                    >arrow_forward</v-icon
+                                >
+                            </v-btn>
+                        </v-card-actions>
+                    </div>
+                </v-card>
+            </div>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
@@ -76,13 +121,14 @@ export default {
     },
     data: () => ({
         search: "",
-        detail_headers: [{
-                text: "Detail ID",
-                value: "id"
-            },
+        detail_headers: [
+            // {
+            //     text: "Detail ID",
+            //     value: "id"
+            // },
             {
                 text: "Equipment ID",
-                value: "equipment_id"
+                value: "equip_id"
             },
             {
                 text: "Equipment Name",
@@ -94,7 +140,7 @@ export default {
             }
         ],
         editedIndex: -1,
-        status: 'ready'
+        status: "ready"
     }),
     created() {},
     methods: {
@@ -122,6 +168,11 @@ export default {
                 this.equipments.find(equip => equip.id == equipId) || {};
             return equipname.equip_name;
         },
+        getEquipCode(equipId) {
+            let equipname =
+                this.equipments.find(equip => equip.id == equipId) || {};
+            return equipname.equip_id;
+        },
         deleteItem(item) {
             const index = this.request_lists.indexOf(item);
             if (
@@ -142,7 +193,7 @@ export default {
                 })
                 .then(response => console.log(response.data));
             this.$store.dispatch("loadRequest_lists");
-        },
+        }
     },
     computed: {
         equipments() {
@@ -169,12 +220,11 @@ export default {
         },
         filterWait() {
             let waitlist =
-                this.Requestlistsinlab.filter(
-                    list => list.status == "wait"
-                ) || {};
+                this.Requestlistsinlab.filter(list => list.status == "wait") ||
+                {};
             return waitlist;
         },
-        filterStudent: function () {
+        filterStudent: function() {
             return this.filterWait.filter(req => {
                 return this.getstudent(req.student_id)
                     .toLowerCase()

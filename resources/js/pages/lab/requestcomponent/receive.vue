@@ -1,92 +1,154 @@
 <template>
-<v-row>
-    <v-col cols="12">
-        <v-row dense>
-            <v-col cols="12">
-                <v-toolbar>
-                    <v-text-field v-model="search" append-icon="search" label="Search by student id..." single-line hide-details></v-text-field>
-                </v-toolbar>
-            </v-col>
-        </v-row>
-        <div v-if="filterStudent.length == 0">
-            <v-row>
-                <v-img class="mx-auto my-4" style="max-width: 33%;height: auto;" src="/img/noreq.png"></v-img>
+    <v-row>
+        <v-col cols="12">
+            <v-row dense>
+                <v-col cols="12">
+                    <v-toolbar>
+                        <v-text-field
+                            v-model="search"
+                            append-icon="search"
+                            label="Search by student id..."
+                            single-line
+                            hide-details
+                        ></v-text-field>
+                    </v-toolbar>
+                </v-col>
             </v-row>
-            <v-row>
-                <span class="mx-auto mb-1 title">No requests.</span>
-            </v-row>
-            <v-row>
-                <span style="font-family:Prompt;" class="mx-auto subheading grey--text">ไม่พบคำขอยืม</span>
-            </v-row>
-        </div>
-        <div v-for="(item, i) in filterStudent" :key="i">
-            <v-card class="mb-5">
+            <div v-if="filterStudent.length == 0">
                 <v-row>
-                    <v-card-title class="ml-4" v-text="'Request No. ' + item.id"></v-card-title>
-                    <v-spacer></v-spacer>
-                    <v-card-actions class=" mr-5">
-                        
-                    </v-card-actions>
+                    <v-img
+                        class="mx-auto my-4"
+                        style="max-width: 33%;height: auto;"
+                        src="/img/noreq.png"
+                    ></v-img>
                 </v-row>
-
-                <!-- --------------------------------------------------------------------- -->
                 <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Lending date : ' + item.created_at"></v-card-subtitle>
+                    <span class="mx-auto mb-1 title">No requests.</span>
                 </v-row>
-
                 <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Lend by : ' + getstudent(item.student_id)"></v-card-subtitle>
+                    <span
+                        style="font-family:Prompt;"
+                        class="mx-auto subheading grey--text"
+                        >ไม่พบคำขอยืม</span
+                    >
                 </v-row>
+            </div>
+            <div v-for="(item, i) in filterStudent" :key="i">
+                <v-card class="mb-5">
+                    <v-row>
+                        <v-card-title
+                            class="ml-4"
+                            v-text="'Request No. ' + item.id"
+                        ></v-card-title>
+                        <v-spacer></v-spacer>
+                        <v-card-actions class=" mr-5"> </v-card-actions>
+                    </v-row>
 
-                <v-row>
-                    <v-card-subtitle class="ml-4" v-text="'Status : '"></v-card-subtitle>
-                    <v-chip :color="getColor(item.status)" dark>{{
+                    <!-- --------------------------------------------------------------------- -->
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Lending date : ' + item.created_at"
+                        ></v-card-subtitle>
+                    </v-row>
+
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Lend by : ' + getstudent(item.student_id)"
+                        ></v-card-subtitle>
+                    </v-row>
+
+                    <v-row>
+                        <v-card-subtitle
+                            class="ml-4"
+                            v-text="'Status : '"
+                        ></v-card-subtitle>
+                        <v-chip :color="getColor(item.status)" dark>{{
                             item.status
                         }}</v-chip>
-                </v-row>
-                <div class="col-12">
-                    <v-data-table class="mt-2" :headers="detail_headers" :items="item.request_detail" hide-default-footer>
-                        <template #item.equipment_name="{item}">{{
+                    </v-row>
+                    <div class="col-12">
+                        <v-data-table
+                            class="mt-2"
+                            :headers="detail_headers"
+                            :items="item.request_detail"
+                            hide-default-footer
+                        >
+                            <template #item.equipment_name="{item}">{{
                                 getEquipName(item.equipment_id)
                             }}</template>
-                    </v-data-table>
-                    <v-card-actions>
-                        <v-spacer></v-spacer>
-                        <v-dialog v-model="returndialog" max-width="500px">
-                            <template v-slot:activator="{ on }">
-                                <v-btn outlined color="blue darken-1" v-on="on" @click="setDetail(item)">Return<v-icon class="ml-1">arrow_forward</v-icon>
-                                </v-btn>
-                            </template>
-                            <v-card>
-                                <v-card-title>
-                                    <span class="headline">Return Item</span>
-                                </v-card-title>
-                                <v-card-text>
-                                    <v-container>
-                                        <v-data-table class="mt-2" :headers="vcard_detail_header" :items="selectedDetails" hide-default-footer>
-                                            <template #item.equipment_name="{item}">{{
+                        </v-data-table>
+                        <v-card-actions>
+                            <v-spacer></v-spacer>
+                            <v-dialog v-model="returndialog" max-width="500px">
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        outlined
+                                        color="blue darken-1"
+                                        v-on="on"
+                                        @click="setDetail(item)"
+                                        >Return<v-icon class="ml-1"
+                                            >arrow_forward</v-icon
+                                        >
+                                    </v-btn>
+                                </template>
+                                <v-card>
+                                    <v-card-title>
+                                        <span class="headline"
+                                            >Return Item</span
+                                        >
+                                    </v-card-title>
+                                    <v-card-text>
+                                        <v-container>
+                                            <v-data-table
+                                                class="mt-2"
+                                                :headers="vcard_detail_header"
+                                                :items="selectedDetails"
+                                                hide-default-footer
+                                            >
+                                                <template
+                                                    #item.equip_id="{item}"
+                                                    >{{
+                                                        getEquipCode(
+                                                            item.equipment_id
+                                                        )
+                                                    }}</template
+                                                >
+                                                <template
+                                                    #item.equipment_name="{item}"
+                                                    >{{
                                                         getEquipName(
                                                             item.equipment_id
                                                         )
-                                                    }}</template>
-                                            <template #item.status="{item}">
-                                                <v-select v-model="item.status" :items="ckecklist">
-                                                </v-select>
-                                            </template>
-                                        </v-data-table>
-                                        <v-card-actions>
-                                            <v-btn outlined color="blue darken-1" @click="save(getrequestid)">Save</v-btn>
-                                        </v-card-actions>
-                                    </v-container>
-                                </v-card-text>
-                            </v-card>
-                        </v-dialog>
-                    </v-card-actions>
-                </div>
-            </v-card>
-        </div>
-    </v-col>
-</v-row>
+                                                    }}</template
+                                                >
+                                                <template #item.status="{item}">
+                                                    <v-select
+                                                        v-model="item.status"
+                                                        :items="ckecklist"
+                                                    >
+                                                    </v-select>
+                                                </template>
+                                            </v-data-table>
+                                            <v-card-actions>
+                                                <v-btn
+                                                    outlined
+                                                    color="blue darken-1"
+                                                    @click="save(getrequestid)"
+                                                    >Save</v-btn
+                                                >
+                                            </v-card-actions>
+                                        </v-container>
+                                    </v-card-text>
+                                </v-card>
+                            </v-dialog>
+                        </v-card-actions>
+                    </div>
+                </v-card>
+            </div>
+        </v-col>
+    </v-row>
 </template>
 
 <script>
@@ -98,7 +160,8 @@ export default {
         search: "",
         returndialog: false,
         checkselect: null,
-        ckecklist: [{
+        ckecklist: [
+            {
                 value: 2,
                 text: "return"
             },
@@ -111,7 +174,8 @@ export default {
                 text: "missing"
             }
         ],
-        detail_headers: [{
+        detail_headers: [
+            {
                 text: "Detail ID",
                 value: "id"
             },
@@ -128,13 +192,14 @@ export default {
                 value: "len_qty"
             }
         ],
-        vcard_detail_header: [{
-                text: "Detail ID",
-                value: "id"
-            },
+        vcard_detail_header: [
+            // {
+            //     text: "Detail ID",
+            //     value: "id"
+            // },
             {
                 text: "Equipment ID",
-                value: "equipment_id"
+                value: "equip_id"
             },
             {
                 text: "Equipment Name",
@@ -179,6 +244,11 @@ export default {
             let equipname =
                 this.equipments.find(equip => equip.id == equipId) || {};
             return equipname.equip_name;
+        },
+        getEquipCode(equipId) {
+            let equipname =
+                this.equipments.find(equip => equip.id == equipId) || {};
+            return equipname.equip_id;
         },
         deleteItem(item) {
             const index = this.request_lists.indexOf(item);
@@ -239,7 +309,7 @@ export default {
                 ) || {};
             return readylist;
         },
-        filterStudent: function () {
+        filterStudent: function() {
             return this.filterReceive.filter(req => {
                 return this.getstudent(req.student_id)
                     .toLowerCase()

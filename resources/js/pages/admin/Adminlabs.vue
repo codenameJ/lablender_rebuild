@@ -80,10 +80,10 @@
                                 background-color="transparent"
                                 v-model="tabs"
                             >
-                                <v-tab style="text-decoration : none;" to=""
+                                <!-- <v-tab style="text-decoration : none;" to=""
                                     >All</v-tab
                                 >
-                                <v-tabs-slider color="white"></v-tabs-slider>
+                                <v-tabs-slider color="white"></v-tabs-slider> -->
                             </v-tabs>
                             <v-text-field
                                 v-model="search"
