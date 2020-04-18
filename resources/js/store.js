@@ -153,7 +153,7 @@ export default {
         },
         loadRequest_details({commit}){
             axios.get("/api/requestdetail").then(data => {
-                // console.log(data.data)
+                console.log(data.data)
             let request_details = data.data
             commit('SetRequest_details', request_details)
         })
