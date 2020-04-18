@@ -182,6 +182,7 @@ export default {
     },
     data: () => ({
         temppath: null,
+        tabs:null,
         dialog: false,
         sortBy: "equip_id",
         search: "",
