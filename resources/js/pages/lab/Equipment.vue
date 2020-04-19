@@ -47,6 +47,7 @@
                                     </template>
                                     <v-spacer></v-spacer>
                                     <v-card>
+                                        <v-form v-model="valid">
                                         <v-card-title>
                                             <span class="headline">{{
                                                 formTitle
@@ -98,6 +99,7 @@
                                                             v-model="
                                                                 editedItem.equip_id
                                                             "
+                                                            type="number"
                                                             label="ID"
                                                         ></v-text-field>
                                                     </v-col>
@@ -110,6 +112,7 @@
                                                             v-model="
                                                                 editedItem.equip_name
                                                             "
+                                                            :rules="[required('Name')]"
                                                             label="Name"
                                                         ></v-text-field>
                                                     </v-col>
@@ -151,9 +154,11 @@
                                                 color="blue darken-1"
                                                 text
                                                 @click="save"
+                                                :disabled="!valid"
                                                 >Save</v-btn
                                             >
                                         </v-card-actions>
+                                        </v-form>
                                     </v-card>
                                 </v-dialog>
                             </v-toolbar>
@@ -181,6 +186,7 @@ export default {
         this.setdefaultlab();
     },
     data: () => ({
+        valid: false,
         temppath: null,
         tabs:null,
         dialog: false,
@@ -231,7 +237,11 @@ export default {
             lab_id: "",
             description: "",
             picture_path: null
-        }
+        },
+        required(propertyType) {
+                return v =>
+                        (v && v.length > 0) || (propertyType) + " is required";
+        },
     }),
     created() {},
     methods: {

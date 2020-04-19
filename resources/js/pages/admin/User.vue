@@ -58,12 +58,13 @@
                                 </template>
 
                                 <v-card>
+                                    <v-form v-model="valid">
                                     <v-card-title>
                                         <span class="headline">{{
                                             formTitle
                                         }}</span>
                                     </v-card-title>
-
+                                    
                                     <v-card-text>
                                         <v-container>
                                             <v-row>
@@ -72,6 +73,7 @@
                                                         v-model="
                                                             editedItem.name
                                                         "
+                                                        :rules="[required('Name')]"
                                                         label="Name"
                                                     ></v-text-field>
                                                 </v-col>
@@ -163,6 +165,7 @@
                                                         v-model="
                                                             editedItem.student_id
                                                         "
+                                                        :rules="[required('Student ID')]"
                                                         label="Student ID"
                                                     ></v-text-field>
                                                 </v-col>
@@ -173,7 +176,7 @@
                                     <v-card-actions>
                                         <v-spacer></v-spacer>
                                         <v-btn
-                                            color="blue darken-1"
+                                            color="grey darken-2"
                                             text
                                             @click="close"
                                             >Cancel</v-btn
@@ -182,9 +185,11 @@
                                             color="blue darken-1"
                                             text
                                             @click="save"
+                                            :disabled="!valid"
                                             >Save</v-btn
                                         >
                                     </v-card-actions>
+                                    </v-form>
                                 </v-card>
                             </v-dialog>
                         </v-toolbar>
@@ -233,8 +238,12 @@ export default {
         dialog: false,
         search: "",
         tabs: null,
-        valid: true,
+        valid: false,
         value: String,
+        required(propertyType) {
+                return v =>
+                        (v && v.length > 0) || (propertyType) + " is required";
+        },
         emailRules: [
             v => !!v || "E-mail is required",
             v => /.+@.+\..+/.test(v) || "E-mail must be valid"

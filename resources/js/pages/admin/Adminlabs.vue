@@ -17,6 +17,7 @@
                                 >
                             </template>
                             <v-card>
+                                <v-form v-model="valid">
                                 <v-card-title>
                                     <span class="headline">{{
                                         formTitle
@@ -31,6 +32,7 @@
                                                     v-model="
                                                         editedItem.course_id
                                                     "
+                                                    type="number"
                                                     label="Course ID"
                                                 ></v-text-field>
                                             </v-col>
@@ -39,6 +41,7 @@
                                                     v-model="
                                                         editedItem.course_name
                                                     "
+                                                    :rules="[required('Lab name')]"
                                                     label="Course Name"
                                                 ></v-text-field>
                                             </v-col>
@@ -47,6 +50,7 @@
                                                     v-model="
                                                         editedItem.professor_name
                                                     "
+                                                    :rules="[required('Professor name')]"
                                                     label="Professor"
                                                 ></v-text-field>
                                             </v-col>
@@ -66,9 +70,11 @@
                                         color="blue darken-1"
                                         text
                                         @click="save"
+                                        :disabled="!valid"
                                         >Save</v-btn
                                     >
                                 </v-card-actions>
+                                </v-form>
                             </v-card>
                         </v-dialog>
                     </v-row>
@@ -159,6 +165,11 @@ export default {
         // this.$store.dispatch("loadEquipments");
     },
     data: () => ({
+        valid: false,
+        required(propertyType) {
+                return v =>
+                        (v && v.length > 0) || (propertyType) + " is required";
+        },
         dialog: false,
         search: "",
         // labs: [],
