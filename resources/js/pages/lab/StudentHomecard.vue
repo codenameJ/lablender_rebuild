@@ -33,11 +33,7 @@
                 </h5>
                 <br />
                 <div class="flex-container">
-                    <v-hover
-                    v-slot:default="{ hover }"
-                    open-delay="200"
-                    >
-                    <v-card :elevation="hover ? 16 : 2" class="mx-auto mb-5" max-width="344">
+                    <v-card class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto1.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -48,7 +44,7 @@
                             เลือกอุปกรณ์ที่ต้องการยืม
                         </v-card-subtitle>
 
-                        <v-card-actions class="justify-center">
+                        <!-- <v-card-actions class="justify-center">
                             <v-btn
                                 href="/equipment"
                                 color="#0091EA"
@@ -58,13 +54,10 @@
                             >
                                 SEE EQUIPMENTS
                             </v-btn>
-                        </v-card-actions>
-                    </v-card></v-hover>
-                    <v-hover
-                    v-slot:default="{ hover }"
-                    open-delay="200"
-                    >
-                    <v-card :elevation="hover ? 16 : 2" class="mx-auto mb-5" max-width="344">
+                        </v-card-actions> -->
+                    </v-card>
+                    
+                    <v-card class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto2.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -75,18 +68,13 @@
                             ยืนยันส่งคำขอยืม
                         </v-card-subtitle>
 
-                        <v-card-actions class="justify-center">
+                        <!-- <v-card-actions class="justify-center">
                             <v-btn color="green darken-3" text right>
                                 LENDING CART
                             </v-btn>
-                        </v-card-actions>
+                        </v-card-actions> -->
                     </v-card>
-                    </v-hover>
-                    <v-hover
-                    v-slot:default="{ hover }"
-                    open-delay="200"
-                    >
-                    <v-card :elevation="hover ? 16 : 2"  class="mx-auto mb-5" max-width="344">
+                    <v-card class="mx-auto mb-5" max-width="344">
                         <v-img src="/img/howto3.png" height="200px"></v-img>
 
                         <v-card-title class="justify-center">
@@ -97,7 +85,7 @@
                             รับอุปกรณ์เมื่อคำขอเปลี่ยนสถานะเป็น Ready
                         </v-card-subtitle>
 
-                        <v-card-actions class="justify-center">
+                        <!-- <v-card-actions class="justify-center">
                             <v-btn
                                 href="/request"
                                 color="pink accent-2"
@@ -107,9 +95,8 @@
                             >
                                 YOUR REQUESTS
                             </v-btn>
-                        </v-card-actions>
+                        </v-card-actions> -->
                     </v-card>
-                    </v-hover>
                 </div>
             </div>
         </v-content>

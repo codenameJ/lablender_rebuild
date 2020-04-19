@@ -18,6 +18,7 @@
                                     >
                                 </template>
                                 <v-card>
+                                    <v-form v-model="valid">
                                     <v-card-title>
                                         <span class="headline">{{
                                             formTitle
@@ -32,6 +33,7 @@
                                                         v-model="
                                                             editedItem.course_id
                                                         "
+                                                        type="number"
                                                         label="Course ID"
                                                     ></v-text-field>
                                                 </v-col>
@@ -40,6 +42,7 @@
                                                         v-model="
                                                             editedItem.course_name
                                                         "
+                                                        :rules="[required('Lab name')]"
                                                         label="Course Name"
                                                     ></v-text-field>
                                                 </v-col>
@@ -68,9 +71,11 @@
                                             color="blue darken-1"
                                             text
                                             @click="save"
+                                            :disabled="!valid"
                                             >Save</v-btn
                                         >
                                     </v-card-actions>
+                                    </v-form>
                                 </v-card>
                             </v-dialog>
                         </v-row>
@@ -81,10 +86,10 @@
                                 background-color="transparent"
                                 v-model="tabs"
                             >
-                                <v-tab style="text-decoration : none;" to=""
+                                <!-- <v-tab style="text-decoration : none;" to=""
                                     >All</v-tab
                                 >
-                                <v-tabs-slider color="white"></v-tabs-slider>
+                                <v-tabs-slider color="white"></v-tabs-slider> -->
                             </v-tabs>
                             <v-text-field
                                 v-model="search"
@@ -167,6 +172,11 @@ export default {
         this.setdefaultname();
     },
     data: () => ({
+        valid: false,
+        required(propertyType) {
+                return v =>
+                        (v && v.length > 0) || (propertyType) + " is required";
+        },
         proflab: {},
         professorname: "",
         dialog: false,
