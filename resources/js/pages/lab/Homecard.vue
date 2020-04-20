@@ -253,7 +253,7 @@ export default {
                 "Missing"
             ],
             responsive: [{
-                breakpoint: 480,
+                breakpoint: 675,
                 options: {
                     chart: {
                         width: 350
@@ -303,7 +303,7 @@ export default {
                 "#69d2e7"
             ],
             dataLabels: {
-                enabled: true,
+                enabled: false,
                 textAnchor: "start",
                 style: {
                     colors: ["#fff"]
@@ -359,10 +359,10 @@ export default {
                 }
             },
             responsive: [{
-                breakpoint: 480,
+                breakpoint: 675,
                 options: {
                     chart: {
-                        width: 300
+                        width: 400
                     },
                     plotOptions: {
                         bar: {
