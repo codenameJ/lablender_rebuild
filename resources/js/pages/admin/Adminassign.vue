@@ -248,7 +248,14 @@ export default {
                 id
             }) => this.tas.some(x => x.user_id == id))
             // console.log(result)
-            return result;
+
+            const xresult = this.filterTa.filter(
+                ({ id }) => !this.tainlab.some(x => x.user_id == id)
+            );
+            console.log(xresult);
+            return xresult;
+
+            return xresult;
         }
     },
     watch: {}

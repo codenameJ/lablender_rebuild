@@ -157,8 +157,7 @@ export default {
             console.log(this.tainlab);
         },
         close() {
-            this.alradyadd = [],
-            this.dialog = false;
+            (this.alradyadd = []), (this.dialog = false);
         },
         gettaname(userid) {
             let taname = this.users.find(user => user.id == userid) || {};
@@ -251,11 +250,16 @@ export default {
             // console.log(this.filterTa)
             // return this.filterTa.filter(this.comparer(this.tainlab));
             // return this.tainlab.filter(this.comparer(this.filterTa));
-            const result = this.filterTa.filter(({
-                id
-            }) => this.tas.some(x => x.user_id == id))
+            const result = this.filterTa.filter(({ id }) =>
+                this.tas.some(x => x.user_id == id)
+            );
             // console.log(result)
-            return result;
+
+            const xresult = this.filterTa.filter(
+                ({ id }) => !this.tainlab.some(x => x.user_id == id)
+            );
+            console.log(xresult);
+            return xresult;
         }
     },
     watch: {}
