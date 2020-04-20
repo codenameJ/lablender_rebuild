@@ -8,7 +8,7 @@
                     <v-col class="ml-12">
                         <h1 align="right">{{ curlab.course_name }}</h1>
                         <h2 align="right">{{ curlab.course_id }}</h2>
-                        <h4 align="right">Welcome, username</h4>
+                        <h4 align="right">Welcome!</h4>
                     </v-col>
                     <v-col>
                     <img align="left" 
