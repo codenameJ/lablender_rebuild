@@ -160,6 +160,8 @@ export default {
     mounted() {
         this.$store.dispatch("loadMissing_lists");
         this.$store.dispatch("loadRequest_details");
+         this.$store.dispatch("loadStudents");
+        this.$store.dispatch("loadEquipments");
     },
     data: () => ({
         returndialog: false,

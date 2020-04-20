@@ -7,7 +7,7 @@
                         <v-text-field
                             v-model="search"
                             append-icon="search"
-                            label="Search by student id..."
+                            label="Search by student name..."
                             single-line
                             hide-details
                         ></v-text-field>
