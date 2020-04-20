@@ -258,7 +258,7 @@ export default {
             const xresult = this.filterTa.filter(
                 ({ id }) => !this.tainlab.some(x => x.user_id == id)
             );
-            console.log(xresult);
+            // console.log(xresult);
             return xresult;
         }
     },
