@@ -110,6 +110,21 @@
                         </v-row>
                     </v-col>
 
+                    <v-dialog v-model="photoDialog" max-width="1500px">
+                <v-card>
+                    <v-card-text>
+                        <v-container>
+                            <img
+                                :src="
+                                    '/storage/' + this.pictureZoom.picture_path
+                                "
+                                width="100%"
+                            />
+                        </v-container>
+                    </v-card-text>
+                </v-card>
+            </v-dialog>
+
                     <v-row dense>
                         <v-col cols="12">
                             <div v-if="Announcementsinlab.length == 0">
@@ -189,11 +204,16 @@
                                                     {{ item.describe }}
                                                     <br />
                                                     <v-img
+                                                        class="mt-4"
                                                         v-if="item.picture_path"
+                                                        style="width: 30%;
+                                                        max-width: 240px;
+                                                        height: auto;"
                                                         :src="
                                                             '/storage/' +
                                                                 item.picture_path
                                                         "
+                                                        @click="(photoDialog = true), zoom(item)"
                                                     />
                                                 </v-card-subtitle>
                                             </v-card-text>
@@ -237,6 +257,8 @@ export default {
     },
     data: () => ({
         dialog: false,
+        photoDialog: false,
+        pictureZoom: {},
         search: "",
         tabs: null,
         today: new Date(),
@@ -260,6 +282,9 @@ export default {
     }),
     created() {},
     methods: {
+        zoom(val) {
+            this.pictureZoom = val;
+        },
         seteditlab() {
             this.editedItem.lab_id = this.curlab.id;
             return this.editedItem.lab_id;

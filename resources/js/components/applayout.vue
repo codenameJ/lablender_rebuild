@@ -7,7 +7,9 @@
                 ></v-app-bar-nav-icon>
                 <v-toolbar-title>Lab Lender</v-toolbar-title>
                 <v-spacer></v-spacer>
+                <div v-if="curuser.type=='student'">
                 <lendingcart />
+                </div>
                 <v-menu
                     offset-y
                     origin="center center"
