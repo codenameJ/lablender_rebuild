@@ -231,7 +231,7 @@
                                                 }}</b
                                                 ><br />
                                                 {{
-                                                    item.created_at
+                                                    item.announcement_name
                                                 }}</v-card-subtitle
                                             >
                                         </v-row>

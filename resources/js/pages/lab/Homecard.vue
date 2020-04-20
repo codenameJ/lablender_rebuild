@@ -7,7 +7,7 @@
                 <v-hover v-slot:default="{ hover }" open-delay="200">
                     <v-row>
                         <v-col>
-                            <v-card :elevation="hover ? 16 : 2">
+                            <v-card :elevation="hover ? 16 : 2" max-width="650" class="mx-auto">
                                 <v-row>
                                     <v-icon large color="#00A8C9" class="ml-6 mx-2">whatshot</v-icon>
                                     <v-card-title style="font-family:Prompt;">อุปกรณ์ที่ถูกยืมบ่อย</v-card-title>
@@ -28,7 +28,7 @@
                 <v-hover v-slot:default="{ hover }" open-delay="200">
                     <v-row>
                         <v-col>
-                            <v-card :elevation="hover ? 16 : 2">
+                            <v-card :elevation="hover ? 16 : 2" max-width="650" class="mx-auto">
                                 <v-row>
                                     <v-icon large color="#00A981" class="ml-6 mx-2">donut_large</v-icon>
                                     <v-card-title style="font-family:Prompt;">สถานะคำขอยืมทั้งหมด</v-card-title>
@@ -38,7 +38,7 @@
                                                 }}</v-card-subtitle>
                                 </v-row>
                                 <div id="chart">
-                                    <apexchart type="donut" height="363" width="650" :options="chartOptions_donut" :series="series_donut"></apexchart>
+                                    <apexchart type="donut" height="363" width="500" :options="chartOptions_donut" :series="series_donut"></apexchart>
                                 </div>
                             </v-card>
                         </v-col>

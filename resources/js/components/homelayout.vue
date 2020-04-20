@@ -38,7 +38,7 @@
                     :nudge-bottom="14"
                     transition="scale-transition"
                 >
-                    <template v-slot:activator="{ on }">
+                    <template v-slot:activator="{ on }" v-if="curuser.type=='student'">
                         <v-btn @click="markAsRead" icon v-on="on">
                             <v-badge overlap>
                                 <span slot="badge">{{
