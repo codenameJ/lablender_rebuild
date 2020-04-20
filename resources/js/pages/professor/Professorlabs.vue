@@ -100,6 +100,27 @@
                             ></v-text-field>
                         </v-toolbar>
                         <v-col cols="12">
+                             <div v-if="filterLab.length == 0">
+                                <v-row>
+                                    <v-img
+                                        class="mx-auto mb-4"
+                                        style="max-width: 35%;height: auto;"
+                                        src="/img/nodata.png"
+                                    ></v-img>
+                                </v-row>
+                                <v-row>
+                                    <span class="mx-auto mb-1 title"
+                                        >No labs</span
+                                    >
+                                </v-row>
+                                <v-row>
+                                    <span
+                                        style="font-family:Prompt;"
+                                        class="mx-auto subheading grey--text"
+                                        >ยังไม่มีแลปที่รับผิดชอบ สามารถสร้างแลปของตนเองได้ทันที</span
+                                    >
+                                </v-row>
+                            </div>
                             <div v-for="(item, i) in filterLab" :key="i">
                                 <v-card class="mb-3">
                                     <div

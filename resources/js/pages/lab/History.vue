@@ -32,9 +32,10 @@
                                     >
                                 </v-row>
                                 <v-row>
-                                    <span class="mx-auto subheading grey--text"
-                                        >Requests will be displayed here if the
-                                        equipment is returned to lab.</span
+                                    <span 
+                                    style="font-family:Prompt;"
+                                    class="mx-auto subheading grey--text"
+                                        >ยังไม่มีประวัติการคืนอุปกรณ์</span
                                     >
                                 </v-row>
                             </div>
