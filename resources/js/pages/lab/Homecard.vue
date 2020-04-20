@@ -489,11 +489,28 @@ export default {
         request_details() {
             return this.$store.state.request_details;
         },
-        get_missinglists() {
-            let missinglists =
-                this.request_details.filter(
-                    req_detail => req_detail.status == "missing"
+        equipmentsinlab() {
+            let selequips =
+                this.equipments.filter(
+                    equipment => equipment.lab_id == this.curlab.id
                 ) || {};
+            return selequips;
+        },
+        Requestlistsinlab() {
+            let selrequestlist =
+                this.request_lists.filter(
+                    request_list => request_list.lab_id == this.curlab.id
+                ) || {};
+            return selrequestlist;
+        },
+        get_missinglists() {
+            const result = this.request_details.filter(({equipment_id}) => this.equipmentsinlab.some(x => x.id == equipment_id))
+
+            let missinglists =
+                result.filter(
+                    reqdetail => reqdetail.status == "missing"
+                ) || {};
+
 
             var temp = [];
 
@@ -523,9 +540,12 @@ export default {
             return produce;
         },
         get_brokenlists() {
+            const result = this.request_details.filter(({equipment_id}) => this.equipmentsinlab.some(x => x.id == equipment_id))
+
             let brokenlists =
-                this.request_details.filter(
-                    req_detail => req_detail.status == "broken"
+                result.filter(
+                    req_detail =>
+                        req_detail.status == "broken" 
                 ) || {};
             var temp = [];
 
@@ -555,9 +575,12 @@ export default {
             return produce;
         },
         get_freqencylend() {
+            const result = this.request_details.filter(({equipment_id}) => this.equipmentsinlab.some(x => x.id == equipment_id))
+
             let returnlists =
-                this.request_details.filter(
-                    req_detail => req_detail.status == "return"
+                result.filter(
+                    req_detail =>
+                        req_detail.status == "return" 
                 ) || {};
 
             var temp = [];
@@ -611,7 +634,7 @@ export default {
         },
         get_outstock() {
             let outstocklists =
-                this.equipments.filter(eq => eq.equip_qty == 0) || {};
+                this.equipmentsinlab.filter(eq => eq.equip_qty == 0) || {};
             return outstocklists;
         },
         get_detail() {
@@ -619,17 +642,20 @@ export default {
 
             var produce = [];
 
-            for (var i = 0; i < this.request_lists.length; i++) {
-                if (temp.indexOf(this.request_lists[i].status) == -1) {
-                    temp.push(this.request_lists[i].status);
+            for (var i = 0; i < this.Requestlistsinlab.length; i++) {
+                if (temp.indexOf(this.Requestlistsinlab[i].status) == -1) {
+                    temp.push(this.Requestlistsinlab[i].status);
                     var _data = {};
-                    _data.status = this.request_lists[i].status;
+                    _data.status = this.Requestlistsinlab[i].status;
                     _data.count = 1;
 
                     produce.push(_data);
                 } else {
                     for (var j = 0; j < produce.length; j++) {
-                        if (produce[j].status === this.request_lists[i].status) {
+                        if (
+                            produce[j].status ===
+                            this.Requestlistsinlab[i].status
+                        ) {
                             var _x = parseInt(produce[j].count) + 1;
                             produce[j].count = _x;
                         }
