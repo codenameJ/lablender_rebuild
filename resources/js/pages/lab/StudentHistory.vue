@@ -256,9 +256,13 @@ export default {
             else return "#CE93D8";
         },
         getstudent(stdid) {
+            let getstudent =
+                this.students.find(std => {
+                    return std.id == stdid;
+                }) || {};
             let thisuser =
                 this.users.find(user => {
-                    return user.student;
+                    return user.id == getstudent.user_id;
                 }) || {};
             return thisuser.name;
         },
@@ -304,6 +308,9 @@ export default {
     computed: {
         equipments() {
             return this.$store.state.equipments;
+        },
+        students() {
+            return this.$store.state.students;
         },
         currentuser() {
             return this.$store.state.selectedUser;

@@ -521,10 +521,11 @@ export default {
                 }
             }
             produce.sort((a, b) => parseInt(b.len_qty) - parseInt(a.len_qty));
+            var sliceproduce = produce.slice(0,5);
 
             var _name = [];
-            for (var k = 0; k < produce.length; k++) {
-                let getname = this.getEquipName(produce[k].equipment_id);
+            for (var k = 0; k < sliceproduce.length; k++) {
+                let getname = this.getEquipName(sliceproduce[k].equipment_id);
                 _name.push(getname);
             }
             var _fullname = {};
@@ -532,8 +533,8 @@ export default {
             this.chartOptions.xaxis = _fullname;
 
             var _total = [];
-            for (var l = 0; l < produce.length; l++) {
-                _total.push(parseInt(produce[l].len_qty));
+            for (var l = 0; l < sliceproduce.length; l++) {
+                _total.push(parseInt(sliceproduce[l].len_qty));
             }
             var _fulltotal = {};
             _fulltotal.data = _total;
