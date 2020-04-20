@@ -1,85 +1,53 @@
 <template>
-    <div id="app" v-if="curlab">
-        <v-content>
-            <div id="flex-container">
-                <v-row>
-                    <div id="chart">
-                        <v-hover v-slot:default="{ hover }" open-delay="200">
-                            <v-row>
-                                <v-col>
-                                    <v-card :elevation="hover ? 16 : 2">
-                                        <v-row>
-                                            <v-icon
-                                                large
-                                                color="#00A8C9"
-                                                class="ml-6 mx-2"
-                                                >whatshot</v-icon
-                                            >
-                                            <v-card-title
-                                                style="font-family:Prompt;"
-                                                >อุปกรณ์ที่ถูกยืมบ่อย</v-card-title
-                                            >
-                                            <v-spacer></v-spacer>
-                                            <v-card-subtitle
-                                                class="mt-1 mr-4"
-                                                style="font-size:16px;"
-                                                >{{
+<div id="app" v-if="curlab">
+    <v-content>
+        <div id="flex-container">
+            <v-row>
+
+                <v-hover v-slot:default="{ hover }" open-delay="200">
+                    <v-row>
+                        <v-col>
+                            <v-card :elevation="hover ? 16 : 2" max-width="650" class="mx-auto">
+                                <v-row>
+                                    <v-icon large color="#00A8C9" class="ml-6 mx-2">whatshot</v-icon>
+                                    <v-card-title style="font-family:Prompt;">อุปกรณ์ที่ถูกยืมบ่อย</v-card-title>
+                                    <v-spacer></v-spacer>
+                                    <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{
                                                     curlab.course_name
-                                                }}</v-card-subtitle
-                                            >
-                                        </v-row>
-                                        <apexchart
-                                            type="bar"
-                                            height="350"
-                                            width="650"
-                                            :options="chartOptions"
-                                            :series="total_qty_series"
-                                        ></apexchart>
-                                    </v-card>
-                                </v-col>
-                            </v-row>
-                        </v-hover>
-                    </div>
-                    <div id="chart">
-                        <v-hover v-slot:default="{ hover }" open-delay="200">
-                            <v-row>
-                                <v-col>
-                                    <v-card :elevation="hover ? 16 : 2">
-                                        <v-row>
-                                            <v-icon
-                                                large
-                                                color="#00A981"
-                                                class="ml-6 mx-2"
-                                                >donut_large</v-icon
-                                            >
-                                            <v-card-title
-                                                style="font-family:Prompt;"
-                                                >สถานะคำขอยืมทั้งหมด</v-card-title
-                                            >
-                                            <v-spacer></v-spacer>
-                                            <v-card-subtitle
-                                                class="mt-1 mr-4"
-                                                style="font-size:16px;"
-                                                >{{
+                                                }}</v-card-subtitle>
+                                </v-row>
+                                <div id="chart">
+                                    <apexchart type="bar" height="350" width="650" :options="chartOptions" :series="total_qty_series"></apexchart>
+                                </div>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-hover>
+
+                <!-- <div id="chart"> -->
+                <v-hover v-slot:default="{ hover }" open-delay="200">
+                    <v-row>
+                        <v-col>
+                            <v-card :elevation="hover ? 16 : 2" max-width="650" class="mx-auto">
+                                <v-row>
+                                    <v-icon large color="#00A981" class="ml-6 mx-2">donut_large</v-icon>
+                                    <v-card-title style="font-family:Prompt;">สถานะคำขอยืมทั้งหมด</v-card-title>
+                                    <v-spacer></v-spacer>
+                                    <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{
                                                     curlab.course_name
-                                                }}</v-card-subtitle
-                                            >
-                                        </v-row>
-                                        <apexchart
-                                            type="donut"
-                                            height="363"
-                                            width="650"
-                                            :options="chartOptions_donut"
-                                            :series="series_donut"
-                                        ></apexchart>
-                                    </v-card>
-                                </v-col>
-                            </v-row>
-                        </v-hover>
-                    </div>
-                </v-row>
-            </div>
-            <!-- <div class="mx-auto mt-1 mb-2" max-width="1500">
+                                                }}</v-card-subtitle>
+                                </v-row>
+                                <div id="chart">
+                                    <apexchart type="donut" height="363" width="500" :options="chartOptions_donut" :series="series_donut"></apexchart>
+                                </div>
+                            </v-card>
+                        </v-col>
+                    </v-row>
+                </v-hover>
+                <!-- </div> -->
+            </v-row>
+        </div>
+        <!-- <div class="mx-auto mt-1 mb-2" max-width="1500">
                 <v-row>
                     <div>
 
@@ -91,197 +59,116 @@
                     <h5 class="mr-5 mb-5" align="right">Welcome, professor name</h5>
                 </v-row>
             </div> -->
-            <div class="flex-container">
-                <v-row>
-                    <v-card class="mt-6 mb-6 mx-auto" max-width="420">
-                        <v-row>
-                            <v-icon large color="#7F7DD9" class="ml-6 mx-2"
-                                >block</v-icon
-                            >
-                            <v-card-title style="font-family:Prompt;"
-                                >สถิติการยืม</v-card-title
-                            >
-                            <v-spacer></v-spacer>
-                            <v-card-subtitle
-                                class="mt-1 mr-4"
-                                style="font-size:16px;"
-                                >{{ curlab.course_name }}</v-card-subtitle
-                            >
-                        </v-row>
-                        <v-card-text class="pt-0">
-                            <v-data-table
-                                :headers="headers_status"
-                                :items="get_detail"
-                                :items-per-page="5"
-                                class="elevation-1"
-                            ></v-data-table>
-                            <v-divider class="my-2"></v-divider>
-                            <v-icon class="mr-2" small>
-                                build
-                            </v-icon>
-                            <span class="caption grey--text font-weight-light"
-                                >สามารถตรวจสอบและเรียกดูอุปกรณ์ทั้งหมดได้ที่หน้าอุปกรณ์</span
-                            >
-                        </v-card-text>
-                    </v-card>
-                </v-row>
-                <v-row>
-                    <v-card class="mt-6 mb-6 mx-auto" max-width="420">
-                        <v-row>
-                            <v-icon large color="#7F7DD9" class="ml-6 mx-2"
-                                >block</v-icon
-                            >
-                            <v-card-title style="font-family:Prompt;"
-                                >อุปกรณ์ที่หมดสต็อก</v-card-title
-                            >
-                            <v-spacer></v-spacer>
-                            <v-card-subtitle
-                                class="mt-1 mr-4"
-                                style="font-size:16px;"
-                                >{{ curlab.course_name }}</v-card-subtitle
-                            >
-                        </v-row>
-                        <v-card-text class="pt-0">
-                            <v-data-table
-                                :headers="headers_outstock"
-                                :items="get_outstock"
-                                :items-per-page="5"
-                                class="elevation-1"
-                            ></v-data-table>
-                            <v-divider class="my-2"></v-divider>
-                            <v-icon class="mr-2" small>
-                                build
-                            </v-icon>
-                            <span class="caption grey--text font-weight-light"
-                                >สามารถตรวจสอบและเรียกดูอุปกรณ์ทั้งหมดได้ที่หน้าอุปกรณ์</span
-                            >
-                        </v-card-text>
-                    </v-card>
 
-                    <v-card class="mt-6 mb-6 mx-auto" max-width="420">
-                        <v-row>
-                            <v-icon large color="#7F7DD9" class="ml-6 mx-2"
-                                >block</v-icon
-                            >
-                            <v-card-title style="font-family:Prompt;"
-                                >อุปกรณ์ที่ถูกยืมบ่อย</v-card-title
-                            >
-                            <v-spacer></v-spacer>
-                            <v-card-subtitle
-                                class="mt-1 mr-4"
-                                style="font-size:16px;"
-                                >{{ curlab.course_name }}</v-card-subtitle
-                            >
-                        </v-row>
-                        <v-card-text class="pt-0">
-                            <v-data-table
-                                :headers="headers_frequency"
-                                :items="get_freqencylend"
-                                :items-per-page="5"
-                                class="elevation-1"
-                                ><template #item.equip_id="{item}">{{
+        <v-row align="center">
+            <v-card class="mt-6 mb-6 mx-auto" max-width="420">
+                <v-row>
+                    <v-icon large color="#7F7DD9" class="ml-6 mx-2">block</v-icon>
+                    <v-card-title style="font-family:Prompt;">อุปกรณ์ที่ถูกยืมบ่อย</v-card-title>
+                    <v-spacer></v-spacer>
+                    <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
+                </v-row>
+                <v-card-text class="pt-0">
+                    <v-data-table :headers="headers_frequency" :items="get_freqencylend" :items-per-page="5" class="elevation-1"><template #item.equip_id="{item}">{{
                                     getEquipCode(item.equipment_id)
                                 }}</template>
-                                <template #item.equipment_name="{item}">{{
+                        <template #item.equipment_name="{item}">{{
                                     getEquipName(item.equipment_id)
-                                }}</template></v-data-table
-                            >
-                            <v-divider class="my-2"></v-divider>
-                            <v-icon class="mr-2" small>
-                                build
-                            </v-icon>
-                            <span class="caption grey--text font-weight-light"
-                                >สามารถตรวจสอบและเรียกดูอุปกรณ์ทั้งหมดได้ที่หน้าอุปกรณ์</span
-                            >
-                        </v-card-text>
-                    </v-card>
-                </v-row>
-
+                                }}</template></v-data-table>
+                    <v-divider class="my-2"></v-divider>
+                    <v-icon class="mr-2" small>
+                        build
+                    </v-icon>
+                    <span class="caption grey--text font-weight-light">สามารถตรวจสอบและเรียกดูอุปกรณ์ทั้งหมดได้ที่หน้าอุปกรณ์</span>
+                </v-card-text>
+            </v-card>
+            <v-card class="mt-6 mb-6 mx-auto" max-width="420">
                 <v-row>
-                    <v-card class="mt-6 mb-6 mx-auto" max-width="420">
-                        <v-row>
-                            <v-icon
-                                large
-                                color="orange accent-2"
-                                class="ml-6 mx-2"
-                                >sentiment_dissatisfied</v-icon
-                            >
-                            <v-card-title style="font-family:Prompt;"
-                                >อุปกรณ์ที่สูญหาย</v-card-title
-                            >
-                            <v-spacer></v-spacer>
-                            <v-card-subtitle
-                                class="mt-1 mr-4"
-                                style="font-size:16px;"
-                                >{{ curlab.course_name }}</v-card-subtitle
-                            >
-                        </v-row>
-                        <v-card-text class="pt-0">
-                            <v-data-table
-                                :headers="headers_missing"
-                                :items="get_missinglists"
-                                :items-per-page="5"
-                                class="elevation-1"
-                            >
-                                <template #item.equip_id="{item}">{{
-                                    getEquipCode(item.equipment_id)
-                                }}</template>
-                                <template #item.equipment_name="{item}">{{
-                                    getEquipName(item.equipment_id)
-                                }}</template>
-                            </v-data-table>
-                            <v-divider class="my-2"></v-divider>
-                            <v-icon class="mr-2" small>
-                                build
-                            </v-icon>
-                            <span class="caption grey--text font-weight-light"
-                                >สามารถตรวจสอบรายการทั้งหมดได้ที่หน้าบำรุงรักษา</span
-                            >
-                        </v-card-text>
-                    </v-card>
-
-                    <v-card class="mt-6 mb-6 mx-auto" max-width="420">
-                        <v-row>
-                            <v-icon large color="error" class="ml-6 mx-2"
-                                >sentiment_dissatisfied</v-icon
-                            >
-                            <v-card-title style="font-family:Prompt;"
-                                >อุปกรณ์ที่เสียหาย</v-card-title
-                            >
-                            <v-spacer></v-spacer>
-                            <v-card-subtitle
-                                class="mt-1 mr-4"
-                                style="font-size:16px;"
-                                >{{ curlab.course_name }}</v-card-subtitle
-                            >
-                        </v-row>
-                        <v-card-text class="pt-0">
-                            <v-data-table
-                                :headers="headers_broken"
-                                :items="get_brokenlists"
-                                :items-per-page="5"
-                                class="elevation-1"
-                            >
-                                <template #item.equip_id="{item}">{{
-                                    getEquipCode(item.equipment_id)
-                                }}</template>
-                                <template #item.equipment_name="{item}">{{
-                                    getEquipName(item.equipment_id)
-                                }}</template></v-data-table
-                            >
-                            <v-divider class="my-2"></v-divider>
-                            <v-icon class="mr-2" small>
-                                build
-                            </v-icon>
-                            <span class="caption grey--text font-weight-light"
-                                >สามารถตรวจสอบรายการทั้งหมดได้ที่หน้าบำรุงรักษา</span
-                            >
-                        </v-card-text>
-                    </v-card>
+                    <v-icon large color="#7F7DD9" class="ml-6 mx-2">block</v-icon>
+                    <v-card-title style="font-family:Prompt;">สถิติการยืม</v-card-title>
+                    <v-spacer></v-spacer>
+                    <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
                 </v-row>
-            </div>
-        </v-content>
-    </div>
+                <v-card-text class="pt-0">
+                    <v-data-table :headers="headers_status" :items="get_detail" :items-per-page="5" class="elevation-1"></v-data-table>
+                    <v-divider class="my-2"></v-divider>
+                    <v-icon class="mr-2" small>
+                        build
+                    </v-icon>
+                    <span class="caption grey--text font-weight-light">สามารถตรวจสอบและเรียกดูอุปกรณ์ทั้งหมดได้ที่หน้าอุปกรณ์</span>
+                </v-card-text>
+            </v-card>
+
+        </v-row>
+
+        <v-row>
+            <v-card class="mt-6 mb-6 mx-auto" max-width="420">
+                <v-row>
+                    <v-icon large color="#7F7DD9" class="ml-6 mx-2">block</v-icon>
+                    <v-card-title style="font-family:Prompt;">อุปกรณ์ที่หมดสต็อก</v-card-title>
+                    <v-spacer></v-spacer>
+                    <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
+                </v-row>
+                <v-card-text class="pt-0">
+                    <v-data-table :headers="headers_outstock" :items="get_outstock" :items-per-page="5" class="elevation-1"></v-data-table>
+                    <v-divider class="my-2"></v-divider>
+                    <v-icon class="mr-2" small>
+                        build
+                    </v-icon>
+                    <span class="caption grey--text font-weight-light">สามารถตรวจสอบและเรียกดูอุปกรณ์ทั้งหมดได้ที่หน้าอุปกรณ์</span>
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mt-6 mb-6 mx-auto" max-width="420">
+                <v-row>
+                    <v-icon large color="orange accent-2" class="ml-6 mx-2">sentiment_dissatisfied</v-icon>
+                    <v-card-title style="font-family:Prompt;">อุปกรณ์ที่สูญหาย</v-card-title>
+                    <v-spacer></v-spacer>
+                    <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
+                </v-row>
+                <v-card-text class="pt-0">
+                    <v-data-table :headers="headers_missing" :items="get_missinglists" :items-per-page="5" class="elevation-1">
+                        <template #item.equip_id="{item}">{{
+                                    getEquipCode(item.equipment_id)
+                                }}</template>
+                        <template #item.equipment_name="{item}">{{
+                                    getEquipName(item.equipment_id)
+                                }}</template>
+                    </v-data-table>
+                    <v-divider class="my-2"></v-divider>
+                    <v-icon class="mr-2" small>
+                        build
+                    </v-icon>
+                    <span class="caption grey--text font-weight-light">สามารถตรวจสอบรายการทั้งหมดได้ที่หน้าบำรุงรักษา</span>
+                </v-card-text>
+            </v-card>
+
+            <v-card class="mt-6 mb-6 mx-auto" max-width="420">
+                <v-row>
+                    <v-icon large color="error" class="ml-6 mx-2">sentiment_dissatisfied</v-icon>
+                    <v-card-title style="font-family:Prompt;">อุปกรณ์ที่เสียหาย</v-card-title>
+                    <v-spacer></v-spacer>
+                    <v-card-subtitle class="mt-1 mr-4" style="font-size:16px;">{{ curlab.course_name }}</v-card-subtitle>
+                </v-row>
+                <v-card-text class="pt-0">
+                    <v-data-table :headers="headers_broken" :items="get_brokenlists" :items-per-page="5" class="elevation-1">
+                        <template #item.equip_id="{item}">{{
+                                    getEquipCode(item.equipment_id)
+                                }}</template>
+                        <template #item.equipment_name="{item}">{{
+                                    getEquipName(item.equipment_id)
+                                }}</template></v-data-table>
+                    <v-divider class="my-2"></v-divider>
+                    <v-icon class="mr-2" small>
+                        build
+                    </v-icon>
+                    <span class="caption grey--text font-weight-light">สามารถตรวจสอบรายการทั้งหมดได้ที่หน้าบำรุงรักษา</span>
+                </v-card-text>
+            </v-card>
+        </v-row>
+
+    </v-content>
+</div>
 </template>
 
 <script>
@@ -290,8 +177,7 @@ export default {
     data: () => ({
         total_qty_series: [],
         freqlen_name: [],
-        headers_status: [
-            {
+        headers_status: [{
                 text: "Status",
                 align: "start",
                 value: "status"
@@ -301,8 +187,7 @@ export default {
                 value: "count"
             }
         ],
-        headers_outstock: [
-            {
+        headers_outstock: [{
                 text: "Equipment ID",
                 align: "start",
                 value: "equip_id"
@@ -312,8 +197,7 @@ export default {
                 value: "equip_name"
             }
         ],
-        headers_frequency: [
-            {
+        headers_frequency: [{
                 text: "Equipment ID",
                 align: "start",
                 value: "equip_id"
@@ -327,8 +211,7 @@ export default {
                 value: "len_qty"
             }
         ],
-        headers_broken: [
-            {
+        headers_broken: [{
                 text: "Equipment ID",
                 align: "start",
                 value: "equip_id"
@@ -342,8 +225,7 @@ export default {
                 value: "len_qty"
             }
         ],
-        headers_missing: [
-            {
+        headers_missing: [{
                 text: "Equipment ID",
                 align: "start",
                 value: "equip_id"
@@ -370,19 +252,17 @@ export default {
                 "Broken",
                 "Missing"
             ],
-            responsive: [
-                {
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: 200
-                        },
-                        legend: {
-                            position: "bottom"
-                        }
+            responsive: [{
+                breakpoint: 675,
+                options: {
+                    chart: {
+                        width: 350
+                    },
+                    legend: {
+                        position: "bottom"
                     }
                 }
-            ],
+            }],
             colors: [
                 "#018ffb",
                 "#785ed0",
@@ -395,8 +275,10 @@ export default {
         total_qty_series: [],
         chartOptions: {
             chart: {
+                width: "100%",
+                height: 380,
                 type: "bar",
-                height: 380
+
             },
             plotOptions: {
                 bar: {
@@ -421,12 +303,12 @@ export default {
                 "#69d2e7"
             ],
             dataLabels: {
-                enabled: true,
+                enabled: false,
                 textAnchor: "start",
                 style: {
                     colors: ["#fff"]
                 },
-                formatter: function(val, opt) {
+                formatter: function (val, opt) {
                     return (
                         opt.w.globals.labels[opt.dataPointIndex] + ":  " + val
                     );
@@ -462,12 +344,36 @@ export default {
                 },
                 y: {
                     title: {
-                        formatter: function() {
+                        formatter: function () {
                             return "";
                         }
                     }
                 }
-            }
+            },
+            legend: {
+                position: "right",
+                verticalAlign: "top",
+                containerMargin: {
+                    left: 35,
+                    right: 60
+                }
+            },
+            responsive: [{
+                breakpoint: 675,
+                options: {
+                    chart: {
+                        width: 400
+                    },
+                    plotOptions: {
+                        bar: {
+                            horizontal: false
+                        }
+                    },
+                    legend: {
+                        position: "bottom"
+                    }
+                }
+            }],
         }
     }),
 
@@ -504,13 +410,14 @@ export default {
             return selrequestlist;
         },
         get_missinglists() {
-            const result = this.request_details.filter(({equipment_id}) => this.equipmentsinlab.some(x => x.id == equipment_id))
+            const result = this.request_details.filter(({
+                equipment_id
+            }) => this.equipmentsinlab.some(x => x.id == equipment_id))
 
             let missinglists =
                 result.filter(
                     reqdetail => reqdetail.status == "missing"
                 ) || {};
-
 
             var temp = [];
 
@@ -540,12 +447,14 @@ export default {
             return produce;
         },
         get_brokenlists() {
-            const result = this.request_details.filter(({equipment_id}) => this.equipmentsinlab.some(x => x.id == equipment_id))
+            const result = this.request_details.filter(({
+                equipment_id
+            }) => this.equipmentsinlab.some(x => x.id == equipment_id))
 
             let brokenlists =
                 result.filter(
                     req_detail =>
-                        req_detail.status == "broken" 
+                    req_detail.status == "broken"
                 ) || {};
             var temp = [];
 
@@ -575,12 +484,14 @@ export default {
             return produce;
         },
         get_freqencylend() {
-            const result = this.request_details.filter(({equipment_id}) => this.equipmentsinlab.some(x => x.id == equipment_id))
+            const result = this.request_details.filter(({
+                equipment_id
+            }) => this.equipmentsinlab.some(x => x.id == equipment_id))
 
             let returnlists =
                 result.filter(
                     req_detail =>
-                        req_detail.status == "return" 
+                    req_detail.status == "return"
                 ) || {};
 
             var temp = [];
@@ -712,5 +623,10 @@ div.flex-container {
     div.flex-container {
         flex-direction: column;
     }
+}
+
+#chart {
+    max-width: 650px;
+    margin: 35px auto;
 }
 </style>

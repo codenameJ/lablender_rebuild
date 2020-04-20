@@ -7,11 +7,15 @@
                 ></v-app-bar-nav-icon>
                 <v-toolbar-title>Lab Lender</v-toolbar-title>
                 <v-spacer></v-spacer>
+                <div v-if="curuser.type=='student'">
                 <lendingcart />
+                </div>
+
+                <div v-if="curuser.type=='student'">
                 <v-menu
                     offset-y
                     origin="center center"
-                    class="elelvation-1"
+                    class="elevation-1"
                     :nudge-bottom="14"
                     transition="scale-transition"
                 >
@@ -116,6 +120,7 @@
                         </div>
                     </v-list>
                 </v-menu>
+                </div>
 
                 <v-menu bottom left>
                     <template v-slot:activator="{ on }">

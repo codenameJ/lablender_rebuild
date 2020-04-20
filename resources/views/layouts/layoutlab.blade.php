@@ -356,10 +356,10 @@
         }
 
         /* chart */
-        #chart {
+        /* #chart {
             max-width: 650px;
             margin: 35px auto;
-        }
+        } */
     </style>
 
 
