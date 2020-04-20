@@ -128,6 +128,8 @@
 export default {
     mounted() {
         this.$store.dispatch("loadLabs");
+        this.$store.dispatch("loadTas");
+        this.$store.dispatch("loadUsers");
     },
     data: () => ({
         dialog: false,
@@ -238,7 +240,15 @@ export default {
         },
         unassign: function() {
             this.alradyadd = [];
-            return this.filterTa.filter(this.comparer(this.tainlab));
+            // console.log(this.tainlab)
+            // console.log(this.filterTa)
+            // return this.filterTa.filter(this.comparer(this.tainlab));
+            // return this.tainlab.filter(this.comparer(this.filterTa));
+            const result = this.filterTa.filter(({
+                id
+            }) => this.tas.some(x => x.user_id == id))
+            // console.log(result)
+            return result;
         }
     },
     watch: {}
