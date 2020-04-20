@@ -254,8 +254,6 @@ export default {
             );
             console.log(xresult);
             return xresult;
-
-            return xresult;
         }
     },
     watch: {}
