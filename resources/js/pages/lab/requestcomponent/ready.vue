@@ -4,7 +4,7 @@
         <v-row dense>
             <v-col cols="12">
                 <v-toolbar>
-                    <v-text-field v-model="search" append-icon="search" label="Search by student id..." single-line hide-details></v-text-field>
+                    <v-text-field v-model="search" append-icon="search" label="Search by student name..." single-line hide-details></v-text-field>
                 </v-toolbar>
             </v-col>
         </v-row>

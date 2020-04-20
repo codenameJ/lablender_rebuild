@@ -94,6 +94,8 @@
 export default {
     mounted() {
         this.$store.dispatch("loadRequest_lists");
+        this.$store.dispatch("loadStudents");
+        this.$store.dispatch("loadEquipments");
     },
     data: () => ({
         dialog: false,

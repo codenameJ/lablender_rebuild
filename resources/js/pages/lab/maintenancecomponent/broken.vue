@@ -160,6 +160,8 @@ export default {
     mounted() {
         this.$store.dispatch("loadBroken_lists");
         this.$store.dispatch("loadRequest_details");
+        this.$store.dispatch("loadStudents");
+        this.$store.dispatch("loadEquipments");
         // console.log(this.filterReceive.length)
     },
     data: () => ({
